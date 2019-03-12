@@ -7,12 +7,26 @@ import Register from "./components/Register";
 import "./App.css";
 
 class App extends Component {
+  state = {
+    newUser: {},
+  };
+
+  addUserHandler = newUser => {
+    this.setState = {
+      newUser: newUser,
+    };
+  };
+
   render() {
     return (
       <div className="App">
         <Switch>
           <Route exact path="/" render={props => <LandingPage {...props} />} />
-          <Route exact path="/register" component={Register} />
+
+          <Route
+            path="/register"
+            render={props => <Register addUser={this.addUserHandler} />}
+          />
         </Switch>
       </div>
     );

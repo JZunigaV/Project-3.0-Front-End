@@ -27,12 +27,17 @@ class RegisterPage extends React.Component {
   state = {
     squares1to6: "",
     squares7and8: "",
+
+    username: "",
+    email: "",
+    password: "",
   };
 
   componentDidMount() {
     document.body.classList.toggle("register-page");
     document.documentElement.addEventListener("mousemove", this.followCursor);
   }
+
   componentWillUnmount() {
     document.body.classList.toggle("register-page");
     document.documentElement.removeEventListener(
@@ -58,6 +63,29 @@ class RegisterPage extends React.Component {
         "deg)",
     });
   };
+
+  //Form methods
+  onChange = event => {
+    this.setState({ [event.currentTarget.name]: event.currentTarget.value });
+  };
+
+  //Register form
+  handleRegisterForm = event => {
+    debugger;
+    event.preventDefault();
+    const newUser = {
+      username: this.state.username,
+      email: this.state.email,
+      password: this.state.password,
+    };
+    this.props.addUser(newUser);
+    this.setState({
+      username: "",
+      email: "",
+      password: "",
+    });
+  };
+
   render() {
     return (
       <>
@@ -87,8 +115,14 @@ class RegisterPage extends React.Component {
                         />
                         <CardTitle tag="h4">Register</CardTitle>
                       </CardHeader>
+
+                      {/* Here we have our form  */}
                       <CardBody>
-                        <Form className="form">
+                        <Form
+                          className="form"
+                          onSubmit={this.handleRegisterForm}
+                        >
+                          {/* Username */}
                           <InputGroup
                             className={classnames({
                               "input-group-focus": this.state.fullNameFocus,
@@ -100,8 +134,11 @@ class RegisterPage extends React.Component {
                               </InputGroupText>
                             </InputGroupAddon>
                             <Input
-                              placeholder="Full Name"
+                              placeholder="Username"
                               type="text"
+                              name="username"
+                              onChange={this.onChange}
+                              value={this.state.username}
                               onFocus={e =>
                                 this.setState({ fullNameFocus: true })
                               }
@@ -110,6 +147,8 @@ class RegisterPage extends React.Component {
                               }
                             />
                           </InputGroup>
+
+                          {/* email */}
                           <InputGroup
                             className={classnames({
                               "input-group-focus": this.state.emailFocus,
@@ -123,10 +162,15 @@ class RegisterPage extends React.Component {
                             <Input
                               placeholder="Email"
                               type="text"
+                              name="email"
+                              onChange={this.onChange}
+                              value={this.state.email}
                               onFocus={e => this.setState({ emailFocus: true })}
                               onBlur={e => this.setState({ emailFocus: false })}
                             />
                           </InputGroup>
+
+                          {/* Password */}
                           <InputGroup
                             className={classnames({
                               "input-group-focus": this.state.passwordFocus,
@@ -139,7 +183,10 @@ class RegisterPage extends React.Component {
                             </InputGroupAddon>
                             <Input
                               placeholder="Password"
-                              type="text"
+                              type="password"
+                              name="password"
+                              onChange={this.onChange}
+                              value={this.state.password}
                               onFocus={e =>
                                 this.setState({ passwordFocus: true })
                               }
@@ -148,13 +195,19 @@ class RegisterPage extends React.Component {
                               }
                             />
                           </InputGroup>
+
+                          <CardFooter>
+                            <Button
+                              type="submit"
+                              className="btn-round"
+                              color="primary"
+                              size="lg"
+                            >
+                              Get Started
+                            </Button>
+                          </CardFooter>
                         </Form>
                       </CardBody>
-                      <CardFooter>
-                        <Button className="btn-round" color="primary" size="lg">
-                          Get Started
-                        </Button>
-                      </CardFooter>
                     </Card>
                   </Col>
                 </Row>
