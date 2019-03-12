@@ -4,6 +4,9 @@ import { Route, Switch } from "react-router-dom";
 //Landing Page
 import LandingPage from "./components/LandingPage";
 
+//SignUp
+import SignUp from "./components/SignUp";
+
 import "./App.css";
 
 class App extends Component {
@@ -11,7 +14,8 @@ class App extends Component {
     return (
       <div className="App">
         <Switch>
-          <Route path="/" render={props => <LandingPage {...props} />} />
+          <Route exact path="/" render={props => <LandingPage {...props} />} />
+          <Route exact path="/login" component={SignUp} />
         </Switch>
       </div>
     );

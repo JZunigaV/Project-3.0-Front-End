@@ -153,11 +153,14 @@ class PagesNavbar extends React.Component {
                   <p className="d-lg-none d-xl-none">Instagram</p>
                 </NavLink>
               </NavItem>
+
+              {/* Login */}
               <NavItem>
-                <NavLink tag={Link} to="/">
-                  Back to Kit
+                <NavLink tag={Link} to="/login">
+                  Login
                 </NavLink>
               </NavItem>
+
               <NavItem>
                 <NavLink href="https://github.com/creativetimofficial/blk-design-system-react/issues">
                   Have an issue?
