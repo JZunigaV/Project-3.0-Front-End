@@ -1,81 +1,82 @@
 import React from "react";
-// react plugin used to create charts
-import { Line } from "react-chartjs-2";
+
 // reactstrap components
 import {
   Button,
   Card,
-  CardHeader,
   CardBody,
-  CardFooter,
   CardTitle,
-  ListGroupItem,
-  ListGroup,
   Container,
   Row,
   Col,
+  //   UncontrolledCarousel,
 } from "reactstrap";
 
 // core components
-import ExamplesNavbar from "components/Navbars/ExamplesNavbar.jsx";
-import Footer from "components/Footer/Footer.jsx";
-
-import bigChartData from "variables/charts.jsx";
+import ExamplesNavbar from "./Navbars/ExamplesNavbar";
+import Footer from "./Footer/Footer";
+// import Carousel from "./Carousel";
 
 class LandingPage extends React.Component {
+  //Class part
+
   componentDidMount() {
     document.body.classList.toggle("landing-page");
   }
   componentWillUnmount() {
     document.body.classList.toggle("landing-page");
   }
+
   render() {
+    //Javascript
+
     return (
-      <>
+      <div>
+        {/*  NavBar */}
         <ExamplesNavbar />
+
         <div className="wrapper">
           <div className="page-header">
             <img
               alt="..."
               className="path"
-              src={require("assets/img/blob.png")}
+              src={require("../assets/img/blob.png")}
             />
             <img
               alt="..."
               className="path2"
-              src={require("assets/img/path2.png")}
+              src={require("../assets/img/path2.png")}
             />
             <img
               alt="..."
               className="shapes triangle"
-              src={require("assets/img/triunghiuri.png")}
+              src={require("../assets/img/triunghiuri.png")}
             />
             <img
               alt="..."
               className="shapes wave"
-              src={require("assets/img/waves.png")}
+              src={require("../assets/img/waves.png")}
             />
             <img
               alt="..."
               className="shapes squares"
-              src={require("assets/img/patrat.png")}
+              src={require("../assets/img/patrat.png")}
             />
             <img
               alt="..."
               className="shapes circle"
-              src={require("assets/img/cercuri.png")}
+              src={require("../assets/img/cercuri.png")}
             />
             <div className="content-center">
               <Row className="row-grid justify-content-between align-items-center text-left">
                 <Col lg="6" md="6">
                   <h1 className="text-white">
-                    We keep your coin <br />
-                    <span className="text-white">secured</span>
+                    We can find you a movie you'll like
+                    <br />
                   </h1>
                   <p className="text-white mb-3">
-                    A wonderful serenity has taken possession of my entire soul,
-                    like these sweet mornings of spring which I enjoy with my
-                    whole heart. I am alone, and feel...
+                    Using IBM Watson and twitter we will give you
+                    recommendations!!!
                   </p>
                   <div className="btn-wrapper mb-3">
                     <p className="category text-success d-inline">
@@ -124,7 +125,7 @@ class LandingPage extends React.Component {
                   <img
                     alt="..."
                     className="img-fluid"
-                    src={require("assets/img/etherum.png")}
+                    src={require("../assets/img/etherum.png")}
                   />
                 </Col>
               </Row>
@@ -135,7 +136,7 @@ class LandingPage extends React.Component {
               <img
                 alt="..."
                 className="path"
-                src={require("assets/img/path4.png")}
+                src={require("../assets/img/path4.png")}
               />
               <Container>
                 <Row className="row-grid justify-content-between">
@@ -258,21 +259,22 @@ class LandingPage extends React.Component {
               </Container>
             </section>
           </section>
+
           <section className="section section-lg">
             <img
               alt="..."
               className="path"
-              src={require("assets/img/path4.png")}
+              src={require("../assets/img/path4.png")}
             />
             <img
               alt="..."
               className="path2"
-              src={require("assets/img/path5.png")}
+              src={require("../assets/img/path5.png")}
             />
             <img
               alt="..."
               className="path3"
-              src={require("assets/img/path2.png")}
+              src={require("../assets/img/path2.png")}
             />
             <Container>
               <Row className="justify-content-center">
@@ -326,11 +328,12 @@ class LandingPage extends React.Component {
               </Row>
             </Container>
           </section>
+
           <section className="section section-lg section-safe">
             <img
               alt="..."
               className="path"
-              src={require("assets/img/path5.png")}
+              src={require("../assets/img/path5.png")}
             />
             <Container>
               <Row className="row-grid justify-content-between">
@@ -338,7 +341,7 @@ class LandingPage extends React.Component {
                   <img
                     alt="..."
                     className="img-fluid floating"
-                    src={require("assets/img/chester-wade.jpg")}
+                    src={require("../assets/img/chester-wade.jpg")}
                   />
                   <Card className="card-stats bg-danger">
                     <CardBody>
@@ -419,158 +422,10 @@ class LandingPage extends React.Component {
               </Row>
             </Container>
           </section>
-          <section className="section section-lg">
-            <img
-              alt="..."
-              className="path"
-              src={require("assets/img/path4.png")}
-            />
-            <img
-              alt="..."
-              className="path2"
-              src={require("assets/img/path2.png")}
-            />
-            <Col md="12">
-              <Card className="card-chart card-plain">
-                <CardHeader>
-                  <Row>
-                    <Col className="text-left" sm="6">
-                      <hr className="line-info" />
-                      <h5 className="card-category">Total Investments</h5>
-                      <CardTitle tag="h2">Performance</CardTitle>
-                    </Col>
-                  </Row>
-                </CardHeader>
-                <CardBody>
-                  <div className="chart-area">
-                    <Line
-                      data={bigChartData.data}
-                      options={bigChartData.options}
-                    />
-                  </div>
-                </CardBody>
-              </Card>
-            </Col>
-          </section>
-          <section className="section section-lg section-coins">
-            <img
-              alt="..."
-              className="path"
-              src={require("assets/img/path3.png")}
-            />
-            <Container>
-              <Row>
-                <Col md="4">
-                  <hr className="line-info" />
-                  <h1>
-                    Choose the coin{" "}
-                    <span className="text-info">that fits your needs</span>
-                  </h1>
-                </Col>
-              </Row>
-              <Row>
-                <Col md="4">
-                  <Card className="card-coin card-plain">
-                    <CardHeader>
-                      <img
-                        alt="..."
-                        className="img-center img-fluid"
-                        src={require("assets/img/bitcoin.png")}
-                      />
-                    </CardHeader>
-                    <CardBody>
-                      <Row>
-                        <Col className="text-center" md="12">
-                          <h4 className="text-uppercase">Light Coin</h4>
-                          <span>Plan</span>
-                          <hr className="line-primary" />
-                        </Col>
-                      </Row>
-                      <Row>
-                        <ListGroup>
-                          <ListGroupItem>50 messages</ListGroupItem>
-                          <ListGroupItem>100 emails</ListGroupItem>
-                          <ListGroupItem>24/7 Support</ListGroupItem>
-                        </ListGroup>
-                      </Row>
-                    </CardBody>
-                    <CardFooter className="text-center">
-                      <Button className="btn-simple" color="primary">
-                        Get plan
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                </Col>
-                <Col md="4">
-                  <Card className="card-coin card-plain">
-                    <CardHeader>
-                      <img
-                        alt="..."
-                        className="img-center img-fluid"
-                        src={require("assets/img/etherum.png")}
-                      />
-                    </CardHeader>
-                    <CardBody>
-                      <Row>
-                        <Col className="text-center" md="12">
-                          <h4 className="text-uppercase">Dark Coin</h4>
-                          <span>Plan</span>
-                          <hr className="line-success" />
-                        </Col>
-                      </Row>
-                      <Row>
-                        <ListGroup>
-                          <ListGroupItem>150 messages</ListGroupItem>
-                          <ListGroupItem>1000 emails</ListGroupItem>
-                          <ListGroupItem>24/7 Support</ListGroupItem>
-                        </ListGroup>
-                      </Row>
-                    </CardBody>
-                    <CardFooter className="text-center">
-                      <Button className="btn-simple" color="success">
-                        Get plan
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                </Col>
-                <Col md="4">
-                  <Card className="card-coin card-plain">
-                    <CardHeader>
-                      <img
-                        alt="..."
-                        className="img-center img-fluid"
-                        src={require("assets/img/ripp.png")}
-                      />
-                    </CardHeader>
-                    <CardBody>
-                      <Row>
-                        <Col className="text-center" md="12">
-                          <h4 className="text-uppercase">Bright Coin</h4>
-                          <span>Plan</span>
-                          <hr className="line-info" />
-                        </Col>
-                      </Row>
-                      <Row>
-                        <ListGroup>
-                          <ListGroupItem>350 messages</ListGroupItem>
-                          <ListGroupItem>10K emails</ListGroupItem>
-                          <ListGroupItem>24/7 Support</ListGroupItem>
-                        </ListGroup>
-                      </Row>
-                    </CardBody>
-                    <CardFooter className="text-center">
-                      <Button className="btn-simple" color="info">
-                        Get plan
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                </Col>
-              </Row>
-            </Container>
-          </section>
+
           <Footer />
         </div>
-      </>
+      </div>
     );
   }
 }
