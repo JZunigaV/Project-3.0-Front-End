@@ -10,14 +10,14 @@ import {
   Nav,
   Container,
   Row,
-  Col
+  Col,
 } from "reactstrap";
 
 class PagesNavbar extends React.Component {
   state = {
     collapseOpen: false,
     color: "navbar-transparent",
-    loggedInUser: null
+    loggedInUser: null,
   };
 
   componentWillReceiveProps(nextProps) {
@@ -37,33 +37,53 @@ class PagesNavbar extends React.Component {
       document.body.scrollTop > 99
     ) {
       this.setState({
-        color: "bg-info"
+        color: "bg-info",
       });
     } else if (
       document.documentElement.scrollTop < 100 ||
       document.body.scrollTop < 100
     ) {
       this.setState({
-        color: "navbar-transparent"
+        color: "navbar-transparent",
       });
     }
   };
   toggleCollapse = () => {
     document.documentElement.classList.toggle("nav-open");
     this.setState({
-      collapseOpen: !this.state.collapseOpen
+      collapseOpen: !this.state.collapseOpen,
     });
   };
   onCollapseExiting = () => {
     this.setState({
-      collapseOut: "collapsing-out"
+      collapseOut: "collapsing-out",
     });
   };
   onCollapseExited = () => {
     this.setState({
-      collapseOut: ""
+      collapseOut: "",
     });
   };
+
+  renderElement() {
+    return (
+      <NavItem>
+        <NavLink tag={Link} to="/signup">
+          Signup
+        </NavLink>
+      </NavItem>
+    );
+  }
+
+  profileElement(username) {
+    return (
+      <NavItem>
+        <NavLink tag={Link} to="/profile">
+          Hello {username}
+        </NavLink>
+      </NavItem>
+    );
+  }
 
   render() {
     return (
@@ -157,19 +177,9 @@ class PagesNavbar extends React.Component {
                 </NavLink>
               </NavItem>
 
-              {this.state.loggedInUser === null ? (
-                <NavItem>
-                  <NavLink tag={Link} to="/signup">
-                    Sign Up
-                  </NavLink>
-                </NavItem>
-              ) : (
-                <NavItem>
-                  <NavLink tag={Link} to="/signup">
-                    Sign Up
-                  </NavLink>
-                </NavItem>
-              )}
+              {this.state.loggedInUser
+                ? this.profileElement(this.state.loggedInUser.username)
+                : this.renderElement()}
 
               <NavItem>
                 <NavLink href="https://github.com/creativetimofficial/blk-design-system-react/issues">

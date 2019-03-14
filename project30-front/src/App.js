@@ -11,7 +11,7 @@ import "./App.css";
 
 class App extends Component {
   state = {
-    loggedUser: null
+    loggedUser: null,
   };
 
   getTheUser = userObj => {
@@ -22,7 +22,7 @@ class App extends Component {
     return (
       <div className="App">
         {/*  NavBar */}
-        <ExamplesNavbar userInSession={this.state.loggedUser}/>
+        <ExamplesNavbar userInSession={this.state.loggedUser} />
         <Switch>
           <Route
             exact
