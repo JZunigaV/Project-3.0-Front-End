@@ -10,16 +10,19 @@ import {
   Nav,
   Container,
   Row,
-  Col,
+  Col
 } from "reactstrap";
 
 class PagesNavbar extends React.Component {
-  //NavBar
-
   state = {
     collapseOpen: false,
     color: "navbar-transparent",
+    loggedInUser: null
   };
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ ...this.state, loggedInUser: nextProps["userInSession"] });
+  }
 
   componentDidMount() {
     window.addEventListener("scroll", this.changeColor);
@@ -34,31 +37,31 @@ class PagesNavbar extends React.Component {
       document.body.scrollTop > 99
     ) {
       this.setState({
-        color: "bg-info",
+        color: "bg-info"
       });
     } else if (
       document.documentElement.scrollTop < 100 ||
       document.body.scrollTop < 100
     ) {
       this.setState({
-        color: "navbar-transparent",
+        color: "navbar-transparent"
       });
     }
   };
   toggleCollapse = () => {
     document.documentElement.classList.toggle("nav-open");
     this.setState({
-      collapseOpen: !this.state.collapseOpen,
+      collapseOpen: !this.state.collapseOpen
     });
   };
   onCollapseExiting = () => {
     this.setState({
-      collapseOut: "collapsing-out",
+      collapseOut: "collapsing-out"
     });
   };
   onCollapseExited = () => {
     this.setState({
-      collapseOut: "",
+      collapseOut: ""
     });
   };
 
@@ -154,12 +157,19 @@ class PagesNavbar extends React.Component {
                 </NavLink>
               </NavItem>
 
-              {/* Login */}
-              <NavItem>
-                <NavLink tag={Link} to="/signup">
-                  Sign Up
-                </NavLink>
-              </NavItem>
+              {this.state.loggedInUser === null ? (
+                <NavItem>
+                  <NavLink tag={Link} to="/signup">
+                    Sign Up
+                  </NavLink>
+                </NavItem>
+              ) : (
+                <NavItem>
+                  <NavLink tag={Link} to="/signup">
+                    Sign Up
+                  </NavLink>
+                </NavItem>
+              )}
 
               <NavItem>
                 <NavLink href="https://github.com/creativetimofficial/blk-design-system-react/issues">

@@ -18,7 +18,7 @@ import {
   InputGroup,
   Container,
   Row,
-  Col,
+  Col
 } from "reactstrap";
 
 // core components
@@ -34,7 +34,7 @@ class Signup extends React.Component {
     //Form properties
     username: "",
     email: "",
-    password: "",
+    password: ""
   };
 
   service = new AuthService();
@@ -48,7 +48,7 @@ class Signup extends React.Component {
     document.body.classList.toggle("register-page");
     document.documentElement.removeEventListener(
       "mousemove",
-      this.followCursor,
+      this.followCursor
     );
   }
   followCursor = event => {
@@ -66,7 +66,7 @@ class Signup extends React.Component {
         posX * 0.02 +
         "deg) rotateX(" +
         posY * -0.02 +
-        "deg)",
+        "deg)"
     });
   };
 
@@ -77,7 +77,7 @@ class Signup extends React.Component {
 
   //Register form
   handleRegisterForm = event => {
-    debugger;
+    
     event.preventDefault();
     const username = this.state.username;
     const password = this.state.password;
@@ -86,10 +86,14 @@ class Signup extends React.Component {
     this.service
       .signup(username, password, email)
       .then(response => {
+       
+        console.log(response);
         this.setState({
           username: "",
-          password,
+          password: "",
+          email: ""
         });
+        this.props.getUser(response);
       })
       .catch(error => console.log(error));
   };
@@ -132,7 +136,7 @@ class Signup extends React.Component {
                           {/* Username */}
                           <InputGroup
                             className={classnames({
-                              "input-group-focus": this.state.fullNameFocus,
+                              "input-group-focus": this.state.fullNameFocus
                             })}
                           >
                             <InputGroupAddon addonType="prepend">
@@ -158,7 +162,7 @@ class Signup extends React.Component {
                           {/* email */}
                           <InputGroup
                             className={classnames({
-                              "input-group-focus": this.state.emailFocus,
+                              "input-group-focus": this.state.emailFocus
                             })}
                           >
                             <InputGroupAddon addonType="prepend">
@@ -180,7 +184,7 @@ class Signup extends React.Component {
                           {/* Password */}
                           <InputGroup
                             className={classnames({
-                              "input-group-focus": this.state.passwordFocus,
+                              "input-group-focus": this.state.passwordFocus
                             })}
                           >
                             <InputGroupAddon addonType="prepend">

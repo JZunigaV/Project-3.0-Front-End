@@ -13,7 +13,7 @@ import {
 } from "reactstrap";
 
 // core components
-import ExamplesNavbar from "./Navbars/ExamplesNavbar";
+
 import Footer from "./Footer/Footer";
 // import Carousel from "./Carousel";
 
@@ -32,8 +32,7 @@ class LandingPage extends React.Component {
 
     return (
       <div>
-        {/*  NavBar */}
-        <ExamplesNavbar />
+       
 
         <div className="wrapper">
           <div className="page-header">
