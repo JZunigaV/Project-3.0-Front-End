@@ -156,7 +156,7 @@ class PagesNavbar extends React.Component {
 
               {/* Login */}
               <NavItem>
-                <NavLink tag={Link} to="/register">
+                <NavLink tag={Link} to="/signup">
                   Sign Up
                 </NavLink>
               </NavItem>
