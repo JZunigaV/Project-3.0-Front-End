@@ -27,9 +27,11 @@ import Footer from "../Footer/Footer";
 
 class Signup extends React.Component {
   state = {
+    //Design properties
     squares1to6: "",
     squares7and8: "",
 
+    //Form properties
     username: "",
     email: "",
     password: "",
@@ -79,9 +81,10 @@ class Signup extends React.Component {
     event.preventDefault();
     const username = this.state.username;
     const password = this.state.password;
+    const email = this.state.email;
 
     this.service
-      .signup(username, password)
+      .signup(username, password, email)
       .then(response => {
         this.setState({
           username: "",
