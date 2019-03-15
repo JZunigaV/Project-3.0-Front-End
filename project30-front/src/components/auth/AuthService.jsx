@@ -10,11 +10,24 @@ class AuthService {
     this.service = service;
   }
 
+  loggedin = () => {
+    return this.service.get("/loggedin").then(response => response.data);
+  };
+
+  login = (username, password) => {
+    return this.service
+      .post("/login", { username, password })
+      .then(response => response.data);
+  };
+
+  logout = () => {
+    return this.service.post("/logout", {}).then(response => response.data);
+  };
+
   signup = (username, password, email) => {
     return this.service
       .post("/signup", { username, password, email })
       .then(response => response.data);
-      
   };
 }
 

@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import AuthService from "../auth/AuthService";
+
 // reactstrap components
 import {
   Collapse,
@@ -19,6 +21,8 @@ class PagesNavbar extends React.Component {
     color: "navbar-transparent",
     loggedInUser: null,
   };
+
+  service = new AuthService();
 
   componentWillReceiveProps(nextProps) {
     this.setState({ ...this.state, loggedInUser: nextProps["userInSession"] });
@@ -65,25 +69,49 @@ class PagesNavbar extends React.Component {
     });
   };
 
-  renderElement() {
+  renderSignup() {
     return (
-      <NavItem>
-        <NavLink tag={Link} to="/signup">
-          Signup
-        </NavLink>
-      </NavItem>
+      <>
+        <NavItem>
+          <NavLink tag={Link} to="/signup">
+            Signup
+          </NavLink>
+        </NavItem>
+
+        <NavItem>
+          <NavLink tag={Link} to="/login">
+            Log in
+          </NavLink>
+        </NavItem>
+      </>
     );
   }
 
-  profileElement(username) {
+  profileElement(username, id) {
     return (
-      <NavItem>
-        <NavLink tag={Link} to="/profile">
-          Hello {username}
-        </NavLink>
-      </NavItem>
+      <>
+        <NavItem>
+          <NavLink tag={Link} to={`/profile/${id}`}>
+            Hello {username}
+          </NavLink>
+        </NavItem>
+
+        <NavItem>
+          <NavLink tag={Link} to="/" onClick={() => this.logoutUser()}>
+            Logout
+          </NavLink>
+        </NavItem>
+      </>
     );
   }
+
+  logoutUser = () => {
+    debugger;
+    this.service.logout().then(() => {
+      this.setState({ loggedInUser: null });
+      this.props.getUser(null);
+    });
+  };
 
   render() {
     return (
@@ -177,9 +205,13 @@ class PagesNavbar extends React.Component {
                 </NavLink>
               </NavItem>
 
+              {/* if the user is logged the user appears */}
               {this.state.loggedInUser
-                ? this.profileElement(this.state.loggedInUser.username)
-                : this.renderElement()}
+                ? this.profileElement(
+                    this.state.loggedInUser.username,
+                    this.state.loggedInUser._id,
+                  )
+                : this.renderSignup()}
 
               <NavItem>
                 <NavLink href="https://github.com/creativetimofficial/blk-design-system-react/issues">
