@@ -1,11 +1,32 @@
 import React, { Component } from "react";
+import Header from "../PageHeader/PageHeader";
+
+
 
 class Profile extends Component {
+
   render() {
     return (
-      <div>
-        <h1>Holaaaaaaaaaaaaaaaaaaaaaaaaaaaa</h1>
-      </div>
+      <>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+        <Header></Header>
+      </>
     );
   }
 }

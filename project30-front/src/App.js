@@ -17,7 +17,9 @@ class App extends Component {
     loggedUser: null,
   };
   service = new AuthService();
-  fetchUser() {
+
+
+  fetchUser = () => {
     if (this.state.loggedInUser === null) {
       this.service
         .loggedin()
@@ -38,10 +40,17 @@ class App extends Component {
     this.setState({ loggedUser: userObj });
   };
 
-  render() {
+
+  componentWillMount(){
+
     this.fetchUser();
+
+  }
+
+  render() {
+  
     if (this.state.loggedUser) {
-      debugger;
+      
       return (
         <div className="App">
           {/*  NavBar */}
@@ -58,10 +67,10 @@ class App extends Component {
               render={props => <LandingPage {...props} />}
             />
             <ProtectedRoute
-              user={this.state.loggedInUser}
               exact
               path="/profile/:id"
               component={Profile}
+              user = {this.state.loggedUser}
             />
           </Switch>
         </div>
@@ -77,7 +86,7 @@ class App extends Component {
             render={() => <Signup getUser={this.getTheUser} />}
           />
           <Switch>
-            <Route
+             <Route
               exact
               path="/login"
               render={() => <Login getUser={this.getTheUser} />}
@@ -87,7 +96,7 @@ class App extends Component {
               exact
               path="/"
               render={props => <LandingPage {...props} />}
-            />
+            /> 
           </Switch>
         </div>
       );
