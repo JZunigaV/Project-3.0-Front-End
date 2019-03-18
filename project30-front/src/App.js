@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 //Landing Page
 import LandingPage from "./components/LandingPage";
@@ -9,15 +9,16 @@ import Login from "./components/auth/Login";
 import AuthService from "./components/auth/AuthService";
 import ProtectedRoute from "./components/auth/protected-route";
 import Profile from "./components/Profile/Profile";
+import Footer from "./components/Footer/Footer";
 
 import "./App.css";
 
 class App extends Component {
   state = {
     loggedUser: null,
+    redirect: false
   };
   service = new AuthService();
-
 
   fetchUser = () => {
     if (this.state.loggedInUser === null) {
@@ -25,36 +26,36 @@ class App extends Component {
         .loggedin()
         .then(response => {
           this.setState({
-            loggedInUser: response,
+            loggedInUser: response
           });
         })
         .catch(err => {
           this.setState({
-            loggedInUser: false,
+            loggedInUser: false
           });
         });
     }
-  }
-
-  getTheUser = userObj => {
-    this.setState({ loggedUser: userObj });
   };
 
+  getTheUser = userObj => {
+    this.setState({ loggedUser: userObj, redirect: true });
+  };
 
-  componentWillMount(){
-
+  componentWillMount() {
     this.fetchUser();
-
   }
 
   render() {
-  
+    
+    const { redirect } = this.state;
     if (this.state.loggedUser) {
-      
       return (
         <div className="App">
-          {/*  NavBar */}
+          
+          {redirect ? this.setState({ redirect: false }) : ""}
+          {redirect ? <Redirect push to="/" /> : ""}
 
+          {/*  NavBar */}
           <ExamplesNavbar
             userInSession={this.state.loggedUser}
             getUser={this.getTheUser}
@@ -70,9 +71,10 @@ class App extends Component {
               exact
               path="/profile/:id"
               component={Profile}
-              user = {this.state.loggedUser}
+              user={this.state.loggedUser}
             />
           </Switch>
+          <Footer />
         </div>
       );
     } else {
@@ -86,7 +88,7 @@ class App extends Component {
             render={() => <Signup getUser={this.getTheUser} />}
           />
           <Switch>
-             <Route
+            <Route
               exact
               path="/login"
               render={() => <Login getUser={this.getTheUser} />}
@@ -96,9 +98,11 @@ class App extends Component {
               exact
               path="/"
               render={props => <LandingPage {...props} />}
-            /> 
+            />
           </Switch>
+          <Footer />
         </div>
+    
       );
     }
   }

@@ -8,13 +8,12 @@ import {
   CardTitle,
   Container,
   Row,
-  Col,
+  Col
   //   UncontrolledCarousel,
 } from "reactstrap";
 
 // core components
 
-import Footer from "./Footer/Footer";
 // import Carousel from "./Carousel";
 
 class LandingPage extends React.Component {
@@ -32,8 +31,6 @@ class LandingPage extends React.Component {
 
     return (
       <div>
-       
-
         <div className="wrapper">
           <div className="page-header">
             <img
@@ -131,132 +128,7 @@ class LandingPage extends React.Component {
             </div>
           </div>
           <section className="section section-lg">
-            <section className="section">
-              <img
-                alt="..."
-                className="path"
-                src={require("../assets/img/path4.png")}
-              />
-              <Container>
-                <Row className="row-grid justify-content-between">
-                  <Col className="mt-lg-5" md="5">
-                    <Row>
-                      <Col className="px-2 py-2" lg="6" sm="12">
-                        <Card className="card-stats">
-                          <CardBody>
-                            <Row>
-                              <Col md="4" xs="5">
-                                <div className="icon-big text-center icon-warning">
-                                  <i className="tim-icons icon-trophy text-warning" />
-                                </div>
-                              </Col>
-                              <Col md="8" xs="7">
-                                <div className="numbers">
-                                  <CardTitle tag="p">3,237</CardTitle>
-                                  <p />
-                                  <p className="card-category">Awards</p>
-                                </div>
-                              </Col>
-                            </Row>
-                          </CardBody>
-                        </Card>
-                      </Col>
-                      <Col className="px-2 py-2" lg="6" sm="12">
-                        <Card className="card-stats upper bg-default">
-                          <CardBody>
-                            <Row>
-                              <Col md="4" xs="5">
-                                <div className="icon-big text-center icon-warning">
-                                  <i className="tim-icons icon-coins text-white" />
-                                </div>
-                              </Col>
-                              <Col md="8" xs="7">
-                                <div className="numbers">
-                                  <CardTitle tag="p">3,653</CardTitle>
-                                  <p />
-                                  <p className="card-category">Commits</p>
-                                </div>
-                              </Col>
-                            </Row>
-                          </CardBody>
-                        </Card>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col className="px-2 py-2" lg="6" sm="12">
-                        <Card className="card-stats">
-                          <CardBody>
-                            <Row>
-                              <Col md="4" xs="5">
-                                <div className="icon-big text-center icon-warning">
-                                  <i className="tim-icons icon-gift-2 text-info" />
-                                </div>
-                              </Col>
-                              <Col md="8" xs="7">
-                                <div className="numbers">
-                                  <CardTitle tag="p">593</CardTitle>
-                                  <p />
-                                  <p className="card-category">Presents</p>
-                                </div>
-                              </Col>
-                            </Row>
-                          </CardBody>
-                        </Card>
-                      </Col>
-                      <Col className="px-2 py-2" lg="6" sm="12">
-                        <Card className="card-stats">
-                          <CardBody>
-                            <Row>
-                              <Col md="4" xs="5">
-                                <div className="icon-big text-center icon-warning">
-                                  <i className="tim-icons icon-credit-card text-success" />
-                                </div>
-                              </Col>
-                              <Col md="8" xs="7">
-                                <div className="numbers">
-                                  <CardTitle tag="p">10,783</CardTitle>
-                                  <p />
-                                  <p className="card-category">Forks</p>
-                                </div>
-                              </Col>
-                            </Row>
-                          </CardBody>
-                        </Card>
-                      </Col>
-                    </Row>
-                  </Col>
-                  <Col md="6">
-                    <div className="pl-md-5">
-                      <h1>
-                        Large <br />
-                        Achivements
-                      </h1>
-                      <p>
-                        I should be capable of drawing a single stroke at the
-                        present moment; and yet I feel that I never was a
-                        greater artist than now.
-                      </p>
-                      <br />
-                      <p>
-                        When, while the lovely valley teems with vapour around
-                        me, and the meridian sun strikes the upper surface of
-                        the impenetrable foliage of my trees, and but a few
-                        stray.
-                      </p>
-                      <br />
-                      <a
-                        className="font-weight-bold text-info mt-5"
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                      >
-                        Show all{" "}
-                        <i className="tim-icons icon-minimal-right text-info" />
-                      </a>
-                    </div>
-                  </Col>
-                </Row>
-              </Container>
-            </section>
+            <h1 className="text-center">100% personalized recommendations</h1>
           </section>
 
           <section className="section section-lg">
@@ -278,47 +150,44 @@ class LandingPage extends React.Component {
             <Container>
               <Row className="justify-content-center">
                 <Col lg="12">
-                  <h1 className="text-center">Your best benefit</h1>
+                  <h1 className="text-center">This is how Tweetflick works</h1>
                   <Row className="row-grid justify-content-center">
                     <Col lg="3">
                       <div className="info">
                         <div className="icon icon-primary">
-                          <i className="tim-icons icon-money-coins" />
+                          <i className="fab fa-twitter" />
                         </div>
-                        <h4 className="info-title">Low Commission</h4>
+                        <h4 className="info-title">
+                          1-Put your twitter username
+                        </h4>
                         <hr className="line-primary" />
                         <p>
-                          Divide details about your work into parts. Write a few
-                          lines about each one. A paragraph describing a feature
-                          will.
+                          Give us your twitter usernem so we can learn more
+                          about you using IBM's personality insights Api
                         </p>
                       </div>
                     </Col>
                     <Col lg="3">
                       <div className="info">
                         <div className="icon icon-warning">
-                          <i className="tim-icons icon-chart-pie-36" />
+                          <i className="tim-icons icon-atom" />
                         </div>
-                        <h4 className="info-title">High Incomes</h4>
+                        <h4 className="info-title">2- We will match you with the movies you may like</h4>
                         <hr className="line-warning" />
                         <p>
-                          Divide details about your product or agency work into
-                          parts. Write a few lines about each one. A paragraph
-                          describing feature will be a feature.
+                          Our system will match your personality with a huge movie database
                         </p>
                       </div>
                     </Col>
                     <Col lg="3">
                       <div className="info">
                         <div className="icon icon-success">
-                          <i className="tim-icons icon-single-02" />
+                          <i className="tim-icons icon-tv-2" />
                         </div>
-                        <h4 className="info-title">Verified People</h4>
+                        <h4 className="info-title">3- Our system will give you recommendations</h4>
                         <hr className="line-success" />
                         <p>
-                          Divide details about your product or agency work into
-                          parts. Write a few lines about each one. A paragraph
-                          describing be enough.
+                          Best suited movies will apear for you!
                         </p>
                       </div>
                     </Col>
@@ -421,8 +290,6 @@ class LandingPage extends React.Component {
               </Row>
             </Container>
           </section>
-
-          <Footer />
         </div>
       </div>
     );

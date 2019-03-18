@@ -21,8 +21,7 @@ import {
   Col,
 } from "reactstrap";
 
-// core components
-import Footer from "../Footer/Footer";
+
 
 class Signup extends React.Component {
   state = {
@@ -252,7 +251,7 @@ class Signup extends React.Component {
               </Container>
             </div>
           </div>
-          <Footer />
+    
         </div>
       </>
     );

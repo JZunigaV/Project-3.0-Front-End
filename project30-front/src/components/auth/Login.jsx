@@ -1,6 +1,7 @@
 import React from "react";
 import classnames from "classnames";
 import AuthService from "./AuthService";
+import { Link } from "react-router-dom";
 
 // reactstrap components
 import {
@@ -18,13 +19,11 @@ import {
   InputGroup,
   Container,
   Row,
-  Col,
+  Col
 } from "reactstrap";
 
-// core components
-import Footer from "../Footer/Footer";
 
-class Signup extends React.Component {
+class Login extends React.Component {
   state = {
     //Design properties
     squares1to6: "",
@@ -32,7 +31,7 @@ class Signup extends React.Component {
 
     //Form properties
     username: "",
-    password: "",
+    password: ""
   };
 
   service = new AuthService();
@@ -46,7 +45,7 @@ class Signup extends React.Component {
     document.body.classList.toggle("login-page");
     document.documentElement.removeEventListener(
       "mousemove",
-      this.followCursor,
+      this.followCursor
     );
   }
   followCursor = event => {
@@ -64,8 +63,21 @@ class Signup extends React.Component {
         posX * 0.02 +
         "deg) rotateX(" +
         posY * -0.02 +
-        "deg)",
+        "deg)"
     });
+  };
+
+  handleFormSubmit = event => {
+    event.preventDefault();
+    const username = this.state.username;
+    const password = this.state.password;
+    this.service
+      .login(username, password)
+      .then(response => {
+        this.setState({ username: "", password: "" });
+        this.props.getUser(response);
+      })
+      .catch(error => console.log(error));
   };
 
   //Form methods
@@ -73,26 +85,6 @@ class Signup extends React.Component {
     this.setState({ [event.currentTarget.name]: event.currentTarget.value });
   };
 
-  //Register form
-  handleRegisterForm = event => {
-    event.preventDefault();
-    const username = this.state.username;
-    const password = this.state.password;
-    const email = this.state.email;
-
-    this.service
-      .signup(username, password, email)
-      .then(response => {
-        console.log(response);
-        this.setState({
-          username: "",
-          password: "",
-          email: "",
-        });
-        this.props.getUser(response);
-      })
-      .catch(error => console.log(error));
-  };
   render() {
     return (
       <>
@@ -124,14 +116,11 @@ class Signup extends React.Component {
 
                       {/* Here we have our form  */}
                       <CardBody>
-                        <Form
-                          className="form"
-                          onSubmit={this.handleRegisterForm}
-                        >
+                        <Form className="form" onSubmit={this.handleFormSubmit}>
                           {/* Username */}
                           <InputGroup
                             className={classnames({
-                              "input-group-focus": this.state.fullNameFocus,
+                              "input-group-focus": this.state.fullNameFocus
                             })}
                           >
                             <InputGroupAddon addonType="prepend">
@@ -154,32 +143,10 @@ class Signup extends React.Component {
                             />
                           </InputGroup>
 
-                          {/* email */}
-                          <InputGroup
-                            className={classnames({
-                              "input-group-focus": this.state.emailFocus,
-                            })}
-                          >
-                            <InputGroupAddon addonType="prepend">
-                              <InputGroupText>
-                                <i className="tim-icons icon-email-85" />
-                              </InputGroupText>
-                            </InputGroupAddon>
-                            <Input
-                              placeholder="Email"
-                              type="text"
-                              name="email"
-                              onChange={this.onChange}
-                              value={this.state.email}
-                              onFocus={e => this.setState({ emailFocus: true })}
-                              onBlur={e => this.setState({ emailFocus: false })}
-                            />
-                          </InputGroup>
-
                           {/* Password */}
                           <InputGroup
                             className={classnames({
-                              "input-group-focus": this.state.passwordFocus,
+                              "input-group-focus": this.state.passwordFocus
                             })}
                           >
                             <InputGroupAddon addonType="prepend">
@@ -209,8 +176,12 @@ class Signup extends React.Component {
                               color="info"
                               size="lg"
                             >
-                              Get Started
+                              Log in
                             </Button>
+                            <p>
+                              Don't have account?
+                              <Link to={"/signup"}> Signup</Link>
+                            </p>
                           </CardFooter>
                         </Form>
                       </CardBody>
@@ -251,90 +222,11 @@ class Signup extends React.Component {
               </Container>
             </div>
           </div>
-          <Footer />
+        
         </div>
       </>
     );
   }
 }
 
-export default Signup;
-
-
-// import React, { Component } from "react";
-// import AuthService from "./AuthService";
-// import { Link } from "react-router-dom";
-
-// class Login extends Component {
-//   state = {
-//     username: "",
-//     password: "",
-//   };
-//   service = new AuthService();
-
-//   handleFormSubmit = event => {
-//     event.preventDefault();
-//     const username = this.state.username;
-//     const password = this.state.password;
-
-//     this.service
-//       .login(username, password)
-//       .then(response => {
-//         this.setState({ username: "", password: "" });
-//         this.props.getUser(response);
-//       })
-//       .catch(error => console.log(error));
-//   };
-
-//   handleChange = event => {
-//     this.setState({ [event.currentTarget.name]: event.currentTarget.value });
-//   };
-
-//   render() {
-//     return (
-//       <div>
-//         <br />
-//         <br />
-//         <br />
-//         <br />
-//         <br />
-//         <br />
-//         <br />
-//         <br />
-//         <br />
-//         <br />
-//         <br />
-//         <br />
-//         <br />
-//         <br />
-//         <br />
-//         <br />
-//         <br />
-//         <br />
-//         <form onSubmit={this.handleFormSubmit}>
-//           <label>Username:</label>
-//           <input
-//             type="text"
-//             name="username"
-//             value={this.state.username}
-//             onChange={e => this.handleChange(e)}
-//           />
-//           <label>Password:</label>
-//           <textarea
-//             name="password"
-//             value={this.state.password}
-//             onChange={e => this.handleChange(e)}
-//           />
-
-//           <input type="submit" value="Login" />
-//         </form>
-//         <p>
-//           Don't have account?
-//           <Link to={"/signup"}> Signup</Link>
-//         </p>
-//       </div>
-//     );
-//   }
-// }
-
-// export default Login;
+export default Login;

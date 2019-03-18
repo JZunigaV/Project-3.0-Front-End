@@ -106,7 +106,7 @@ class PagesNavbar extends React.Component {
   }
 
   logoutUser = () => {
-    debugger;
+  
     this.service.logout().then(() => {
       this.setState({ loggedInUser: null });
       this.props.getUser(null);
@@ -129,7 +129,7 @@ class PagesNavbar extends React.Component {
               title="Recommendation system from ironhack"
               tag={Link}
             >
-              <span>JESUS• </span>
+              <span>TWEETFLICK• </span>
               Recommendation System
             </NavbarBrand>
             <button
@@ -213,11 +213,7 @@ class PagesNavbar extends React.Component {
                   )
                 : this.renderSignup()}
 
-              <NavItem>
-                <NavLink href="https://github.com/creativetimofficial/blk-design-system-react/issues">
-                  Have an issue?
-                </NavLink>
-              </NavItem>
+         
             </Nav>
           </Collapse>
         </Container>
