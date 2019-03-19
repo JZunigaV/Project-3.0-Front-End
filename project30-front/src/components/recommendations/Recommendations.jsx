@@ -81,6 +81,7 @@ class Recommendations extends React.Component {
             overview: movie.overview,
             title: movie.original_title,
             backdrop: movie.backdrop_path,
+            release: movie.release_date,
           };
 
           return (
@@ -177,6 +178,7 @@ class Recommendations extends React.Component {
               background={`http://image.tmdb.org/t/p/w500/${
                 this.state.movieDetail.backdrop
               }`}
+              release={this.state.movieDetail.release}
             />
           )}
         </div>

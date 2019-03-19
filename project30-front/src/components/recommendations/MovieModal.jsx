@@ -11,6 +11,7 @@ class MovieModal extends Component {
   render() {
     const backgorund = this.props.background;
 
+    console.log(this.props);
     return (
       <>
         {/* Sart movies Modal */}
@@ -45,7 +46,11 @@ class MovieModal extends Component {
             </h4>
           </div>
           <div className="modal-body">
+            <h4>Overview:</h4>
             <p>{this.props.overview}</p>
+            <br />
+            <h4>Release Date:</h4>
+            <p>{this.props.release}</p>
           </div>
           <div className="modal-footer">
             <Button color="danger" type="button" onClick={this.props.toggle}>
