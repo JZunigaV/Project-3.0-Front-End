@@ -13,6 +13,10 @@ import {
   InputGroupAddon,
   InputGroupText,
   InputGroup,
+  Card,
+  CardBody,
+  CardHeader,
+  CardTitle,
   // Container
 } from "reactstrap";
 
@@ -56,22 +60,24 @@ class Recommendations extends React.Component {
 
   render() {
     //Javascript
+
     if (this.state.recommendations.length > 0) {
       var movies = this.state.recommendations.map(subArray => {
-        const baseImage = "http://image.tmdb.org/t/p/w185/";
-
         return subArray.map((movie, index) => {
           return (
-            <Col lg="3" md="3" className="col-sm">
-              <div key={movie.id}>
+            <Card className="card-movies" key={movie.id}>
+              <CardHeader>
                 <img
                   className="img-fluid rounded shadow-lg"
-                  src={`${baseImage}${movie.poster_path}`}
-                  alt="movie.title"
+                  src={`http://image.tmdb.org/t/p/w185/${movie.poster_path}`}
+                  alt={movie.title}
                 />
-                <h1>{movie.title}</h1>
-              </div>
-            </Col>
+              </CardHeader>
+
+              <CardBody>
+                <CardTitle tag="h3">{movie.original_title}</CardTitle>
+              </CardBody>
+            </Card>
           );
         });
       });
@@ -129,6 +135,12 @@ class Recommendations extends React.Component {
           </div>
 
           <div className="content-center">
+            <Col lg="4" md="4" className="col-sm" />
+            {this.state.recommendations.length > 0 ? (
+              <h1>Here are some movies you may like</h1>
+            ) : (
+              ""
+            )}
             <Row>{movies}</Row>
           </div>
         </div>

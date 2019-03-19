@@ -28,3 +28,38 @@
     }
   }
 }
+
+//Jzuniga
+.card-movies {
+  height: 400px;
+  width: 250px;
+  margin-right: 20px;
+  margin-left: 98px;
+
+  .table-full-width {
+    max-height: 410px;
+    position: relative;
+  }
+
+  .card-header {
+    .title {
+      margin-right: 20px;
+      font-weight: $font-weight-normal;
+    }
+
+    .dropdown {
+      float: right;
+      color: darken($white, 20%);
+    }
+  }
+
+  .card-body {
+    i {
+      color: $dark-gray;
+      font-size: 1.4em;
+      &:hover {
+        color: $white;
+      }
+    }
+  }
+}
