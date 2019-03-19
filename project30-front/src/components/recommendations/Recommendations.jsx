@@ -1,6 +1,5 @@
 import React from "react";
 import classnames from "classnames";
-
 //Service
 import RecommendationService from "./RecommendationService";
 
@@ -13,7 +12,7 @@ import {
   Col,
   InputGroupAddon,
   InputGroupText,
-  InputGroup
+  InputGroup,
   // Container
 } from "reactstrap";
 
@@ -21,7 +20,7 @@ class Recommendations extends React.Component {
   //Class part
   state = {
     twitterUsername: "",
-    recommendations: []
+    recommendations: [],
   };
 
   componentDidMount() {
@@ -40,6 +39,7 @@ class Recommendations extends React.Component {
   };
 
   handleSearchForm = event => {
+    debugger;
     event.preventDefault();
     const twitterUsername = this.state.twitterUsername;
 
@@ -47,6 +47,7 @@ class Recommendations extends React.Component {
       .movieRecommendations(twitterUsername)
       .then(response => {
         this.setState({ recommendations: response });
+        console.log(response);
       })
       .catch(err => {
         console.log(err);
@@ -55,20 +56,26 @@ class Recommendations extends React.Component {
 
   render() {
     //Javascript
+    if (this.state.recommendations.length > 0) {
+      var movies = this.state.recommendations.map(subArray => {
+        const baseImage = "http://image.tmdb.org/t/p/w185/";
 
-
-    const movies = this.state.recommendations.map(subArray => {
-      return subArray.map((movie, index) => {
-        return (
-          <h1 key={movie.id}>{movie.title}</h1>
-        )  
+        return subArray.map((movie, index) => {
+          return (
+            <Col lg="3" md="3" className="col-sm">
+              <div key={movie.id}>
+                <img
+                  className="img-fluid rounded shadow-lg"
+                  src={`${baseImage}${movie.poster_path}`}
+                  alt="movie.title"
+                />
+                <h1>{movie.title}</h1>
+              </div>
+            </Col>
+          );
+        });
       });
-    });
-
-
-    
-
-    
+    }
 
     return (
       <div>
@@ -84,7 +91,7 @@ class Recommendations extends React.Component {
                     {/* twitter username */}
                     <InputGroup
                       className={classnames({
-                        "input-group-focus": this.state.fullNameFocus
+                        "input-group-focus": this.state.fullNameFocus,
                       })}
                     >
                       <InputGroupAddon addonType="prepend">
@@ -116,10 +123,10 @@ class Recommendations extends React.Component {
               </Row>
             </div>
           </div>
-            
 
-            {movies}
-        
+          <div className="content-center">
+            <Row>{movies}</Row>
+          </div>
         </div>
       </div>
     );
