@@ -18,10 +18,8 @@ import {
   InputGroup,
   Container,
   Row,
-  Col,
+  Col
 } from "reactstrap";
-
-
 
 class Signup extends React.Component {
   state = {
@@ -32,7 +30,7 @@ class Signup extends React.Component {
     //Form properties
     username: "",
     email: "",
-    password: "",
+    password: ""
   };
 
   service = new AuthService();
@@ -46,7 +44,7 @@ class Signup extends React.Component {
     document.body.classList.toggle("register-page");
     document.documentElement.removeEventListener(
       "mousemove",
-      this.followCursor,
+      this.followCursor
     );
   }
   followCursor = event => {
@@ -64,7 +62,7 @@ class Signup extends React.Component {
         posX * 0.02 +
         "deg) rotateX(" +
         posY * -0.02 +
-        "deg)",
+        "deg)"
     });
   };
 
@@ -87,7 +85,7 @@ class Signup extends React.Component {
         this.setState({
           username: "",
           password: "",
-          email: "",
+          email: ""
         });
         this.props.getUser(response);
       })
@@ -131,7 +129,7 @@ class Signup extends React.Component {
                           {/* Username */}
                           <InputGroup
                             className={classnames({
-                              "input-group-focus": this.state.fullNameFocus,
+                              "input-group-focus": this.state.fullNameFocus
                             })}
                           >
                             <InputGroupAddon addonType="prepend">
@@ -157,7 +155,7 @@ class Signup extends React.Component {
                           {/* email */}
                           <InputGroup
                             className={classnames({
-                              "input-group-focus": this.state.emailFocus,
+                              "input-group-focus": this.state.emailFocus
                             })}
                           >
                             <InputGroupAddon addonType="prepend">
@@ -179,7 +177,7 @@ class Signup extends React.Component {
                           {/* Password */}
                           <InputGroup
                             className={classnames({
-                              "input-group-focus": this.state.passwordFocus,
+                              "input-group-focus": this.state.passwordFocus
                             })}
                           >
                             <InputGroupAddon addonType="prepend">
@@ -251,7 +249,6 @@ class Signup extends React.Component {
               </Container>
             </div>
           </div>
-    
         </div>
       </>
     );

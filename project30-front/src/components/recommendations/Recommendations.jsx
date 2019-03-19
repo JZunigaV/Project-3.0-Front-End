@@ -1,6 +1,9 @@
 import React from "react";
 import classnames from "classnames";
 
+//Service
+import RecommendationService from "./RecommendationService";
+
 // reactstrap components
 import {
   Form,
@@ -10,13 +13,17 @@ import {
   Col,
   InputGroupAddon,
   InputGroupText,
-  InputGroup,
-  Container
+  InputGroup
+  // Container
 } from "reactstrap";
 
 class Recommendations extends React.Component {
   //Class part
-  state = {};
+  state = {
+    twitterUsername: "",
+    recommendations: []
+  };
+
   componentDidMount() {
     document.body.classList.toggle("landing-page");
   }
@@ -24,8 +31,44 @@ class Recommendations extends React.Component {
     document.body.classList.toggle("landing-page");
   }
 
+  //Service instance
+  service = new RecommendationService();
+
+  //Form handle methods
+  onChange = event => {
+    this.setState({ [event.currentTarget.name]: event.currentTarget.value });
+  };
+
+  handleSearchForm = event => {
+    event.preventDefault();
+    const twitterUsername = this.state.twitterUsername;
+
+    this.service
+      .movieRecommendations(twitterUsername)
+      .then(response => {
+        this.setState({ recommendations: response });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   render() {
     //Javascript
+
+
+    const movies = this.state.recommendations.map(subArray => {
+      return subArray.map((movie, index) => {
+        return (
+          <h1 key={movie.id}>{movie.title}</h1>
+        )  
+      });
+    });
+
+
+    
+
+    
 
     return (
       <div>
@@ -35,9 +78,7 @@ class Recommendations extends React.Component {
             <div className="content-center">
               <Row className="">
                 <Col lg="12" md="12">
-                  <Form className="form">
-
-
+                  <Form className="form" onSubmit={this.handleSearchForm}>
                     <h1>Recommendations</h1>
 
                     {/* twitter username */}
@@ -54,18 +95,31 @@ class Recommendations extends React.Component {
                       <Input
                         placeholder="Twitter username"
                         type="text"
-                        name="username"
+                        name="twitterUsername"
                         onChange={this.onChange}
                         value={this.state.username}
                         onFocus={e => this.setState({ fullNameFocus: true })}
                         onBlur={e => this.setState({ fullNameFocus: false })}
                       />
                     </InputGroup>
+
+                    <Button
+                      type="submit"
+                      className="btn-round"
+                      color="success"
+                      size="lg"
+                    >
+                      Lets go
+                    </Button>
                   </Form>
                 </Col>
               </Row>
             </div>
           </div>
+            
+
+            {movies}
+        
         </div>
       </div>
     );
