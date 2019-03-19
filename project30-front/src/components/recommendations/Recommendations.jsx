@@ -3,6 +3,8 @@ import classnames from "classnames";
 //Service
 import RecommendationService from "./RecommendationService";
 
+import MovieModal from "./MovieModal";
+
 // reactstrap components
 import {
   Form,
@@ -17,6 +19,8 @@ import {
   CardBody,
   CardHeader,
   CardTitle,
+  // Modal,
+
   // Container
 } from "reactstrap";
 
@@ -25,6 +29,8 @@ class Recommendations extends React.Component {
   state = {
     twitterUsername: "",
     recommendations: [],
+    modal: false,
+    movieDetail: {},
   };
 
   componentDidMount() {
@@ -43,7 +49,6 @@ class Recommendations extends React.Component {
   };
 
   handleSearchForm = event => {
-    debugger;
     event.preventDefault();
     const twitterUsername = this.state.twitterUsername;
 
@@ -58,12 +63,26 @@ class Recommendations extends React.Component {
       });
   };
 
+  //Modal handlers
+  toggleModal = (modalState, details) => {
+    this.setState({
+      [modalState]: !this.state[modalState],
+      movieDetail: details,
+    });
+  };
+
   render() {
     //Javascript
     //Style in card tasks.sass
     if (this.state.recommendations.length > 0) {
       var movies = this.state.recommendations.map(subArray => {
         return subArray.map((movie, index) => {
+          const details = {
+            overview: movie.overview,
+            title: movie.original_title,
+            backdrop: movie.backdrop_path,
+          };
+
           return (
             <Card className="card-movies" key={movie.id}>
               <CardHeader>
@@ -76,6 +95,13 @@ class Recommendations extends React.Component {
 
               <CardBody>
                 <CardTitle tag="h3">{movie.original_title}</CardTitle>
+
+                <Button
+                  color="success"
+                  onClick={() => this.toggleModal("modal", details)}
+                >
+                  View movie details
+                </Button>
               </CardBody>
             </Card>
           );
@@ -136,11 +162,23 @@ class Recommendations extends React.Component {
 
           <div className="content-center">
             <Col lg="4" md="4" className="col-sm" />
+
             {this.state.recommendations.length > 0 && (
               <h1>Here are some movies you may like</h1>
             )}
             <Row>{movies}</Row>
           </div>
+          {this.state.movieDetail && (
+            <MovieModal
+              isOpen={this.state.modal}
+              toggle={() => this.toggleModal("modal")}
+              title={this.state.movieDetail.title}
+              overview={this.state.movieDetail.overview}
+              background={`http://image.tmdb.org/t/p/w500/${
+                this.state.movieDetail.backdrop
+              }`}
+            />
+          )}
         </div>
       </div>
     );
