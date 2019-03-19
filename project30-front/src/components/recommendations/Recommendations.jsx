@@ -60,7 +60,7 @@ class Recommendations extends React.Component {
 
   render() {
     //Javascript
-
+    //Style in card tasks.sass
     if (this.state.recommendations.length > 0) {
       var movies = this.state.recommendations.map(subArray => {
         return subArray.map((movie, index) => {
