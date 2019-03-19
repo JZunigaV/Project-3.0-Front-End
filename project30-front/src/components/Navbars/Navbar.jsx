@@ -12,22 +12,24 @@ import {
   Nav,
   Container,
   Row,
-  Col,
+  Col
 } from "reactstrap";
 
 class PagesNavbar extends React.Component {
   state = {
     collapseOpen: false,
     color: "navbar-transparent",
-    loggedInUser: null,
+    loggedInUser: null
   };
 
   service = new AuthService();
 
+  //Aqui agarra al usuario que está actualmente logeado
   componentWillReceiveProps(nextProps) {
     this.setState({ ...this.state, loggedInUser: nextProps["userInSession"] });
   }
 
+  //Metodos esteticos
   componentDidMount() {
     window.addEventListener("scroll", this.changeColor);
   }
@@ -41,35 +43,37 @@ class PagesNavbar extends React.Component {
       document.body.scrollTop > 99
     ) {
       this.setState({
-        color: "bg-info",
+        color: "bg-info"
       });
     } else if (
       document.documentElement.scrollTop < 100 ||
       document.body.scrollTop < 100
     ) {
       this.setState({
-        color: "navbar-transparent",
+        color: "navbar-transparent"
       });
     }
   };
   toggleCollapse = () => {
     document.documentElement.classList.toggle("nav-open");
     this.setState({
-      collapseOpen: !this.state.collapseOpen,
+      collapseOpen: !this.state.collapseOpen
     });
   };
   onCollapseExiting = () => {
     this.setState({
-      collapseOut: "collapsing-out",
+      collapseOut: "collapsing-out"
     });
   };
   onCollapseExited = () => {
     this.setState({
-      collapseOut: "",
+      collapseOut: ""
     });
   };
 
-  renderSignup() {
+  //Metodos condicionales que se pondran dependiendo del estado del usuario logeado
+
+  renderSignup = () => {
     return (
       <>
         <NavItem>
@@ -85,9 +89,9 @@ class PagesNavbar extends React.Component {
         </NavItem>
       </>
     );
-  }
+  };
 
-  profileElement(username, id) {
+  profileElement = (username, id) => {
     return (
       <>
         <NavItem>
@@ -103,10 +107,22 @@ class PagesNavbar extends React.Component {
         </NavItem>
       </>
     );
-  }
+  };
+
+  //Metodo que pondrá el link de la funcionalidad de recomendaciones si el usuario está logeado
+  moviesElement = () => {
+    return (
+      <>
+        <NavItem>
+          <NavLink tag={Link} to={`/recommendations`}>
+            Recommendations
+          </NavLink>
+        </NavItem>
+      </>
+    );
+  };
 
   logoutUser = () => {
-  
     this.service.logout().then(() => {
       this.setState({ loggedInUser: null });
       this.props.getUser(null);
@@ -209,11 +225,13 @@ class PagesNavbar extends React.Component {
               {this.state.loggedInUser
                 ? this.profileElement(
                     this.state.loggedInUser.username,
-                    this.state.loggedInUser._id,
+                    this.state.loggedInUser._id
                   )
                 : this.renderSignup()}
 
-         
+              {/* si el usuario esta logeado recomendaciones aparecen */}
+              {this.state.loggedInUser ? this.moviesElement() : ""}
+                            
             </Nav>
           </Collapse>
         </Container>

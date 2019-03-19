@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 // reactstrap components
 import {
-  Button,
+ 
   Card,
   CardBody,
   CardTitle,
@@ -28,6 +29,7 @@ class LandingPage extends React.Component {
 
   render() {
     //Javascript
+
 
     return (
       <div>
@@ -74,48 +76,10 @@ class LandingPage extends React.Component {
                     Using IBM Watson and twitter we will give you
                     recommendations!!!
                   </p>
-                  <div className="btn-wrapper mb-3">
-                    <p className="category text-success d-inline">
-                      From 9.99%/mo
-                    </p>
-                    <Button
-                      className="btn-link"
-                      color="success"
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                      size="sm"
-                    >
-                      <i className="tim-icons icon-minimal-right" />
-                    </Button>
+                  <div className="btn-wrapper mb-3">               
+                  <Link to="/recommendations" className="btn btn-info" >Find movies</Link>
                   </div>
-                  <div className="btn-wrapper">
-                    <div className="button-container">
-                      <Button
-                        className="btn-icon btn-simple btn-round btn-neutral"
-                        color="default"
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                      >
-                        <i className="fab fa-twitter" />
-                      </Button>
-                      <Button
-                        className="btn-icon btn-simple btn-round btn-neutral"
-                        color="default"
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                      >
-                        <i className="fab fa-dribbble" />
-                      </Button>
-                      <Button
-                        className="btn-icon btn-simple btn-round btn-neutral"
-                        color="default"
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                      >
-                        <i className="fab fa-facebook" />
-                      </Button>
-                    </div>
-                  </div>
+               
                 </Col>
                 <Col lg="4" md="5">
                   <img
@@ -172,10 +136,13 @@ class LandingPage extends React.Component {
                         <div className="icon icon-warning">
                           <i className="tim-icons icon-atom" />
                         </div>
-                        <h4 className="info-title">2- We will match you with the movies you may like</h4>
+                        <h4 className="info-title">
+                          2- We will match you with the movies you may like
+                        </h4>
                         <hr className="line-warning" />
                         <p>
-                          Our system will match your personality with a huge movie database
+                          Our system will match your personality with a huge
+                          movie database
                         </p>
                       </div>
                     </Col>
@@ -184,11 +151,11 @@ class LandingPage extends React.Component {
                         <div className="icon icon-success">
                           <i className="tim-icons icon-tv-2" />
                         </div>
-                        <h4 className="info-title">3- Our system will give you recommendations</h4>
+                        <h4 className="info-title">
+                          3- Our system will give you recommendations
+                        </h4>
                         <hr className="line-success" />
-                        <p>
-                          Best suited movies will apear for you!
-                        </p>
+                        <p>Best suited movies will apear for you!</p>
                       </div>
                     </Col>
                   </Row>

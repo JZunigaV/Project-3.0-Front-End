@@ -9,6 +9,7 @@ import Login from "./components/auth/Login";
 import AuthService from "./components/auth/AuthService";
 import ProtectedRoute from "./components/auth/protected-route";
 import Profile from "./components/Profile/Profile";
+import Recommendations from "./components/recommendations/Recommendations"
 import Footer from "./components/Footer/Footer";
 
 import "./App.css";
@@ -46,12 +47,10 @@ class App extends Component {
   }
 
   render() {
-    
     const { redirect } = this.state;
     if (this.state.loggedUser) {
       return (
         <div className="App">
-          
           {redirect ? this.setState({ redirect: false }) : ""}
           {redirect ? <Redirect push to="/" /> : ""}
 
@@ -71,6 +70,13 @@ class App extends Component {
               exact
               path="/profile/:id"
               component={Profile}
+              user={this.state.loggedUser}
+            />
+
+            <ProtectedRoute
+              exact
+              path="/recommendations"
+              component={Recommendations}
               user={this.state.loggedUser}
             />
           </Switch>
@@ -99,10 +105,19 @@ class App extends Component {
               path="/"
               render={props => <LandingPage {...props} />}
             />
+
+
+            {/* Tiene que ser una ruta protegida */}
+            <Route
+              exact
+              path="/recommendations"
+              component={Recommendations}
+              user={this.state.loggedUser}
+            />
           </Switch>
+
           <Footer />
         </div>
-    
       );
     }
   }
