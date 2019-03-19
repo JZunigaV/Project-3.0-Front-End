@@ -85,7 +85,11 @@ class Recommendations extends React.Component {
             <div className="content-center">
               <Row className="">
                 <Col lg="12" md="12">
-                  <Form className="form" onSubmit={this.handleSearchForm}>
+                  <Form
+                    className="form form-recommend"
+                    onSubmit={this.handleSearchForm}
+                    id="input-form"
+                  >
                     <h1>Recommendations</h1>
 
                     {/* twitter username */}
