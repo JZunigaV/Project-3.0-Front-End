@@ -136,10 +136,8 @@ class Recommendations extends React.Component {
 
           <div className="content-center">
             <Col lg="4" md="4" className="col-sm" />
-            {this.state.recommendations.length > 0 ? (
+            {this.state.recommendations.length > 0 && (
               <h1>Here are some movies you may like</h1>
-            ) : (
-              ""
             )}
             <Row>{movies}</Row>
           </div>
