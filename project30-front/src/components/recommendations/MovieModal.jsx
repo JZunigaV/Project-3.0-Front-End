@@ -10,8 +10,7 @@ import {
 class MovieModal extends Component {
   render() {
     const backgorund = this.props.background;
-
-    console.log(this.props);
+    
     return (
       <>
         {/* Sart movies Modal */}

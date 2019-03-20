@@ -11,13 +11,15 @@ import ProtectedRoute from "./components/auth/protected-route";
 import Profile from "./components/Profile/Profile";
 import Recommendations from "./components/recommendations/Recommendations"
 import Footer from "./components/Footer/Footer";
+import Personality from "./components/personality/Personality";
 
 import "./App.css";
 
 class App extends Component {
   state = {
     loggedUser: null,
-    redirect: false
+    redirect: false,
+    twitterUsername:""
   };
   service = new AuthService();
 
@@ -46,6 +48,15 @@ class App extends Component {
     this.fetchUser();
   }
 
+
+  //personality handler
+  setTwitter = (twitterUsername) => {
+    debugger
+    this.setState({twitterUsername:twitterUsername})
+  }
+
+
+
   render() {
     const { redirect } = this.state;
     if (this.state.loggedUser) {
@@ -73,12 +84,26 @@ class App extends Component {
               user={this.state.loggedUser}
             />
 
+           
+            {/* Tiene que ser una ruta protegida */}
             <ProtectedRoute
               exact
               path="/recommendations"
               component={Recommendations}
               user={this.state.loggedUser}
+              liftTwitter={this.setTwitter}
             />
+
+             {/* Tiene que ser una ruta protegida */}
+             <Route
+              exact
+              path="/personality"
+              component={Personality}
+              user={this.state.loggedUser}
+              twitterUsername={this.state.twitterUsername}
+              
+            />
+
           </Switch>
           <Footer />
         </div>
@@ -105,15 +130,22 @@ class App extends Component {
               path="/"
               render={props => <LandingPage {...props} />}
             />
-
-
-            {/* Tiene que ser una ruta protegida */}
+                        
             <Route
               exact
               path="/recommendations"
-              component={Recommendations}
-              user={this.state.loggedUser}
+              render={() => <Recommendations  liftTwitter={this.setTwitter} user={this.state.loggedUser} />}
             />
+
+            <Route
+              exact
+              path="/personality"
+              component={Personality}
+              user={this.state.loggedUser}
+              twitterUsername={this.state.twitterUsername}
+            />
+
+
           </Switch>
 
           <Footer />
