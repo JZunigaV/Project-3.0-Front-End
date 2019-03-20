@@ -5,7 +5,7 @@ class RecommendationService {
   constructor() {
     let service = axios.create({
       baseURL: "http://localhost:4000/api",
-      withCredentials: true
+      withCredentials: true,
     });
     this.service = service;
   }
@@ -19,7 +19,14 @@ class RecommendationService {
       });
   };
 
-
+  personalityInsights = twitterUsername => {
+    return this.service
+      .post("/personality", { username: twitterUsername })
+      .then(response => response.data)
+      .catch(err => {
+        console.log(err);
+      });
+  };
 }
 
 export default RecommendationService;

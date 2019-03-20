@@ -9,7 +9,7 @@ import Login from "./components/auth/Login";
 import AuthService from "./components/auth/AuthService";
 import ProtectedRoute from "./components/auth/protected-route";
 import Profile from "./components/Profile/Profile";
-import Recommendations from "./components/recommendations/Recommendations"
+import Recommendations from "./components/recommendations/Recommendations";
 import Footer from "./components/Footer/Footer";
 import Personality from "./components/personality/Personality";
 
@@ -19,7 +19,7 @@ class App extends Component {
   state = {
     loggedUser: null,
     redirect: false,
-    twitterUsername:""
+    twitterUsername: "",
   };
   service = new AuthService();
 
@@ -29,12 +29,12 @@ class App extends Component {
         .loggedin()
         .then(response => {
           this.setState({
-            loggedInUser: response
+            loggedInUser: response,
           });
         })
         .catch(err => {
           this.setState({
-            loggedInUser: false
+            loggedInUser: false,
           });
         });
     }
@@ -48,14 +48,11 @@ class App extends Component {
     this.fetchUser();
   }
 
-
   //personality handler
-  setTwitter = (twitterUsername) => {
-    debugger
-    this.setState({twitterUsername:twitterUsername})
-  }
-
-
+  setTwitter = twitterUsername => {
+    debugger;
+    this.setState({ twitterUsername: twitterUsername });
+  };
 
   render() {
     const { redirect } = this.state;
@@ -84,7 +81,6 @@ class App extends Component {
               user={this.state.loggedUser}
             />
 
-           
             {/* Tiene que ser una ruta protegida */}
             <ProtectedRoute
               exact
@@ -94,21 +90,20 @@ class App extends Component {
               liftTwitter={this.setTwitter}
             />
 
-             {/* Tiene que ser una ruta protegida */}
-             <Route
+            {/* Tiene que ser una ruta protegida */}
+            <ProtectedRoute
               exact
               path="/personality"
               component={Personality}
               user={this.state.loggedUser}
               twitterUsername={this.state.twitterUsername}
-              
             />
-
           </Switch>
           <Footer />
         </div>
       );
     } else {
+      // Public routes
       return (
         <div className="App">
           {/*  NavBar */}
@@ -130,22 +125,28 @@ class App extends Component {
               path="/"
               render={props => <LandingPage {...props} />}
             />
-                        
+
             <Route
               exact
               path="/recommendations"
-              render={() => <Recommendations  liftTwitter={this.setTwitter} user={this.state.loggedUser} />}
+              render={() => (
+                <Recommendations
+                  liftTwitter={this.setTwitter}
+                  user={this.state.loggedUser}
+                />
+              )}
             />
 
             <Route
               exact
               path="/personality"
-              component={Personality}
-              user={this.state.loggedUser}
-              twitterUsername={this.state.twitterUsername}
+              render={() => (
+                <Personality
+                  twitterUsername={this.state.twitterUsername}
+                  user={this.state.loggedUser}
+                />
+              )}
             />
-
-
           </Switch>
 
           <Footer />

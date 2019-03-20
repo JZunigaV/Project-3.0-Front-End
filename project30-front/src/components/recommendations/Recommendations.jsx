@@ -1,10 +1,8 @@
 import React from "react";
 import classnames from "classnames";
-
-
+import { Link } from "react-router-dom";
 //Service
 import RecommendationService from "./RecommendationService";
-
 import MovieModal from "./MovieModal";
 
 // reactstrap components
@@ -50,8 +48,6 @@ class Recommendations extends React.Component {
     this.setState({ [event.currentTarget.name]: event.currentTarget.value });
   };
 
-
-
   handleSearchForm = event => {
     event.preventDefault();
     const twitterUsername = this.state.twitterUsername;
@@ -61,6 +57,8 @@ class Recommendations extends React.Component {
       .then(response => {
         this.setState({ recommendations: response });
         console.log(response);
+        //Here we pass twitter username to App.js
+        this.props.liftTwitter(this.state.twitterUsername);
       })
       .catch(err => {
         console.log(err);
@@ -74,16 +72,6 @@ class Recommendations extends React.Component {
       movieDetail: details,
     });
   };
-
-
-  //personality handle
-  handlePersona = (event) => {
-    debugger;
-    event.preventDefault();
-    this.props.liftTwitter(this.state.twitterUsername)
-
-  }
-
 
   render() {
     //Javascript
@@ -158,6 +146,7 @@ class Recommendations extends React.Component {
                         value={this.state.username}
                         onFocus={e => this.setState({ fullNameFocus: true })}
                         onBlur={e => this.setState({ fullNameFocus: false })}
+                        required={true}
                       />
                     </InputGroup>
 
@@ -170,8 +159,6 @@ class Recommendations extends React.Component {
                       Lets go
                     </Button>
                   </Form>
-
-                 <Button onClick={this.handlePersona} />
                 </Col>
               </Row>
             </div>
@@ -181,14 +168,17 @@ class Recommendations extends React.Component {
             <Col lg="4" md="4" className="col-sm" />
 
             {this.state.recommendations.length > 0 && (
-              <h1>Here are some movies you may like</h1>
+              <>
+                <h1>Here are some movies you may like</h1>
+                <Link to="/personality">
+                  Why did we choose these movies for you?
+                </Link>
+              </>
             )}
-
-
-
-
             <Row>{movies}</Row>
           </div>
+
+          {/* Movie modal */}
           {this.state.movieDetail && (
             <MovieModal
               isOpen={this.state.modal}
@@ -197,7 +187,7 @@ class Recommendations extends React.Component {
               overview={this.state.movieDetail.overview}
               background={`http://image.tmdb.org/t/p/w500/${
                 this.state.movieDetail.backdrop
-                }`}
+              }`}
               release={this.state.movieDetail.release}
             />
           )}
