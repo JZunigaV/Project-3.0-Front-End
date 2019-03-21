@@ -23,6 +23,45 @@
   color: #61dafb;
 }
 
+/* .plot-wrapper {
+  padding: 2rem 2rem;
+  color: #fff;
+
+  background: #355c7d; 
+  background: -webkit-linear-gradient(
+    to right,
+    #c06c84,
+    #6c5b7b,
+    #355c7d
+  );
+  background: linear-gradient(
+    to right,
+    #c06c84,
+    #6c5b7b,
+    #355c7d
+  ); 
+} */
+/* 
+.plot-contents {
+  max-width: 1400px;
+  margin: auto;
+  padding: 2rem 0;
+} */
+/* 
+.plot-facets {
+  justify-content: center;
+} */
+/* 
+.plot-facet {
+  margin-bottom: 3rem;
+} */
+
+/* .plot-description-facet {
+  max-width: 500px;
+  margin: auto;
+  font-size: 14px;
+} */
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

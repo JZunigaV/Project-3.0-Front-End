@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { Row, Col } from "reactstrap";
-
+import Results from "./Results";
 //Service
 import RecommendationService from "../recommendations/RecommendationService";
 
 class Personality extends Component {
   state = {
-    personality: {},
+    responseData: {},
+    isLoading: true,
   };
 
   service = new RecommendationService();
@@ -14,38 +14,33 @@ class Personality extends Component {
   componentDidMount() {
     //Landing page style
     document.body.classList.toggle("landing-page");
-
     //Call api to get the personality insights data
     debugger;
     this.service
       .personalityInsights(this.props.twitterUsername)
       .then(response => {
-        console.log(response);
+        this.setState({ responseData: response });
+        this.setState({ isLoading: false });
+        console.log(this.state.responseData);
       })
       .catch(err => {
         console.log(err);
+        this.setState({ isLoading: false });
       });
-  }
-  componentWillUnmount() {
-    document.body.classList.toggle("landing-page");
   }
 
   render() {
     console.log(this.props);
 
+    if (!this.state.isLoading) {
+      alert("Terminó de cargar");
+    }
+
     return (
       <div>
-        <div className="wrapeer">
-          <div className="page-header-recommendation">
-            <div className="content-center">
-              <Row>
-                <Col>
-                  <h1>Holaaaa {this.props.twitterUsername}</h1>
-                </Col>
-              </Row>
-            </div>
-          </div>
-        </div>
+        {!this.state.isLoading && (
+          <Results resultData={this.state.responseData} />
+        )}
       </div>
     );
   }
