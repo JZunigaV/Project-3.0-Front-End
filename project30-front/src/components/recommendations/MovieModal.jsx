@@ -32,17 +32,13 @@ class MovieModal extends Component {
             <button className="close" onClick={this.props.toggle}>
               <i className="tim-icons icon-simple-remove" />
             </button>
-            <h4
+            <h3
               className="title title-up"
-              style={{
-                "text-shadow":
-                  "2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff",
-                color: "black",
-                textAlign: "center",
-              }}
+              id="modal-title"
+            
             >
               {this.props.title}{" "}
-            </h4>
+            </h3>
           </div>
           <div className="modal-body">
             <h4>Overview:</h4>

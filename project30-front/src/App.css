@@ -23,44 +23,59 @@
   color: #61dafb;
 }
 
-/* .plot-wrapper {
+.plot-wrapper {
   padding: 2rem 2rem;
   color: #fff;
 
-  background: #355c7d; 
-  background: -webkit-linear-gradient(
-    to right,
-    #c06c84,
-    #6c5b7b,
-    #355c7d
-  );
-  background: linear-gradient(
-    to right,
-    #c06c84,
-    #6c5b7b,
-    #355c7d
-  ); 
-} */
-/* 
+ 
+} 
+
+.plot-description {
+  max-width: 600px;
+  margin: auto;
+  text-align: justify;
+}
+
+
 .plot-contents {
   max-width: 1400px;
   margin: auto;
   padding: 2rem 0;
-} */
-/* 
+} 
+ 
 .plot-facets {
   justify-content: center;
-} */
-/* 
+} 
+ 
 .plot-facet {
   margin-bottom: 3rem;
-} */
+  list-style: none;
+} 
 
-/* .plot-description-facet {
+ .plot-description-facet {
   max-width: 500px;
   margin: auto;
   font-size: 14px;
-} */
+  list-style: none;
+}
+
+#graph-title{
+
+  margin-top: 150px;
+
+}
+
+#btn-personality{
+
+  margin-bottom: 50px;
+
+}
+
+#modal-title{
+  text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+  color: black;
+  text-align: center;
+}
 
 @keyframes App-logo-spin {
   from {

@@ -5,6 +5,8 @@ class Results extends Component {
   render() {
     return (
       <div>
+
+       
         <ResultsBigFive resultData={this.props.resultData["personality"]} />
       </div>
     );
