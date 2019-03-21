@@ -39,7 +39,7 @@ class Personality extends Component {
     console.log(this.props);
 
     if (!this.state.isLoading) {
-      alert("Terminó de cargaras");
+      alert("Terminó de cargar");
     }
 
     return (
