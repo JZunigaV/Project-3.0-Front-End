@@ -11,7 +11,8 @@ class Personality extends Component {
 
   service = new RecommendationService();
 
-  componentDidMount() {
+  //Page is starting
+  componentDidMount = () => {
     //Landing page style
     document.body.classList.toggle("landing-page");
     //Call api to get the personality insights data
@@ -27,7 +28,12 @@ class Personality extends Component {
         console.log(err);
         this.setState({ isLoading: false });
       });
-  }
+  };
+
+  //Page is ending
+  componentWillUnmount = () => {
+    this.setState({ responseData: {}, isLoading: true });
+  };
 
   render() {
     console.log(this.props);

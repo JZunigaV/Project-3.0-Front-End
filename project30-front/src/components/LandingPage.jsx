@@ -3,13 +3,12 @@ import { Link } from "react-router-dom";
 
 // reactstrap components
 import {
- 
   Card,
   CardBody,
   CardTitle,
   Container,
   Row,
-  Col
+  Col,
   //   UncontrolledCarousel,
 } from "reactstrap";
 
@@ -29,7 +28,6 @@ class LandingPage extends React.Component {
 
   render() {
     //Javascript
-
 
     return (
       <div>
@@ -76,10 +74,11 @@ class LandingPage extends React.Component {
                     Using IBM Watson and twitter we will give you
                     recommendations!!!
                   </p>
-                  <div className="btn-wrapper mb-3">               
-                  <Link to="/recommendations" className="btn btn-info" >Find movies</Link>
+                  <div className="btn-wrapper mb-3">
+                    <Link to="/recommendations" className="btn btn-info">
+                      Find movies
+                    </Link>
                   </div>
-               
                 </Col>
                 <Col lg="4" md="5">
                   <img

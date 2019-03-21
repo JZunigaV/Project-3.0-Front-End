@@ -5,12 +5,6 @@ import { convertToPercentage } from "../utils/helper";
 import ResultsBigFiveFacet from "../personality/ResultsBigFiveFacet";
 
 class ResultsBigFive extends Component {
-  state = {};
-
-  componentWillMount = () => {
-    debugger;
-  };
-
   //Methods
   getOption = () => {
     const option = {
