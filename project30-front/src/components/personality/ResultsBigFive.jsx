@@ -6,6 +6,16 @@ import ResultsBigFiveFacet from "../personality/ResultsBigFiveFacet";
 
 class ResultsBigFive extends Component {
   //Methods
+
+  componentDidMount() {
+    document.body.classList.toggle("landing-page");
+  }
+  componentWillUnmount() {
+    document.body.classList.toggle("landing-page");
+  }
+
+
+
   getOption = () => {
     const option = {
       tooltip: {},
@@ -62,7 +72,8 @@ class ResultsBigFive extends Component {
       <div className="plot-wrapper">
         <Row className="plot-contents">
           <Col lg="12" md="12" sm="12" xs="12">
-            <h1 className="text-center">The Big 5</h1>
+            <h1 className="text-center" id="graph-title">Why did we choose those movies</h1>
+            <h2 className="text-center">Personality details: The big 5</h2>
             <ReactEcharts
               option={this.getOption()}
               style={{ width: "100%", height: 600 }}

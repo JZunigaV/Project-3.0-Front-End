@@ -14,7 +14,6 @@ class Personality extends Component {
   //Page is starting
   componentDidMount = () => {
     //Landing page style
-    document.body.classList.toggle("landing-page");
     //Call api to get the personality insights data
     debugger;
     this.service

@@ -18,7 +18,7 @@ import {
   Card,
   CardBody,
   CardHeader,
-  CardTitle,
+  CardTitle
   // Modal,
 
   // Container
@@ -30,7 +30,7 @@ class Recommendations extends React.Component {
     twitterUsername: "",
     recommendations: [],
     modal: false,
-    movieDetail: {},
+    movieDetail: {}
   };
 
   componentDidMount() {
@@ -69,7 +69,7 @@ class Recommendations extends React.Component {
   toggleModal = (modalState, details) => {
     this.setState({
       [modalState]: !this.state[modalState],
-      movieDetail: details,
+      movieDetail: details
     });
   };
 
@@ -83,7 +83,7 @@ class Recommendations extends React.Component {
             overview: movie.overview,
             title: movie.original_title,
             backdrop: movie.backdrop_path,
-            release: movie.release_date,
+            release: movie.release_date
           };
 
           return (
@@ -130,7 +130,7 @@ class Recommendations extends React.Component {
                     {/* twitter username */}
                     <InputGroup
                       className={classnames({
-                        "input-group-focus": this.state.fullNameFocus,
+                        "input-group-focus": this.state.fullNameFocus
                       })}
                     >
                       <InputGroupAddon addonType="prepend">
@@ -170,8 +170,18 @@ class Recommendations extends React.Component {
             {this.state.recommendations.length > 0 && (
               <>
                 <h1>Here are some movies you may like</h1>
+                <br />
+
                 <Link to="/personality">
-                  Why did we choose these movies for you?
+                  <Button
+                    type="submit"
+                    className="btn-round"
+                    color="warning"
+                    size="sm"
+                    id="btn-personality"
+                  >
+                    Why did we choose these movies for you?
+                  </Button>
                 </Link>
               </>
             )}
