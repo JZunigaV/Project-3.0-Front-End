@@ -14,58 +14,66 @@ class ResultsBigFive extends Component {
     document.body.classList.toggle("landing-page");
   }
 
+  getOption(){
 
-
-  getOption = () => {
     const option = {
-      tooltip: {},
-      scale: true,
-      radar: {
-        name: {
-          textStyle: {
-            color: "#fff",
-            fontSize: 16,
-          },
-        },
-        //shape: "circle",
-        indicator: [
-          {
-            name: this.props.resultData[0]["name"],
-            max: 100,
-          },
-          { name: this.props.resultData[1]["name"], max: 100 },
-          { name: this.props.resultData[2]["name"], max: 100 },
-          { name: this.props.resultData[3]["name"], max: 100 },
-          { name: this.props.resultData[4]["name"], max: 100 },
-        ],
-      },
-      series: [
-        {
-          name: "The Big Five",
-          type: "radar",
-          symbolSize: "10",
-          areaStyle: {
-            normal: {
-              opacity: 0.3,
-            },
-          },
-          data: [
-            {
-              value: [
-                convertToPercentage(this.props.resultData[0]["percentile"]),
-                convertToPercentage(this.props.resultData[1]["percentile"]),
-                convertToPercentage(this.props.resultData[2]["percentile"]),
-                convertToPercentage(this.props.resultData[3]["percentile"]),
-                convertToPercentage(this.props.resultData[4]["percentile"]),
-              ],
-            },
-          ],
-        },
-      ],
-    };
 
+      title:{
+        x:"center"
+      },
+      tooltip:{
+        trigger:"item",
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+      },
+      legend:{
+        borderColor:"#FFFFFF",
+        orient:"vertical",
+        left:"left",
+        data: [this.props.resultData[0]["name"],this.props.resultData[1]["name"], this.props.resultData[2]["name"], this.props.resultData[3]["name"], this.props.resultData[4]["name"]]
+      },
+
+      series: [{
+        name: 'traits',
+        type: 'pie',
+        radius: '55%',
+        center: ['50%', '60%'],
+        data: [{
+            value:  convertToPercentage(this.props.resultData[0]["percentile"]),
+            name: this.props.resultData[0]["name"],
+            itemStyle:{color:"#563868"}
+          },
+          {
+            value:  convertToPercentage(this.props.resultData[1]["percentile"]),
+            name: this.props.resultData[1]["name"],
+            itemStyle:{color:"#0f3d05"}
+          },
+          {
+            value:  convertToPercentage(this.props.resultData[2]["percentile"]),
+            name: this.props.resultData[2]["name"]
+          },
+          {
+            value:  convertToPercentage(this.props.resultData[3]["percentile"]),
+            name: this.props.resultData[3]["name"]
+          },
+          {
+            value:  convertToPercentage(this.props.resultData[4]["percentile"]),
+            name: this.props.resultData[4]["name"],
+            itemStyle:{color:"#0f3d05"}
+          },
+      
+        ],
+        itemStyle: {
+          emphasis: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          }
+        }
+      }]
+    };
     return option;
-  };
+  }
+
 
   render() {
     return (
