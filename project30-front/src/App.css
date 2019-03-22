@@ -26,9 +26,7 @@
 .plot-wrapper {
   padding: 2rem 2rem;
   color: #fff;
-
- 
-} 
+}
 
 .plot-description {
   max-width: 600px;
@@ -36,45 +34,91 @@
   text-align: justify;
 }
 
-
 .plot-contents {
   max-width: 1400px;
   margin: auto;
   padding: 2rem 0;
-} 
- 
+}
+
 .plot-facets {
   justify-content: center;
-} 
- 
+}
+
 .plot-facet {
   margin-bottom: 3rem;
   list-style: none;
-} 
+}
 
- .plot-description-facet {
+.plot-description-facet {
   max-width: 500px;
   margin: auto;
   font-size: 14px;
   list-style: none;
 }
 
-#graph-title{
-
+#graph-title {
   margin-top: 150px;
-
 }
 
-#btn-personality{
-
+#btn-personality {
   margin-bottom: 50px;
-
 }
 
-#modal-title{
-  text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+#modal-title {
+  text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff,
+    1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
   color: black;
   text-align: center;
+}
+
+/* Strength analysis */
+.result-strength-container {
+  max-width: 800px;
+  margin-top: 150px;
+}
+
+.icon-brain {
+  position: relative;
+  max-width: 150px;
+  margin: auto;
+  margin-top: 3rem;
+}
+
+.analysis-strength {
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+  top: 37%;
+  z-index: 2;
+}
+
+.analysis-strength .badge {
+  padding: 0.25rem 1rem;
+  font-weight: 600;
+  background: #000;
+  color: #fff;
+}
+
+.analysis-strength .analysis-weak {
+  background: #dc3545;
+}
+
+.analysis-strength .analysis-moderate {
+  background: #f4c242;
+}
+
+.analysis-strength .analysis-strong {
+  background: #27a81e;
+}
+
+.analysis-strength .analysis-very-strong {
+  background: #055b00;
+}
+
+.analysis-strength-toolip {
+  font-size: 12px;
 }
 
 @keyframes App-logo-spin {
