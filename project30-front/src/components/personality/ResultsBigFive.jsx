@@ -6,81 +6,63 @@ import ResultsBigFiveFacet from "../personality/ResultsBigFiveFacet";
 
 class ResultsBigFive extends Component {
   //Methods
-
-  componentDidMount() {
-    document.body.classList.toggle("landing-page");
-  }
-  componentWillUnmount() {
-    document.body.classList.toggle("landing-page");
-  }
-
-  getOption(){
-
+  getOption = () => {
     const option = {
-
-      title:{
-        x:"center"
-      },
-      tooltip:{
-        trigger:"item",
-        formatter: "{a} <br/>{b} : {c} ({d}%)"
-      },
-      legend:{
-        borderColor:"#FFFFFF",
-        orient:"vertical",
-        left:"left",
-        data: [this.props.resultData[0]["name"],this.props.resultData[1]["name"], this.props.resultData[2]["name"], this.props.resultData[3]["name"], this.props.resultData[4]["name"]]
-      },
-
-      series: [{
-        name: 'traits',
-        type: 'pie',
-        radius: '55%',
-        center: ['50%', '60%'],
-        data: [{
-            value:  convertToPercentage(this.props.resultData[0]["percentile"]),
+      tooltip: {},
+      scale: true,
+      radar: {
+        name: {
+          textStyle: {
+            color: "#fff",
+            fontSize: 16,
+          },
+        },
+        //shape: "circle",
+        indicator: [
+          {
             name: this.props.resultData[0]["name"],
-            itemStyle:{color:"#563868"}
+            max: 100,
           },
-          {
-            value:  convertToPercentage(this.props.resultData[1]["percentile"]),
-            name: this.props.resultData[1]["name"],
-            itemStyle:{color:"#0f3d05"}
-          },
-          {
-            value:  convertToPercentage(this.props.resultData[2]["percentile"]),
-            name: this.props.resultData[2]["name"]
-          },
-          {
-            value:  convertToPercentage(this.props.resultData[3]["percentile"]),
-            name: this.props.resultData[3]["name"]
-          },
-          {
-            value:  convertToPercentage(this.props.resultData[4]["percentile"]),
-            name: this.props.resultData[4]["name"],
-            itemStyle:{color:"#0f3d05"}
-          },
-      
+          { name: this.props.resultData[1]["name"], max: 100 },
+          { name: this.props.resultData[2]["name"], max: 100 },
+          { name: this.props.resultData[3]["name"], max: 100 },
+          { name: this.props.resultData[4]["name"], max: 100 },
         ],
-        itemStyle: {
-          emphasis: {
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowColor: 'rgba(0, 0, 0, 0.5)'
-          }
-        }
-      }]
+      },
+      series: [
+        {
+          name: "The Big Five",
+          type: "radar",
+          symbolSize: "10",
+          areaStyle: {
+            normal: {
+              opacity: 0.3,
+            },
+          },
+          data: [
+            {
+              value: [
+                convertToPercentage(this.props.resultData[0]["percentile"]),
+                convertToPercentage(this.props.resultData[1]["percentile"]),
+                convertToPercentage(this.props.resultData[2]["percentile"]),
+                convertToPercentage(this.props.resultData[3]["percentile"]),
+                convertToPercentage(this.props.resultData[4]["percentile"]),
+              ],
+            },
+          ],
+        },
+      ],
     };
-    return option;
-  }
 
+    return option;
+  };
 
   render() {
     return (
       <div className="plot-wrapper">
         <Row className="plot-contents">
           <Col lg="12" md="12" sm="12" xs="12">
-      
+            <h1 className="text-center">The Big 5</h1>
             <ReactEcharts
               option={this.getOption()}
               style={{ width: "100%", height: 600 }}
@@ -94,7 +76,8 @@ class ResultsBigFive extends Component {
               </p>
               <ol>
                 <li>
-                  <strong>Agreeableness</strong> is a personality trait manifesting itself in individual behavioral characteristics that are perceived as kind, sympathetic, cooperative, warm, and considerate.
+                  <strong>Agreeableness</strong> is a person's tendency to be
+                  compassionate and cooperative toward others.
                 </li>
                 <li>
                   <strong>Conscientiousness</strong> is a person's tendency to
