@@ -115,38 +115,27 @@ class ResultsBigFive extends Component {
               resultData={this.props.resultData[3]["children"]}
             />
             <div className="plot-description-facet">
-              <ul>
-                <li>
-                  <strong>Altruism</strong> Find that helping others is
-                  genuinely rewarding, that doing things for others is a form of
-                  self-fulfillment rather than self-sacrifice.
-                </li>
-                <li>
-                  <strong>Cooperation</strong> Dislike confrontation. They are
-                  perfectly willing to compromise or to deny their own needs to
-                  get along with others.
-                </li>
-                <li>
-                  <strong>Modesty</strong> Are unassuming, rather self-effacing,
-                  and humble. However, they do not necessarily lack
-                  self-confidence or self-esteem.
-                </li>
-                <li>
-                  <strong>Uncompromising</strong> See no need for pretense or
-                  manipulation when dealing with others and are therefore
-                  candid, frank, and genuine.
-                </li>
-                <li>
-                  <strong>Sympathy</strong> Are tender-hearted and
-                  compassionate.
-                </li>
-                <li>
-                  <strong>Trust</strong> Assume that most people are
-                  fundamentally fair, honest, and have good intentions. They
-                  take people at face value and are willing to forgive and
-                  forget.
-                </li>
-              </ul>
+              <strong>Altruism</strong> Find that helping others is genuinely
+              rewarding, that doing things for others is a form of
+              self-fulfillment rather than self-sacrifice.
+              <br />
+              <strong>Cooperation</strong> Dislike confrontation. They are
+              perfectly willing to compromise or to deny their own needs to get
+              along with others.
+              <br />
+              <strong>Modesty</strong> Are unassuming, rather self-effacing, and
+              humble. However, they do not necessarily lack self-confidence or
+              self-esteem.
+              <br />
+              <strong>Uncompromising</strong> See no need for pretense or
+              manipulation when dealing with others and are therefore candid,
+              frank, and genuine.
+              <br />
+              <strong>Sympathy</strong> Are tender-hearted and compassionate.
+              <br />
+              <strong>Trust</strong> Assume that most people are fundamentally
+              fair, honest, and have good intentions. They take people at face
+              value and are willing to forgive and forget.
             </div>
           </Col>
           <Col lg="6" md="12" sm="12" xs="12" className="plot-facet">
@@ -156,34 +145,25 @@ class ResultsBigFive extends Component {
               resultData={this.props.resultData[1]["children"]}
             />
             <div className="plot-description-facet">
-              <ul>
-                <li>
-                  <strong>Achievement striving</strong> Try hard to achieve
-                  excellence. Their drive to be recognized as successful keeps
-                  them on track as they work hard to accomplish their goals.
-                </li>
-                <li>
-                  <strong>Cautiousness</strong> Are disposed to think through
-                  possibilities carefully before acting.
-                </li>
-                <li>
-                  <strong>Dutifulness</strong> Have a strong sense of duty and
-                  obligation.
-                </li>
-                <li>
-                  <strong>Orderliness</strong> Are well-organized, tidy, and
-                  neat.
-                </li>
-                <li>
-                  <strong>Self-discipline</strong> Have the self-discipline, or
-                  "will-power," to persist at difficult or unpleasant tasks
-                  until they are completed.
-                </li>
-                <li>
-                  <strong>Self-efficacy</strong> Are confident in their ability
-                  to accomplish things.
-                </li>
-              </ul>
+              <strong>Achievement striving</strong> Try hard to achieve
+              excellence. Their drive to be recognized as successful keeps them
+              on track as they work hard to accomplish their goals.
+              <br />
+              <strong>Cautiousness</strong> Are disposed to think through
+              possibilities carefully before acting.
+              <br />
+              <strong>Dutifulness</strong> Have a strong sense of duty and
+              obligation.
+              <br />
+              <strong>Orderliness</strong> Are well-organized, tidy, and neat.
+              <br />
+              <strong>Self-discipline</strong> Have the self-discipline, or
+              "will-power," to persist at difficult or unpleasant tasks until
+              they are completed.
+              <br />
+              <strong>Self-efficacy</strong> Are confident in their ability to
+              accomplish things.
+              <br />
             </div>
           </Col>
           <Col lg="6" md="12" sm="12" xs="12" className="plot-facet">
@@ -193,34 +173,25 @@ class ResultsBigFive extends Component {
               resultData={this.props.resultData[2]["children"]}
             />
             <div className="plot-description-facet">
-              <ul>
-                <li>
-                  <strong>Activity level</strong> Lead fast-paced and busy
-                  lives. They do things and move about quickly, energetically,
-                  and vigorously, and they are involved in many activities.
-                </li>
-                <li>
-                  <strong>Assertiveness</strong> Like to take charge and direct
-                  the activities of others. They tend to be leaders in groups.
-                </li>
-                <li>
-                  <strong>Cheerfulness</strong> Experience a range of positive
-                  feelings, including happiness, enthusiasm, optimism, and joy.
-                </li>
-                <li>
-                  <strong>Excitement-seeking</strong> Are easily bored without
-                  high levels of stimulation.
-                </li>
-                <li>
-                  <strong>Outgoing</strong> Genuinely like other people and
-                  openly demonstrate positive feelings toward others.
-                </li>
-                <li>
-                  <strong>Gregariousness</strong> Find the company of others
-                  pleasantly stimulating and rewarding. They enjoy the
-                  excitement of crowds.
-                </li>
-              </ul>
+              <strong>Activity level</strong> Lead fast-paced and busy lives.
+              They do things and move about quickly, energetically, and
+              vigorously, and they are involved in many activities.
+              <br />
+              <strong>Assertiveness</strong> Like to take charge and direct the
+              activities of others. They tend to be leaders in groups.
+              <br />
+              <strong>Cheerfulness</strong> Experience a range of positive
+              feelings, including happiness, enthusiasm, optimism, and joy.
+              <br />
+              <strong>Excitement-seeking</strong> Are easily bored without high
+              levels of stimulation.
+              <br />
+              <strong>Outgoing</strong> Genuinely like other people and openly
+              demonstrate positive feelings toward others.
+              <br />
+              <strong>Gregariousness</strong> Find the company of others
+              pleasantly stimulating and rewarding. They enjoy the excitement of
+              crowds.
             </div>
           </Col>
           <Col lg="6" md="12" sm="12" xs="12" className="plot-facet">
@@ -230,40 +201,31 @@ class ResultsBigFive extends Component {
               resultData={this.props.resultData[4]["children"]}
             />
             <div className="plot-description-facet">
-              <ul>
-                <li>
-                  <strong>Fiery</strong> Have a tendency to feel angry.
-                </li>
-                <li>
-                  <strong>Prone to worry </strong> Often feel like something
-                  unpleasant, threatening, or dangerous is about to happen. The
-                  "fight-or-flight" system of their brains is too easily and too
-                  often engaged.
-                </li>
-                <li>
-                  <strong>Melancholy</strong> Tend to react more readily to
-                  life's ups and downs.
-                </li>
-                <li>
-                  <strong>Immoderation</strong> Feel strong cravings and urges
-                  that they have difficulty resisting, even though they know
-                  that they are likely to regret them later. They tend to be
-                  oriented toward short-term pleasures and rewards rather than
-                  long-term consequences.
-                </li>
-                <li>
-                  <strong>Self-consciousness</strong> Are sensitive about what
-                  others think of them. Their concerns about rejection and
-                  ridicule cause them to feel shy and uncomfortable around
-                  others; they are easily embarrassed.
-                </li>
-                <li>
-                  <strong>Susceptible to stress</strong> Have difficulty coping
-                  with stress. They experience panic, confusion, and
-                  helplessness when under pressure or when facing emergency
-                  situations.
-                </li>
-              </ul>
+              <strong>Fiery</strong> Have a tendency to feel angry.
+              <br />
+              <strong>Prone to worry </strong> Often feel like something
+              unpleasant, threatening, or dangerous is about to happen. The
+              "fight-or-flight" system of their brains is too easily and too
+              often engaged.
+              <br />
+              <strong>Melancholy</strong> Tend to react more readily to life's
+              ups and downs.
+              <br />
+              <strong>Immoderation</strong> Feel strong cravings and urges that
+              they have difficulty resisting, even though they know that they
+              are likely to regret them later. They tend to be oriented toward
+              short-term pleasures and rewards rather than long-term
+              consequences.
+              <br />
+              <strong>Self-consciousness</strong> Are sensitive about what
+              others think of them. Their concerns about rejection and ridicule
+              cause them to feel shy and uncomfortable around others; they are
+              easily embarrassed.
+              <br />
+              <strong>Susceptible to stress</strong> Have difficulty coping with
+              stress. They experience panic, confusion, and helplessness when
+              under pressure or when facing emergency situations.
+              <br />
             </div>
           </Col>
           <Col lg="6" md="12" sm="12" xs="12" className="plot-facet">
@@ -273,40 +235,30 @@ class ResultsBigFive extends Component {
               resultData={this.props.resultData[0]["children"]}
             />
             <div className="plot-description-facet">
-              <ul>
-                <li>
-                  <strong>Adventurousness</strong> Are eager to try new
-                  activities and experience different things. They find
-                  familiarity and routine boring.
-                </li>
-                <li>
-                  <strong>Artistic interests </strong> Love beauty, both in art
-                  and in nature. They become easily involved and absorbed in
-                  artistic and natural events. With intellect, this facet is one
-                  of the two most important, central aspects of this
-                  characteristic.
-                </li>
-                <li>
-                  <strong>Emotionality</strong> Have good access to and
-                  awareness of their own feelings.
-                </li>
-                <li>
-                  <strong>Imagination</strong> View the real world as often too
-                  plain and ordinary. They use fantasy not as an escape but as a
-                  way of creating for themselves a richer and more interesting
-                  inner-world.
-                </li>
-                <li>
-                  <strong>Intellect</strong> Are intellectually curious and tend
-                  to think in symbols and abstractions. With artistic interests,
-                  this facet is one of the two most important, central aspects
-                  of this characteristic.
-                </li>
-                <li>
-                  <strong>Authority challenging</strong> Have a readiness to
-                  challenge authority, convention, and traditional values.
-                </li>
-              </ul>
+              <strong>Adventurousness</strong> Are eager to try new activities
+              and experience different things. They find familiarity and routine
+              boring.
+              <br />
+              <strong>Artistic interests </strong> Love beauty, both in art and
+              in nature. They become easily involved and absorbed in artistic
+              and natural events. With intellect, this facet is one of the two
+              most important, central aspects of this characteristic.
+              <br />
+              <strong>Emotionality</strong> Have good access to and awareness of
+              their own feelings.
+              <br />
+              <strong>Imagination</strong> View the real world as often too
+              plain and ordinary. They use fantasy not as an escape but as a way
+              of creating for themselves a richer and more interesting
+              inner-world.
+              <br />
+              <strong>Intellect</strong> Are intellectually curious and tend to
+              think in symbols and abstractions. With artistic interests, this
+              facet is one of the two most important, central aspects of this
+              characteristic.
+              <br />
+              <strong>Authority challenging</strong> Have a readiness to
+              challenge authority, convention, and traditional values.
             </div>
           </Col>
         </Row>

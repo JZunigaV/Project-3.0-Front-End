@@ -53,7 +53,8 @@
   max-width: 500px;
   margin: auto;
   font-size: 14px;
-  list-style: none;
+  text-align: justify;
+  line-height: 1.7;
 }
 
 #graph-title {
