@@ -6,6 +6,9 @@ class Results extends Component {
   render() {
     return (
       <div>
+              <h1 className="text-center" id="graph-title">Why did we choose those movies</h1>
+            <h2 className="text-center">Personality details: The big 5</h2>
+
         <h4>Your analisys strength was:</h4>
         <ResultsStength
           wordCount={this.props.resultData["word_count"]}

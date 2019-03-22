@@ -72,8 +72,7 @@ class ResultsBigFive extends Component {
       <div className="plot-wrapper">
         <Row className="plot-contents">
           <Col lg="12" md="12" sm="12" xs="12">
-            <h1 className="text-center" id="graph-title">Why did we choose those movies</h1>
-            <h2 className="text-center">Personality details: The big 5</h2>
+      
             <ReactEcharts
               option={this.getOption()}
               style={{ width: "100%", height: 600 }}
@@ -87,8 +86,7 @@ class ResultsBigFive extends Component {
               </p>
               <ol>
                 <li>
-                  <strong>Agreeableness</strong> is a person's tendency to be
-                  compassionate and cooperative toward others.
+                  <strong>Agreeableness</strong> is a personality trait manifesting itself in individual behavioral characteristics that are perceived as kind, sympathetic, cooperative, warm, and considerate.
                 </li>
                 <li>
                   <strong>Conscientiousness</strong> is a person's tendency to

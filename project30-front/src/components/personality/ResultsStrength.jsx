@@ -48,7 +48,7 @@ class ResultsStrength extends Component {
           <div className="icon-brain">
             <div className="icon-brain-container">
               {/* Aqui podria ir una imagen */}
-              <h1>Hola</h1>
+              {/* <h1>Hola</h1> */}
             </div>
 
             <div className="analysis-strength">
