@@ -3,6 +3,7 @@ import ResultsBigFive from "./ResultsBigFive";
 import ResultsStength from "./ResultsStrength";
 
 class Results extends Component {
+  //Styles
   componentDidMount() {
     document.body.classList.toggle("landing-page");
   }

@@ -9,6 +9,7 @@
     "echarts-for-react": "^2.0.15-beta.0",
     "node-sass": "^4.11.0",
     "npm": "^6.9.0",
+    "perfect-scrollbar": "^1.4.0",
     "react": "^16.8.4",
     "react-chartjs-2": "^2.7.4",
     "react-dom": "^16.8.4",

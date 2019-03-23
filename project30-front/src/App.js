@@ -8,7 +8,10 @@ import Signup from "./components/auth/Signup";
 import Login from "./components/auth/Login";
 import AuthService from "./components/auth/AuthService";
 import ProtectedRoute from "./components/auth/protected-route";
+
+//Profile routes
 import Profile from "./components/Profile/Profile";
+
 import Recommendations from "./components/recommendations/Recommendations";
 import Footer from "./components/Footer/Footer";
 import Personality from "./components/personality/Personality";
@@ -74,6 +77,8 @@ class App extends Component {
               path="/"
               render={props => <LandingPage {...props} />}
             />
+
+            {/* Profile routes */}
             <ProtectedRoute
               exact
               path="/profile/:id"
