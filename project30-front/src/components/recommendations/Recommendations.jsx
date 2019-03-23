@@ -56,7 +56,7 @@ class Recommendations extends React.Component {
       .movieRecommendations(twitterUsername)
       .then(response => {
         this.setState({ recommendations: response });
-        console.log(response);
+       
         //Here we pass twitter username to App.js
         this.props.liftTwitter(this.state.twitterUsername);
       })

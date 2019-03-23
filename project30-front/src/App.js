@@ -57,12 +57,16 @@ class App extends Component {
     this.setState({ twitterUsername: twitterUsername });
   };
 
+
+
+
+  
   render() {
     const { redirect } = this.state;
     if (this.state.loggedUser) {
       return (
         <div className="App">
-          {redirect ? this.setState({ redirect: false }) : ""}
+          {redirect && this.setState({ redirect: false }) }
           {redirect ? <Redirect push to="/" /> : ""}
 
           {/*  NavBar */}

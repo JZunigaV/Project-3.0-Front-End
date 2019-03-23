@@ -54,6 +54,8 @@ class ProfilePage extends React.Component {
     profile: {},
     isLoading: false,
     isEditing: false,
+    location:"",
+    bio:"",
   };
 
   service = new ProfileService();
@@ -71,16 +73,14 @@ class ProfilePage extends React.Component {
     document.body.classList.toggle("profile-page");
 
     //Backend request to profile info
-    debugger;
-
+  
     this.setState({ isLoading: true });
     const { id: userId } = this.props.match.params;
-
     this.service
       .getUser(userId)
       .then(response => {
-        this.setState({ isLoading: false });
-        this.setState({ profile: response.profile });
+       
+        this.setState({ profile: response.profile, isLoading:false });
       })
       .catch(err => {
         this.setState({ isLoading: false });
@@ -95,6 +95,8 @@ class ProfilePage extends React.Component {
       document.documentElement.classList.remove("perfect-scrollbar-on");
     }
     document.body.classList.toggle("profile-page");
+
+ 
   };
 
   toggleTabs = (e, stateName, index) => {
@@ -110,11 +112,44 @@ class ProfilePage extends React.Component {
     this.setState({ isEditing: true });
   };
 
+  
+  //Form methods
+  onChange = event => {
+    this.setState({ [event.currentTarget.name]: event.currentTarget.value });
+  };
+
+  handleSubmit = (event) => {
+
+    event.preventDefault();
+    this.setState({ isLoading: true });
+    const userId = this.props.match.params;
+    const location = this.state.location;
+    const bio = this.state.bio;
+    this.service.createUpdateUser(userId,location,bio)
+    .then(profile => {
+      
+      this.setState({
+        profile:profile, 
+        location:"",
+        bio:"",
+        isLoading:false})
+    })
+    .catch(err => alert(err))
+
+  }
+
   render() {
+    
     debugger;
     const avatar = this.props.loggedInUser.avatarUrl;
     const userName = this.props.loggedInUser.username;
-    const location = this.state.profile.location;
+    var location = ""
+    var bio = ""
+    location = this.state.profile.location;
+       bio = this.state.profile.bio;
+       const hola = this.state.isLoading;
+
+ 
 
     return (
       <>
@@ -132,14 +167,18 @@ class ProfilePage extends React.Component {
             />
             <Container className="align-items-center">
               <Row>
+                {!this.state.profile.isLoading && 
                 <Col lg="6" md="6">
                   <h1 className="profile-title text-left">{userName}</h1>
 
                   <h5 className="text-on-back">01</h5>
                   <p className="profile-description">
-                    {this.state.profile.bio}
+                  {/* {this.state.profile.bio &&  */}
+                    {bio}
+                  {/* } */}
                   </p>
                 </Col>
+              }
                 <Col className="ml-auto mr-auto" lg="4" md="6">
                   <Card className="card-coin card-plain">
                     {!this.state.isLoading && (
@@ -149,8 +188,9 @@ class ProfilePage extends React.Component {
                           className="img-center img-fluid rounded-circle"
                           src={avatar}
                         />
-
-                        <h4 className="title">Country {location}</h4>
+                        
+                        <h4 className="title">Country {this.state.profile.location}</h4>
+                      
                         {/* Edit Profile Button */}
                         <Button
                           className="btn-simple"
@@ -167,17 +207,7 @@ class ProfilePage extends React.Component {
                         className="nav-tabs-primary justify-content-center"
                         tabs
                       >
-                        <NavItem>
-                          <NavLink
-                            className={classnames({
-                              active: this.state.tabs === 1,
-                            })}
-                            onClick={e => this.toggleTabs(e, "tabs", 1)}
-                            href="#pablo"
-                          >
-                            Wallet
-                          </NavLink>
-                        </NavItem>
+                     
 
                         {/* Edit navLink */}
                         {this.state.isEditing && (
@@ -187,7 +217,7 @@ class ProfilePage extends React.Component {
                                 active: this.state.tabs === 2,
                               })}
                               onClick={e => this.toggleTabs(e, "tabs", 2)}
-                              href="#pablo"
+                              href="#"
                             >
                               Send
                             </NavLink>
@@ -198,38 +228,11 @@ class ProfilePage extends React.Component {
                         className="tab-subcategories"
                         activeTab={"tab" + this.state.tabs}
                       >
-                        <TabPane tabId="tab1">
-                          <Table className="tablesorter" responsive>
-                            <thead className="text-primary">
-                              <tr>
-                                <th className="header">COIN</th>
-                                <th className="header">AMOUNT</th>
-                                <th className="header">VALUE</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>BTC</td>
-                                <td>7.342</td>
-                                <td>48,870.75 USD</td>
-                              </tr>
-                              <tr>
-                                <td>ETH</td>
-                                <td>30.737</td>
-                                <td>64,53.30 USD</td>
-                              </tr>
-                              <tr>
-                                <td>XRP</td>
-                                <td>19.242</td>
-                                <td>18,354.96 USD</td>
-                              </tr>
-                            </tbody>
-                          </Table>
-                        </TabPane>
+                      
 
                         {this.state.isEditing && (
                           <TabPane tabId="tab2">
-                            <Form>
+                            <Form onSubmit={this.handleSubmit}>
                               {/* Location */}
                               <Row>
                                 <Label sm="3">Location</Label>
@@ -240,6 +243,7 @@ class ProfilePage extends React.Component {
                                       type="text"
                                       name="location"
                                       onChange={this.onChange}
+                                      value={this.state.location}
                                     />
                                   </FormGroup>
                                 </Col>
@@ -253,6 +257,9 @@ class ProfilePage extends React.Component {
                                     <Input
                                       placeholder="tell us something about you"
                                       type="text"
+                                      onChange={this.onChange}
+                                      value={this.state.bio}
+                                      name="bio"
                                     />
                                   </FormGroup>
                                 </Col>
