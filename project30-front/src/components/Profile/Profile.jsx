@@ -15,7 +15,6 @@ import {
   FormGroup,
   Form,
   Input,
-  
   NavItem,
   NavLink,
   Nav,
@@ -25,7 +24,6 @@ import {
   Container,
   Row,
   Col,
-  
   UncontrolledCarousel
 } from "reactstrap";
 
@@ -55,7 +53,8 @@ class ProfilePage extends React.Component {
     isLoading: false,
     isEditing: false,
     location: "",
-    bio: ""
+    bio: "",
+    file: null
   };
 
   service = new ProfileService();
@@ -89,11 +88,11 @@ class ProfilePage extends React.Component {
   };
 
   componentWillUnmount = () => {
-    if (navigator.platform.indexOf("Win") > -1) {
-      ps.destroy();
-      document.documentElement.className += " perfect-scrollbar-off";
-      document.documentElement.classList.remove("perfect-scrollbar-on");
-    }
+    // if (navigator.platform.indexOf("Win") > -1) {
+    //   ps.destroy();
+    //   document.documentElement.className += " perfect-scrollbar-off";
+    //   document.documentElement.classList.remove("perfect-scrollbar-on");
+    // }
     document.body.classList.toggle("profile-page");
   };
 
@@ -110,32 +109,42 @@ class ProfilePage extends React.Component {
     this.setState({ isEditing: true });
   };
 
-  
-  handleSubmit = (event) => {
-
+  handleSubmit = event => {
     event.preventDefault();
+    debugger;
     this.setState({ isLoading: true });
     const userId = this.props.match.params;
     const location = this.state.location;
     const bio = this.state.bio;
-    this.service.createUpdateUser(userId,location,bio)
-    .then(response => {
-      
-      this.setState({
-        profile:response.profile, 
-        location:"",
-        bio:"",
-        isLoading:false})
-    })
-    .catch(err => alert(err))
+    this.service
+      .createUpdateUser(userId, location, bio)
+      .then(response => {
+        this.setState({
+          profile: response.profile,
+          location: "",
+          bio: "",
+          isLoading: false
+        });
+      })
+      .catch(err => alert(err));
+   
+      this.service.addPicture(this.state.file,userId)
+      .then(response => console.log(response))
+      .catch(err => console.log(err));
 
-  }
+  };
 
-
-  
   onChange = event => {
     this.setState({ [event.currentTarget.name]: event.currentTarget.value });
   };
+
+  handleChange(e) {
+    debugger;
+    this.setState({
+      file: e.target.files[0]
+    })
+  }
+ 
 
   render() {
     debugger;
@@ -226,7 +235,7 @@ class ProfilePage extends React.Component {
                         activeTab={"tab" + this.state.tabs}
                       >
                         <TabPane tabId="tab1">
-                          <Table className="tablesorter" responsive>
+                          {/* <Table className="tablesorter" responsive>
                             <thead className="text-primary">
                               <tr>
                                 <th className="header">COIN</th>
@@ -251,7 +260,7 @@ class ProfilePage extends React.Component {
                                 <td>18,354.96 USD</td>
                               </tr>
                             </tbody>
-                          </Table>
+                          </Table> */}
                         </TabPane>
 
                         {this.state.isEditing && (
@@ -288,6 +297,18 @@ class ProfilePage extends React.Component {
                                   </FormGroup>
                                 </Col>
                               </Row>
+
+
+                              <Row>
+                                <Label sm="3">Bio</Label>
+                                <Col sm="9">
+                                  <FormGroup>
+                                       <input type="file" onChange={(e)=>this.handleChange(e)} /> <br/>
+                                  </FormGroup>
+                                </Col>
+                              </Row>
+
+
 
                               <Button
                                 className="btn-simple btn-icon btn-round float-right"

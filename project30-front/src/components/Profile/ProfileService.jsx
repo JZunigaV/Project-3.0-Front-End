@@ -27,6 +27,35 @@ class ProfileService {
       .then(response => response.data)
       .catch(err => console.log(err));
   };
+
+   errHandler = err => {
+    // console.error(err);
+    if (err.response && err.response.data) {
+      // console.error("API response", err.response.data);
+      throw err.response.data.message
+    }
+    throw err;
+  }
+
+
+  
+  // Method addPicture
+  addPicture(file,userId) {
+    const formData = new FormData();
+    formData.append("picture", file)
+    formData.append("userId","5c8e6f7ff277d710c403a670")
+
+    return this.service
+      .post('/pictures', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        }
+      })
+      .then(res => res.data)
+      .catch(this.errHandler);
+  }
+
+
 }
 
 export default ProfileService;
