@@ -1,9 +1,8 @@
 import React from "react";
-import classnames from "classnames";
 
-// javascript plugin used to create scrollbars on windows
-import PerfectScrollbar from "perfect-scrollbar";
+//Services
 import ProfileService from "./ProfileService";
+import AuthService from "../auth/AuthService";
 
 // reactstrap components
 import {
@@ -15,11 +14,6 @@ import {
   FormGroup,
   Form,
   Input,
-  NavItem,
-  NavLink,
-  Nav,
-  TabContent,
-  TabPane,
   Container,
   Row,
   Col,
@@ -43,7 +37,6 @@ const carouselItems = [
     caption: "Stocks, United States"
   }
 ];
-let ps = null;
 
 class ProfilePage extends React.Component {
   state = {
@@ -51,22 +44,36 @@ class ProfilePage extends React.Component {
     profile: {},
     isLoading: false,
     isEditing: false,
+    avatarUrl: "",
     location: "",
     bio: "",
     file: null
   };
 
   service = new ProfileService();
+  authService = new AuthService();
+
+  componentWillMount = () => {
+    this.authService
+      .loggedin()
+      .then(user => {
+        this.setState({ avatarUrl: user.avatarUrl });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   componentDidMount = () => {
     //Profile styles
+    // let psa = null;
     if (navigator.platform.indexOf("Win") > -1) {
       document.documentElement.className += " perfect-scrollbar-on";
       document.documentElement.classList.remove("perfect-scrollbar-off");
-      let tables = document.querySelectorAll(".table-responsive");
-      for (let i = 0; i < tables.length; i++) {
-        ps = new PerfectScrollbar(tables[i]);
-      }
+      // let tables = document.querySelectorAll(".table-responsive");
+      // for (let i = 0; i < tables.length; i++) {
+      //   psa = new PerfectScrollbar(tables[i]);
+      // }
     }
     document.body.classList.toggle("profile-page");
 
@@ -87,11 +94,6 @@ class ProfilePage extends React.Component {
   };
 
   componentWillUnmount = () => {
-    // if (navigator.platform.indexOf("Win") > -1) {
-    //   ps.destroy();
-    //   document.documentElement.className += " perfect-scrollbar-off";
-    //   document.documentElement.classList.remove("perfect-scrollbar-on");
-    // }
     document.body.classList.toggle("profile-page");
   };
 
@@ -110,7 +112,6 @@ class ProfilePage extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    debugger;
     this.setState({ isLoading: true });
     const userId = this.props.match.params;
     const location = this.state.location;
@@ -118,19 +119,22 @@ class ProfilePage extends React.Component {
     this.service
       .createUpdateUser(userId, location, bio)
       .then(response => {
-        this.setState({
-          profile: response.profile,
-          location: "",
-          bio: "",
-          isLoading: false
-        });
+        this.service
+          .addPicture(this.state.file, userId)
+          .then(pictureData => {
+            this.setState({
+              profile: response.profile,
+              location: "",
+              bio: "",
+              twitterUsername: "",
+              avatarUrl: pictureData.pictureUrl,
+              isEditing: false,
+              isLoading: false
+            });
+          })
+          .catch(err => console.log(err));
       })
       .catch(err => alert(err));
-
-    this.service
-      .addPicture(this.state.file, userId)
-      .then(response => console.log(response))
-      .catch(err => console.log(err));
   };
 
   onChange = event => {
@@ -138,18 +142,14 @@ class ProfilePage extends React.Component {
   };
 
   handleChange(e) {
-    debugger;
     this.setState({
       file: e.target.files[0]
     });
   }
 
   render() {
-    debugger;
-    const avatar = this.props.loggedInUser.avatarUrl;
+    const avatar = this.state.avatarUrl;
     const userName = this.props.loggedInUser.username;
-
-    // const location = this.state.profile.location;
 
     return (
       <>
@@ -174,8 +174,7 @@ class ProfilePage extends React.Component {
 
                     <h5 className="text-on-back">01</h5>
                     <p className="profile-description">
-
-                      {(this.state.profile ? this.state.profile.bio : "")}
+                      {this.state.profile ? this.state.profile.bio : ""}
                     </p>
                   </Col>
                   <Col className="ml-auto mr-auto" lg="4" md="6">
@@ -188,7 +187,10 @@ class ProfilePage extends React.Component {
                         />
 
                         <h4 className="title">
-                          Country {this.state.profile ? this.state.profile.location : ""}
+                          Country{" "}
+                          {this.state.profile
+                            ? this.state.profile.location
+                            : ""}
                         </h4>
                         {/* Edit Profile Button */}
                         <Button
@@ -202,128 +204,83 @@ class ProfilePage extends React.Component {
                       </CardHeader>
 
                       <CardBody>
-                        <Nav
-                          className="nav-tabs-primary justify-content-center"
-                          tabs
-                        >
-                          <NavItem>
-                            <NavLink
-                              className={classnames({
-                                active: this.state.tabs === 1
-                              })}
-                              onClick={e => this.toggleTabs(e, "tabs", 1)}
-                              href="#pablo"
+                        {this.state.isEditing && (
+                          <Form onSubmit={this.handleSubmit}>
+                            {/* Location */}
+                            <Row>
+                              <Label sm="3">Location</Label>
+                              <Col sm="9">
+                                <FormGroup>
+                                  <Input
+                                    placeholder="from where are you visiting us"
+                                    type="text"
+                                    name="location"
+                                    onChange={this.onChange}
+                                    value={this.state.location}
+                                  />
+                                </FormGroup>
+                              </Col>
+                            </Row>
+
+                            {/* Bio */}
+                            <Row>
+                              <Label sm="3">Bio</Label>
+                              <Col sm="9">
+                                <FormGroup>
+                                  <Input
+                                    placeholder="tell us something about you"
+                                    type="text"
+                                    name="bio"
+                                    onChange={this.onChange}
+                                    value={this.state.bio}
+                                  />
+                                </FormGroup>
+                              </Col>
+                            </Row>
+
+                            {/* Twitter Url */}
+                            <Row>
+                              <Label sm="3">Twitter</Label>
+                              <Col sm="9">
+                                <FormGroup>
+                                  <Input
+                                    placeholder="twitter Username"
+                                    type="text"
+                                    name="bio"
+                                    onChange={this.onChange}
+                                    value={this.state.twitterUsername}
+                                  />
+                                </FormGroup>
+                              </Col>
+                            </Row>
+
+                            {/* Avatar */}
+                            <Row>
+                              <Label sm="3">Avatar:</Label>
+                              <Col sm="9">
+                                <FormGroup>
+                                  <Input
+                                    type="file"
+                                    name="file"
+                                    id="exampleFile"
+                                    onChange={e => this.handleChange(e)}
+                                    className="holaaa"
+                                  />
+
+                                  <br />
+                                </FormGroup>
+                              </Col>
+                            </Row>
+
+                            <Button
+                              className="btn-simple btn-icon btn-round float-right"
+                              color="primary"
+                              type="submit"
                             >
-                              Wallet
-                            </NavLink>
-                          </NavItem>
-
-                          {/* Edit navLink */}
-                          {this.state.isEditing && (
-                            <NavItem>
-                              <NavLink
-                                className={classnames({
-                                  active: this.state.tabs === 2
-                                })}
-                                onClick={e => this.toggleTabs(e, "tabs", 2)}
-                                href="#pablo"
-                              >
-                                Send
-                              </NavLink>
-                            </NavItem>
-                          )}
-                        </Nav>
-                        <TabContent
-                          className="tab-subcategories"
-                          activeTab={"tab" + this.state.tabs}
-                        >
-                          <TabPane tabId="tab1">
-                            {/* <Table className="tablesorter" responsive>
-                            <thead className="text-primary">
-                              <tr>
-                                <th className="header">COIN</th>
-                                <th className="header">AMOUNT</th>
-                                <th className="header">VALUE</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>BTC</td>
-                                <td>7.342</td>
-                                <td>48,870.75 USD</td>
-                              </tr>
-                              <tr>
-                                <td>ETH</td>
-                                <td>30.737</td>
-                                <td>64,53.30 USD</td>
-                              </tr>
-                              <tr>
-                                <td>XRP</td>
-                                <td>19.242</td>
-                                <td>18,354.96 USD</td>
-                              </tr>
-                            </tbody>
-                          </Table> */}
-                          </TabPane>
-
-                          {this.state.isEditing && (
-                            <TabPane tabId="tab2">
-                              <Form onSubmit={this.handleSubmit}>
-                                {/* Location */}
-                                <Row>
-                                  <Label sm="3">Location</Label>
-                                  <Col sm="9">
-                                    <FormGroup>
-                                      <Input
-                                        placeholder="from where are you visiting us"
-                                        type="text"
-                                        name="location"
-                                        onChange={this.onChange}
-                                        value={this.state.location}
-                                      />
-                                    </FormGroup>
-                                  </Col>
-                                </Row>
-
-                                {/* Bio */}
-                                <Row>
-                                  <Label sm="3">Bio</Label>
-                                  <Col sm="9">
-                                    <FormGroup>
-                                      <Input
-                                        placeholder="tell us something about you"
-                                        type="text"
-                                        name="bio"
-                                        onChange={this.onChange}
-                                        value={this.state.bio}
-                                      />
-                                    </FormGroup>
-                                  </Col>
-                                </Row>
-
-                                <Row>
-                                  <Label sm="3">Bio</Label>
-                                  <Col sm="9">
-                                    <FormGroup>
-
-                                    <Input type="file" name="file" id="exampleFile" onChange={e => this.handleChange(e)} className="holaaa" />
-                                  
-                                      <br />
-                                    </FormGroup>
-                                  </Col>
-                                </Row>
-
-                                <Button
-                                  className="btn-simple btn-icon btn-round float-right"
-                                  color="primary"
-                                  type="submit"
-                                >
-                                  <i className="tim-icons icon-send" />
-                                </Button>
-                              </Form>
-                            </TabPane>
-                          )}
-                        </TabContent>
+                              <i className="tim-icons icon-send" />
+                            </Button>
+                          </Form>
+                        )}
                       </CardBody>
                     </Card>
                   </Col>

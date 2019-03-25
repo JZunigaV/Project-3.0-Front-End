@@ -14,7 +14,7 @@ class ResultsBigFiveFacet extends Component {
             fontSize: 13,
           },
         },
-        //shape: "circle",
+        // shape: "circle",
         indicator: [
           {
             name: this.props.resultData[0]["name"],
@@ -33,6 +33,7 @@ class ResultsBigFiveFacet extends Component {
           type: "radar",
           symbolSize: "7",
           areaStyle: {
+            color:["rgba(64, 72, 79, 0.3)"],
             normal: {
               opacity: 0.3,
             },

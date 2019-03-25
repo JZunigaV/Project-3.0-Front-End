@@ -3,14 +3,31 @@ import React, { Component } from "react";
 // reactstrap components
 import {
   Button,
-  Modal,
+  Modal
   // Container
 } from "reactstrap";
 
 class MovieModal extends Component {
+
+
+  addFavorite = () => {
+    debugger;
+    let movie = {
+
+      background: this.props.background,
+      overview: this.props.overview,
+      title: this.props.title,
+      release: this.props.release,
+    
+    }
+
+    this.props.favorite(movie);
+  }
+
+
   render() {
     const backgorund = this.props.background;
-    
+
     return (
       <>
         {/* Sart movies Modal */}
@@ -26,17 +43,13 @@ class MovieModal extends Component {
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
               padding: "100px",
-              border: "2px solid black",
+              border: "2px solid black"
             }}
           >
             <button className="close" onClick={this.props.toggle}>
               <i className="tim-icons icon-simple-remove" />
             </button>
-            <h3
-              className="title title-up"
-              id="modal-title"
-            
-            >
+            <h3 className="title title-up" id="modal-title">
               {this.props.title}{" "}
             </h3>
           </div>
@@ -50,6 +63,10 @@ class MovieModal extends Component {
           <div className="modal-footer">
             <Button color="danger" type="button" onClick={this.props.toggle}>
               Close
+            </Button>
+
+            <Button color="primary" type="button" onClick={this.addFavorite}>
+              Add to favorites
             </Button>
           </div>
         </Modal>

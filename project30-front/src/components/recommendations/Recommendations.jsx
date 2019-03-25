@@ -73,6 +73,13 @@ class Recommendations extends React.Component {
     });
   };
 
+  favoriteHandler = (movie) => {
+    //Here we have to send parameters to our backend route profile
+    debugger;
+    alert("movie added to favorites: " +  movie.title)
+  }
+
+
   render() {
     //Javascript
     //Style in card tasks.sass
@@ -199,6 +206,7 @@ class Recommendations extends React.Component {
                 this.state.movieDetail.backdrop
               }`}
               release={this.state.movieDetail.release}
+              favorite={this.favoriteHandler}
             />
           )}
         </div>

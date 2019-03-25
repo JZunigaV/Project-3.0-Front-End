@@ -53,7 +53,7 @@ class App extends Component {
 
   //personality handler
   setTwitter = twitterUsername => {
-    debugger;
+    
     this.setState({ twitterUsername: twitterUsername });
   };
 
