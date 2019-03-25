@@ -18,7 +18,6 @@ import {
   NavItem,
   NavLink,
   Nav,
-  Table,
   TabContent,
   TabPane,
   Container,
@@ -127,11 +126,11 @@ class ProfilePage extends React.Component {
         });
       })
       .catch(err => alert(err));
-   
-      this.service.addPicture(this.state.file,userId)
+
+    this.service
+      .addPicture(this.state.file, userId)
       .then(response => console.log(response))
       .catch(err => console.log(err));
-
   };
 
   onChange = event => {
@@ -142,15 +141,15 @@ class ProfilePage extends React.Component {
     debugger;
     this.setState({
       file: e.target.files[0]
-    })
+    });
   }
- 
 
   render() {
     debugger;
     const avatar = this.props.loggedInUser.avatarUrl;
     const userName = this.props.loggedInUser.username;
-    const location = this.state.profile.location;
+
+    // const location = this.state.profile.location;
 
     return (
       <>
@@ -166,27 +165,31 @@ class ProfilePage extends React.Component {
               className="path"
               src={require("../../assets/img/path4.png")}
             />
-            <Container className="align-items-center">
-              <Row>
-                <Col lg="6" md="6">
-                  <h1 className="profile-title text-left">{userName}</h1>
 
-                  <h5 className="text-on-back">01</h5>
-                  <p className="profile-description">
-                    {this.state.profile.bio}
-                  </p>
-                </Col>
-                <Col className="ml-auto mr-auto" lg="4" md="6">
-                  <Card className="card-coin card-plain">
-                    {!this.state.isLoading && (
+            <Container className="align-items-center">
+              {!this.state.isLoading && (
+                <Row>
+                  <Col lg="6" md="6">
+                    <h1 className="profile-title text-left">{userName}</h1>
+
+                    <h5 className="text-on-back">01</h5>
+                    <p className="profile-description">
+
+                      {(this.state.profile ? this.state.profile.bio : "")}
+                    </p>
+                  </Col>
+                  <Col className="ml-auto mr-auto" lg="4" md="6">
+                    <Card className="card-coin card-plain">
                       <CardHeader>
                         <img
-                          alt={this.state.profile.handle}
+                          alt="avatar"
                           className="img-center img-fluid rounded-circle"
                           src={avatar}
                         />
 
-                        <h4 className="title">Country {location}</h4>
+                        <h4 className="title">
+                          Country {this.state.profile ? this.state.profile.location : ""}
+                        </h4>
                         {/* Edit Profile Button */}
                         <Button
                           className="btn-simple"
@@ -197,45 +200,45 @@ class ProfilePage extends React.Component {
                           Profile
                         </Button>
                       </CardHeader>
-                    )}
-                    <CardBody>
-                      <Nav
-                        className="nav-tabs-primary justify-content-center"
-                        tabs
-                      >
-                        <NavItem>
-                          <NavLink
-                            className={classnames({
-                              active: this.state.tabs === 1
-                            })}
-                            onClick={e => this.toggleTabs(e, "tabs", 1)}
-                            href="#pablo"
-                          >
-                            Wallet
-                          </NavLink>
-                        </NavItem>
 
-                        {/* Edit navLink */}
-                        {this.state.isEditing && (
+                      <CardBody>
+                        <Nav
+                          className="nav-tabs-primary justify-content-center"
+                          tabs
+                        >
                           <NavItem>
                             <NavLink
                               className={classnames({
-                                active: this.state.tabs === 2
+                                active: this.state.tabs === 1
                               })}
-                              onClick={e => this.toggleTabs(e, "tabs", 2)}
+                              onClick={e => this.toggleTabs(e, "tabs", 1)}
                               href="#pablo"
                             >
-                              Send
+                              Wallet
                             </NavLink>
                           </NavItem>
-                        )}
-                      </Nav>
-                      <TabContent
-                        className="tab-subcategories"
-                        activeTab={"tab" + this.state.tabs}
-                      >
-                        <TabPane tabId="tab1">
-                          {/* <Table className="tablesorter" responsive>
+
+                          {/* Edit navLink */}
+                          {this.state.isEditing && (
+                            <NavItem>
+                              <NavLink
+                                className={classnames({
+                                  active: this.state.tabs === 2
+                                })}
+                                onClick={e => this.toggleTabs(e, "tabs", 2)}
+                                href="#pablo"
+                              >
+                                Send
+                              </NavLink>
+                            </NavItem>
+                          )}
+                        </Nav>
+                        <TabContent
+                          className="tab-subcategories"
+                          activeTab={"tab" + this.state.tabs}
+                        >
+                          <TabPane tabId="tab1">
+                            {/* <Table className="tablesorter" responsive>
                             <thead className="text-primary">
                               <tr>
                                 <th className="header">COIN</th>
@@ -261,70 +264,71 @@ class ProfilePage extends React.Component {
                               </tr>
                             </tbody>
                           </Table> */}
-                        </TabPane>
-
-                        {this.state.isEditing && (
-                          <TabPane tabId="tab2">
-                            <Form onSubmit={this.handleSubmit}>
-                              {/* Location */}
-                              <Row>
-                                <Label sm="3">Location</Label>
-                                <Col sm="9">
-                                  <FormGroup>
-                                    <Input
-                                      placeholder="from where are you visiting us"
-                                      type="text"
-                                      name="location"
-                                      onChange={this.onChange}
-                                      value={this.state.location}
-                                    />
-                                  </FormGroup>
-                                </Col>
-                              </Row>
-
-                              {/* Bio */}
-                              <Row>
-                                <Label sm="3">Bio</Label>
-                                <Col sm="9">
-                                  <FormGroup>
-                                    <Input
-                                      placeholder="tell us something about you"
-                                      type="text"
-                                      name="bio"
-                                      onChange={this.onChange}
-                                      value={this.state.bio}
-                                    />
-                                  </FormGroup>
-                                </Col>
-                              </Row>
-
-
-                              <Row>
-                                <Label sm="3">Bio</Label>
-                                <Col sm="9">
-                                  <FormGroup>
-                                       <input type="file" onChange={(e)=>this.handleChange(e)} /> <br/>
-                                  </FormGroup>
-                                </Col>
-                              </Row>
-
-
-
-                              <Button
-                                className="btn-simple btn-icon btn-round float-right"
-                                color="primary"
-                                type="submit"
-                              >
-                                <i className="tim-icons icon-send" />
-                              </Button>
-                            </Form>
                           </TabPane>
-                        )}
-                      </TabContent>
-                    </CardBody>
-                  </Card>
-                </Col>
-              </Row>
+
+                          {this.state.isEditing && (
+                            <TabPane tabId="tab2">
+                              <Form onSubmit={this.handleSubmit}>
+                                {/* Location */}
+                                <Row>
+                                  <Label sm="3">Location</Label>
+                                  <Col sm="9">
+                                    <FormGroup>
+                                      <Input
+                                        placeholder="from where are you visiting us"
+                                        type="text"
+                                        name="location"
+                                        onChange={this.onChange}
+                                        value={this.state.location}
+                                      />
+                                    </FormGroup>
+                                  </Col>
+                                </Row>
+
+                                {/* Bio */}
+                                <Row>
+                                  <Label sm="3">Bio</Label>
+                                  <Col sm="9">
+                                    <FormGroup>
+                                      <Input
+                                        placeholder="tell us something about you"
+                                        type="text"
+                                        name="bio"
+                                        onChange={this.onChange}
+                                        value={this.state.bio}
+                                      />
+                                    </FormGroup>
+                                  </Col>
+                                </Row>
+
+                                <Row>
+                                  <Label sm="3">Bio</Label>
+                                  <Col sm="9">
+                                    <FormGroup>
+
+                                    <Input type="file" name="file" id="exampleFile" onChange={e => this.handleChange(e)} className="holaaa" />
+                                  
+                                      <br />
+                                    </FormGroup>
+                                  </Col>
+                                </Row>
+
+                                <Button
+                                  className="btn-simple btn-icon btn-round float-right"
+                                  color="primary"
+                                  type="submit"
+                                >
+                                  <i className="tim-icons icon-send" />
+                                </Button>
+                              </Form>
+                            </TabPane>
+                          )}
+                        </TabContent>
+                      </CardBody>
+                    </Card>
+                  </Col>
+                </Row>
+              )}
             </Container>
           </div>
 
