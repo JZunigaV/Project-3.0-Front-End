@@ -17,25 +17,25 @@ import {
   Container,
   Row,
   Col,
-  UncontrolledCarousel
+  UncontrolledCarousel,
 } from "reactstrap";
 
 const carouselItems = [
   {
     src: require("../../assets/img/denys.jpg"),
     altText: "Slide 1",
-    caption: "Big City Life, United States"
+    caption: "Big City Life, United States",
   },
   {
     src: require("../../assets/img/fabien-bazanegue.jpg"),
     altText: "Slide 2",
-    caption: "Somewhere Beyond, United States"
+    caption: "Somewhere Beyond, United States",
   },
   {
     src: require("../../assets/img/mark-finn.jpg"),
     altText: "Slide 3",
-    caption: "Stocks, United States"
-  }
+    caption: "Stocks, United States",
+  },
 ];
 
 class ProfilePage extends React.Component {
@@ -47,13 +47,14 @@ class ProfilePage extends React.Component {
     avatarUrl: "",
     location: "",
     bio: "",
-    file: null
+    file: null,
   };
 
   service = new ProfileService();
   authService = new AuthService();
 
   componentWillMount = () => {
+    debugger;
     this.authService
       .loggedin()
       .then(user => {
@@ -66,14 +67,10 @@ class ProfilePage extends React.Component {
 
   componentDidMount = () => {
     //Profile styles
-    // let psa = null;
+
     if (navigator.platform.indexOf("Win") > -1) {
       document.documentElement.className += " perfect-scrollbar-on";
       document.documentElement.classList.remove("perfect-scrollbar-off");
-      // let tables = document.querySelectorAll(".table-responsive");
-      // for (let i = 0; i < tables.length; i++) {
-      //   psa = new PerfectScrollbar(tables[i]);
-      // }
     }
     document.body.classList.toggle("profile-page");
 
@@ -100,7 +97,7 @@ class ProfilePage extends React.Component {
   toggleTabs = (e, stateName, index) => {
     e.preventDefault();
     this.setState({
-      [stateName]: index
+      [stateName]: index,
     });
   };
 
@@ -129,7 +126,7 @@ class ProfilePage extends React.Component {
               twitterUsername: "",
               avatarUrl: pictureData.pictureUrl,
               isEditing: false,
-              isLoading: false
+              isLoading: false,
             });
           })
           .catch(err => console.log(err));
@@ -143,7 +140,7 @@ class ProfilePage extends React.Component {
 
   handleChange(e) {
     this.setState({
-      file: e.target.files[0]
+      file: e.target.files[0],
     });
   }
 

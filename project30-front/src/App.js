@@ -53,20 +53,15 @@ class App extends Component {
 
   //personality handler
   setTwitter = twitterUsername => {
-    
     this.setState({ twitterUsername: twitterUsername });
   };
 
-
-
-
-  
   render() {
     const { redirect } = this.state;
     if (this.state.loggedUser) {
       return (
         <div className="App">
-          {redirect && this.setState({ redirect: false }) }
+          {redirect && this.setState({ redirect: false })}
           {redirect ? <Redirect push to="/" /> : ""}
 
           {/*  NavBar */}
@@ -135,6 +130,14 @@ class App extends Component {
               render={props => <LandingPage {...props} />}
             />
 
+            <ProtectedRoute
+              exact
+              path="/recommendations"
+              component={Recommendations}
+              user={this.state.loggedUser}
+              liftTwitter={this.setTwitter}
+            />
+            {/* 
             <Route
               exact
               path="/recommendations"
@@ -144,7 +147,7 @@ class App extends Component {
                   user={this.state.loggedUser}
                 />
               )}
-            />
+            /> */}
 
             <Route
               exact

@@ -18,7 +18,7 @@ import {
   Card,
   CardBody,
   CardHeader,
-  CardTitle
+  CardTitle,
   // Modal,
 
   // Container
@@ -30,7 +30,7 @@ class Recommendations extends React.Component {
     twitterUsername: "",
     recommendations: [],
     modal: false,
-    movieDetail: {}
+    movieDetail: {},
   };
 
   componentDidMount() {
@@ -56,7 +56,7 @@ class Recommendations extends React.Component {
       .movieRecommendations(twitterUsername)
       .then(response => {
         this.setState({ recommendations: response });
-       
+
         //Here we pass twitter username to App.js
         this.props.liftTwitter(this.state.twitterUsername);
       })
@@ -69,16 +69,20 @@ class Recommendations extends React.Component {
   toggleModal = (modalState, details) => {
     this.setState({
       [modalState]: !this.state[modalState],
-      movieDetail: details
+      movieDetail: details,
     });
   };
 
-  favoriteHandler = (movie) => {
+  favoriteHandler = movie => {
     //Here we have to send parameters to our backend route profile
     debugger;
-    alert("movie added to favorites: " +  movie.title)
-  }
 
+    alert(
+      `Movie added to facorites ${movie.title} for the user ${
+        this.props.loggedInUser._id
+      }`,
+    );
+  };
 
   render() {
     //Javascript
@@ -90,7 +94,7 @@ class Recommendations extends React.Component {
             overview: movie.overview,
             title: movie.original_title,
             backdrop: movie.backdrop_path,
-            release: movie.release_date
+            release: movie.release_date,
           };
 
           return (
@@ -137,7 +141,7 @@ class Recommendations extends React.Component {
                     {/* twitter username */}
                     <InputGroup
                       className={classnames({
-                        "input-group-focus": this.state.fullNameFocus
+                        "input-group-focus": this.state.fullNameFocus,
                       })}
                     >
                       <InputGroupAddon addonType="prepend">
