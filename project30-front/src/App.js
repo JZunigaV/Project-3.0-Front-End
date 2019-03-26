@@ -137,19 +137,8 @@ class App extends Component {
               user={this.state.loggedUser}
               liftTwitter={this.setTwitter}
             />
-            {/* 
-            <Route
-              exact
-              path="/recommendations"
-              render={() => (
-                <Recommendations
-                  liftTwitter={this.setTwitter}
-                  user={this.state.loggedUser}
-                />
-              )}
-            /> */}
 
-            <Route
+            <ProtectedRoute
               exact
               path="/personality"
               render={() => (
@@ -158,6 +147,14 @@ class App extends Component {
                   user={this.state.loggedUser}
                 />
               )}
+            />
+
+            {/* Profile routes */}
+            <ProtectedRoute
+              exact
+              path="/profile/:id"
+              component={Profile}
+              user={this.state.loggedUser}
             />
           </Switch>
 

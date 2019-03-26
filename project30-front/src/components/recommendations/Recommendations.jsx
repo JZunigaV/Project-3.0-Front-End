@@ -19,7 +19,7 @@ import {
   Card,
   CardBody,
   CardHeader,
-  CardTitle
+  CardTitle,
   // Modal,
 
   // Container
@@ -31,7 +31,7 @@ class Recommendations extends React.Component {
     twitterUsername: "",
     recommendations: [],
     modal: false,
-    movieDetail: {}
+    movieDetail: {},
   };
 
   componentDidMount() {
@@ -71,7 +71,7 @@ class Recommendations extends React.Component {
   toggleModal = (modalState, details) => {
     this.setState({
       [modalState]: !this.state[modalState],
-      movieDetail: details
+      movieDetail: details,
     });
   };
 
@@ -94,7 +94,8 @@ class Recommendations extends React.Component {
             overview: movie.overview,
             title: movie.original_title,
             backdrop: movie.backdrop_path,
-            release: movie.release_date
+            release: movie.release_date,
+            posterPath: movie.poster_path,
           };
 
           return (
@@ -141,7 +142,7 @@ class Recommendations extends React.Component {
                     {/* twitter username */}
                     <InputGroup
                       className={classnames({
-                        "input-group-focus": this.state.fullNameFocus
+                        "input-group-focus": this.state.fullNameFocus,
                       })}
                     >
                       <InputGroupAddon addonType="prepend">
@@ -210,6 +211,7 @@ class Recommendations extends React.Component {
                 this.state.movieDetail.backdrop
               }`}
               release={this.state.movieDetail.release}
+              posterPath={this.state.movieDetail.posterPath}
               favorite={this.favoriteHandler}
             />
           )}

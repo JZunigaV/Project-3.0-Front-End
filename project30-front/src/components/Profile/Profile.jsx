@@ -10,6 +10,7 @@ import {
   Card,
   CardHeader,
   CardBody,
+  CardTitle,
   Label,
   FormGroup,
   Form,
@@ -17,26 +18,8 @@ import {
   Container,
   Row,
   Col,
-  UncontrolledCarousel
+  UncontrolledCarousel,
 } from "reactstrap";
-
-const carouselItems = [
-  {
-    src: require("../../assets/img/denys.jpg"),
-    altText: "Slide 1",
-    caption: "Big City Life, United States"
-  },
-  {
-    src: require("../../assets/img/fabien-bazanegue.jpg"),
-    altText: "Slide 2",
-    caption: "Somewhere Beyond, United States"
-  },
-  {
-    src: require("../../assets/img/mark-finn.jpg"),
-    altText: "Slide 3",
-    caption: "Stocks, United States"
-  }
-];
 
 class ProfilePage extends React.Component {
   state = {
@@ -48,38 +31,57 @@ class ProfilePage extends React.Component {
     location: "",
     bio: "",
     file: null,
-    favoriteMovies: []
+    favoriteMovies: [],
+    carouselItems: [],
   };
 
+  carouselItems = [];
   service = new ProfileService();
   authService = new AuthService();
 
+  //Method that triggers when the component loads,  where we get the avatar url and favorite movies
   componentWillMount = () => {
-    debugger;
+    let newItem = {};
+    this.setState({ isLoading: true });
     this.authService
       .loggedin()
       .then(user => {
-        
         this.setState({ avatarUrl: user.avatarUrl });
         this.service
           .getFavorites(user._id)
           .then(favoriteRes => {
-            console.log(favoriteRes);
+            this.setState({ favoriteMovies: favoriteRes.favoriteMovies });
+            //Fill the carousel items object
+            this.state.favoriteMovies.map((ele, index) => {
+              newItem = {
+                src: ele.background,
+                altText: ele.title,
+                caption: ele.overview,
+                pictureId: ele._id,
+              };
+              if (this.carouselItems.indexOf(newItem.pictureId) === -1) {
+                this.carouselItems.push(newItem);
+              }
+
+              return this.carouselItems;
+            });
+
+            this.setState({ isLoading: false });
           })
           .catch(err => {
             console.log(err);
+            this.setState({ isLoading: false });
           });
-
-
       })
       .catch(error => {
         console.log(error);
+        this.setState({ isLoading: false });
       });
   };
 
+  //Here we make requests to get profile info
   componentDidMount = () => {
     //Profile styles
-
     if (navigator.platform.indexOf("Win") > -1) {
       document.documentElement.className += " perfect-scrollbar-on";
       document.documentElement.classList.remove("perfect-scrollbar-off");
@@ -102,23 +104,18 @@ class ProfilePage extends React.Component {
       });
   };
 
+  //Clear style when componen unmounts
   componentWillUnmount = () => {
     document.body.classList.toggle("profile-page");
   };
 
-  toggleTabs = (e, stateName, index) => {
-    e.preventDefault();
-    this.setState({
-      [stateName]: index
-    });
-  };
-
-  //Handle Edit
+  //Handle Edit Profile Button
   handleEdit = event => {
     event.preventDefault();
     this.setState({ isEditing: true });
   };
 
+  //Handle edit profile form submit
   handleSubmit = event => {
     event.preventDefault();
     this.setState({ isLoading: true });
@@ -138,7 +135,7 @@ class ProfilePage extends React.Component {
               twitterUsername: "",
               avatarUrl: pictureData.pictureUrl,
               isEditing: false,
-              isLoading: false
+              isLoading: false,
             });
           })
           .catch(err => console.log(err));
@@ -146,19 +143,60 @@ class ProfilePage extends React.Component {
       .catch(err => alert(err));
   };
 
+  //Inputs on  change Method
   onChange = event => {
     this.setState({ [event.currentTarget.name]: event.currentTarget.value });
   };
 
+  //Picture change Method
   handleChange(e) {
     this.setState({
-      file: e.target.files[0]
+      file: e.target.files[0],
     });
   }
 
+  //Render Method
   render() {
     const avatar = this.state.avatarUrl;
     const userName = this.props.loggedInUser.username;
+
+    //Style in card tasks.sass
+
+    debugger;
+    if ((this.state.favoriteMovies || []).length > 0) {
+      var movies = this.state.favoriteMovies.map(movie => {
+        const details = {
+          overview: movie.overview,
+          title: movie.title,
+          backdrop: movie.background,
+          release: movie.release,
+          posterPath: movie.posterPath,
+        };
+
+        return (
+          <Card className="card-movies" key={movie._id}>
+            <CardHeader>
+              <img
+                className="img-fluid rounded shadow-lg"
+                src={`http://image.tmdb.org/t/p/w185/${movie.posterPath}`}
+                alt={movie.title}
+              />
+            </CardHeader>
+
+            <CardBody>
+              <CardTitle tag="h3">{movie.title}</CardTitle>
+
+              <Button
+                color="success"
+                onClick={() => this.toggleModal("modal", details)}
+              >
+                View movie details
+              </Button>
+            </CardBody>
+          </Card>
+        );
+      });
+    }
 
     return (
       <>
@@ -299,44 +337,50 @@ class ProfilePage extends React.Component {
           </div>
 
           {/* Favorite movies */}
-          <div className="section">
-            <Container>
-              <Row className="justify-content-between">
-                <Col md="6">
-                  <Row className="justify-content-between align-items-center">
-                    <UncontrolledCarousel items={carouselItems} />
-                  </Row>
-                </Col>
-                <Col md="5">
-                  <h1 className="profile-title text-left">Favorite movies</h1>
-                  <h5 className="text-on-back">02</h5>
-                  <p className="profile-description text-left">
-                    An artist of considerable range, Ryan — the name taken by
-                    Melbourne-raised, Brooklyn-based Nick Murphy — writes,
-                    performs and records all of his own music, giving it a warm,
-                    intimate feel with a solid groove structure. An artist of
-                    considerable range.
-                  </p>
 
-                  <div className="btn-wrapper pt-3">
-                    <Button className="btn-simple" color="primary">
-                      <i className="tim-icons icon-book-bookmark" /> Edit
-                      Profile
-                    </Button>
+          {!this.state.isLoading && (
+            <div className="section">
+              <Container>
+                <Row className="justify-content-between">
+                  <Col md="6">
+                    <Row className="justify-content-between align-items-center">
+                      <UncontrolledCarousel
+                        items={this.carouselItems}
+                        key={this.carouselItems.pictureId}
+                      />
+                    </Row>
+                  </Col>
+                  <Col md="5">
+                    <h1 className="profile-title text-left">Favorite movies</h1>
+                    <h5 className="text-on-back">02</h5>
+                    <p className="profile-description text-left">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Laboriosam consectetur provident iusto commodi est quis
+                      earum magnam aliquid cupiditate harum quibusdam aliquam
+                      pariatur quo maiores, eos nemo fugiat itaque? Ad.
+                    </p>
+                    <div> {movies}</div>
 
-                    <Button
-                      className="btn-simple"
-                      color="info"
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                    >
-                      <i className="tim-icons icon-bulb-63" /> Check it!
-                    </Button>
-                  </div>
-                </Col>
-              </Row>
-            </Container>
-          </div>
+                    <div className="btn-wrapper pt-3">
+                      <Button className="btn-simple" color="primary">
+                        <i className="tim-icons icon-book-bookmark" /> Edit
+                        Profile
+                      </Button>
+
+                      <Button
+                        className="btn-simple"
+                        color="info"
+                        href="#pablo"
+                        onClick={e => e.preventDefault()}
+                      >
+                        <i className="tim-icons icon-bulb-63" /> Check it!
+                      </Button>
+                    </div>
+                  </Col>
+                </Row>
+              </Container>
+            </div>
+          )}
         </div>
       </>
     );
