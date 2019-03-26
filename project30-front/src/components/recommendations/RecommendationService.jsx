@@ -27,6 +27,12 @@ class RecommendationService {
         console.log(err);
       });
   };
+
+
+    
+  
+
+
 }
 
 export default RecommendationService;

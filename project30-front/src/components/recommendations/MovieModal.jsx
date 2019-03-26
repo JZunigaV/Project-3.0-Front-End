@@ -13,12 +13,10 @@ class MovieModal extends Component {
   addFavorite = () => {
     debugger;
     let movie = {
-
       background: this.props.background,
       overview: this.props.overview,
       title: this.props.title,
-      release: this.props.release,
-    
+      release: this.props.release,   
     }
 
     this.props.favorite(movie);

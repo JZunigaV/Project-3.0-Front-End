@@ -3,6 +3,7 @@ import classnames from "classnames";
 import { Link } from "react-router-dom";
 //Service
 import RecommendationService from "./RecommendationService";
+import ProfileService from "../Profile/ProfileService";
 import MovieModal from "./MovieModal";
 
 // reactstrap components
@@ -18,7 +19,7 @@ import {
   Card,
   CardBody,
   CardHeader,
-  CardTitle,
+  CardTitle
   // Modal,
 
   // Container
@@ -30,7 +31,7 @@ class Recommendations extends React.Component {
     twitterUsername: "",
     recommendations: [],
     modal: false,
-    movieDetail: {},
+    movieDetail: {}
   };
 
   componentDidMount() {
@@ -42,6 +43,7 @@ class Recommendations extends React.Component {
 
   //Service instance
   service = new RecommendationService();
+  profileService = new ProfileService();
 
   //Form handle methods
   onChange = event => {
@@ -69,19 +71,17 @@ class Recommendations extends React.Component {
   toggleModal = (modalState, details) => {
     this.setState({
       [modalState]: !this.state[modalState],
-      movieDetail: details,
+      movieDetail: details
     });
   };
 
   favoriteHandler = movie => {
     //Here we have to send parameters to our backend route profile
     debugger;
-
-    alert(
-      `Movie added to facorites ${movie.title} for the user ${
-        this.props.loggedInUser._id
-      }`,
-    );
+    this.profileService
+      .addFavorite(this.props.loggedInUser._id, movie)
+      .then(movie => alert(movie))
+      .catch(err => console.log(err));
   };
 
   render() {
@@ -94,7 +94,7 @@ class Recommendations extends React.Component {
             overview: movie.overview,
             title: movie.original_title,
             backdrop: movie.backdrop_path,
-            release: movie.release_date,
+            release: movie.release_date
           };
 
           return (
@@ -141,7 +141,7 @@ class Recommendations extends React.Component {
                     {/* twitter username */}
                     <InputGroup
                       className={classnames({
-                        "input-group-focus": this.state.fullNameFocus,
+                        "input-group-focus": this.state.fullNameFocus
                       })}
                     >
                       <InputGroupAddon addonType="prepend">

@@ -17,25 +17,25 @@ import {
   Container,
   Row,
   Col,
-  UncontrolledCarousel,
+  UncontrolledCarousel
 } from "reactstrap";
 
 const carouselItems = [
   {
     src: require("../../assets/img/denys.jpg"),
     altText: "Slide 1",
-    caption: "Big City Life, United States",
+    caption: "Big City Life, United States"
   },
   {
     src: require("../../assets/img/fabien-bazanegue.jpg"),
     altText: "Slide 2",
-    caption: "Somewhere Beyond, United States",
+    caption: "Somewhere Beyond, United States"
   },
   {
     src: require("../../assets/img/mark-finn.jpg"),
     altText: "Slide 3",
-    caption: "Stocks, United States",
-  },
+    caption: "Stocks, United States"
+  }
 ];
 
 class ProfilePage extends React.Component {
@@ -48,6 +48,7 @@ class ProfilePage extends React.Component {
     location: "",
     bio: "",
     file: null,
+    favoriteMovies: []
   };
 
   service = new ProfileService();
@@ -58,7 +59,18 @@ class ProfilePage extends React.Component {
     this.authService
       .loggedin()
       .then(user => {
+        
         this.setState({ avatarUrl: user.avatarUrl });
+        this.service
+          .getFavorites(user._id)
+          .then(favoriteRes => {
+            console.log(favoriteRes);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+
+
       })
       .catch(error => {
         console.log(error);
@@ -97,7 +109,7 @@ class ProfilePage extends React.Component {
   toggleTabs = (e, stateName, index) => {
     e.preventDefault();
     this.setState({
-      [stateName]: index,
+      [stateName]: index
     });
   };
 
@@ -126,7 +138,7 @@ class ProfilePage extends React.Component {
               twitterUsername: "",
               avatarUrl: pictureData.pictureUrl,
               isEditing: false,
-              isLoading: false,
+              isLoading: false
             });
           })
           .catch(err => console.log(err));
@@ -140,7 +152,7 @@ class ProfilePage extends React.Component {
 
   handleChange(e) {
     this.setState({
-      file: e.target.files[0],
+      file: e.target.files[0]
     });
   }
 

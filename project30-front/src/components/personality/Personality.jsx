@@ -33,7 +33,6 @@ class Personality extends Component {
   componentWillUnmount = () => {
     this.setState({ responseData: {}, isLoading: true });
   };
-
   render() {
     console.log(this.props);
 
