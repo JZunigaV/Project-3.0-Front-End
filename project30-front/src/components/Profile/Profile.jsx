@@ -62,7 +62,6 @@ class ProfilePage extends React.Component {
               if (this.carouselItems.indexOf(newItem.pictureId) === -1) {
                 this.carouselItems.push(newItem);
               }
-
               return this.carouselItems;
             });
 
@@ -339,47 +338,57 @@ class ProfilePage extends React.Component {
           {/* Favorite movies */}
 
           {!this.state.isLoading && (
-            <div className="section">
-              <Container>
-                <Row className="justify-content-between">
-                  <Col md="6">
-                    <Row className="justify-content-between align-items-center">
-                      <UncontrolledCarousel
-                        items={this.carouselItems}
-                        key={this.carouselItems.pictureId}
-                      />
-                    </Row>
-                  </Col>
-                  <Col md="5">
-                    <h1 className="profile-title text-left">Favorite movies</h1>
-                    <h5 className="text-on-back">02</h5>
-                    <p className="profile-description text-left">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Laboriosam consectetur provident iusto commodi est quis
-                      earum magnam aliquid cupiditate harum quibusdam aliquam
-                      pariatur quo maiores, eos nemo fugiat itaque? Ad.
-                    </p>
-                    <div> {movies}</div>
+            <>
+              <div className="wrapper" style={{ marginTop: "100px" }}>
+                <div className="content-center">
+                  <Col lg="4" md="4" className="col-sm" />
+                  <Row>{movies}</Row>
+                </div>
+              </div>
 
-                    <div className="btn-wrapper pt-3">
-                      <Button className="btn-simple" color="primary">
-                        <i className="tim-icons icon-book-bookmark" /> Edit
-                        Profile
-                      </Button>
+              <div className="section">
+                <Container>
+                  <Row className="justify-content-between">
+                    <Col md="6">
+                      <Row className="justify-content-between align-items-center">
+                        <UncontrolledCarousel
+                          items={this.carouselItems}
+                          key={this.carouselItems.pictureId}
+                        />
+                      </Row>
+                    </Col>
+                    <Col md="5">
+                      <h1 className="profile-title text-left">
+                        Favorite movies
+                      </h1>
+                      <h5 className="text-on-back">02</h5>
+                      <p className="profile-description text-left">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Laboriosam consectetur provident iusto commodi est quis
+                        earum magnam aliquid cupiditate harum quibusdam aliquam
+                        pariatur quo maiores, eos nemo fugiat itaque? Ad.
+                      </p>
 
-                      <Button
-                        className="btn-simple"
-                        color="info"
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                      >
-                        <i className="tim-icons icon-bulb-63" /> Check it!
-                      </Button>
-                    </div>
-                  </Col>
-                </Row>
-              </Container>
-            </div>
+                      <div className="btngit -wrapper pt-3">
+                        <Button className="btn-simple" color="primary">
+                          <i className="tim-icons icon-book-bookmark" /> Edit
+                          Profile
+                        </Button>
+
+                        <Button
+                          className="btn-simple"
+                          color="info"
+                          href="#pablo"
+                          onClick={e => e.preventDefault()}
+                        >
+                          <i className="tim-icons icon-bulb-63" /> Check it!
+                        </Button>
+                      </div>
+                    </Col>
+                  </Row>
+                </Container>
+              </div>
+            </>
           )}
         </div>
       </>
