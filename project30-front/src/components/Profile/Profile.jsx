@@ -18,7 +18,7 @@ import {
   Container,
   Row,
   Col,
-  UncontrolledCarousel
+  UncontrolledCarousel,
 } from "reactstrap";
 
 class ProfilePage extends React.Component {
@@ -32,7 +32,7 @@ class ProfilePage extends React.Component {
     bio: "",
     file: null,
     favoriteMovies: [],
-    carouselItems: []
+    carouselItems: [],
   };
 
   carouselItems = [];
@@ -41,7 +41,6 @@ class ProfilePage extends React.Component {
 
   //Method that triggers when the component loads,  where we get the avatar url and favorite movies
   componentWillMount = () => {
-    let newItem = {};
     this.setState({ isLoading: true });
     this.authService
       .loggedin()
@@ -52,19 +51,7 @@ class ProfilePage extends React.Component {
           .then(favoriteRes => {
             this.setState({ favoriteMovies: favoriteRes.favoriteMovies });
             //Fill the carousel items object
-            this.state.favoriteMovies.map((ele, index) => {
-              newItem = {
-                src: ele.background,
-                altText: ele.title,
-                caption: ele.overview,
-                pictureId: ele._id
-              };
-              if (this.carouselItems.indexOf(newItem.pictureId) === -1) {
-                this.carouselItems.push(newItem);
-              }
-              return this.carouselItems;
-            });
-
+            this.fillCarousel(this.state.favoriteMovies);
             this.setState({ isLoading: false });
           })
           .catch(err => {
@@ -76,6 +63,22 @@ class ProfilePage extends React.Component {
         console.log(error);
         this.setState({ isLoading: false });
       });
+  };
+
+  //Fill the carousel object
+  fillCarousel = favorites => {
+    favorites.map((ele, index) => {
+      let newItem = {
+        src: ele.background,
+        altText: ele.title,
+        caption: ele.overview,
+        pictureId: ele._id,
+      };
+      if (this.carouselItems.indexOf(newItem.pictureId) === -1) {
+        this.carouselItems.push(newItem);
+      }
+      return this.carouselItems;
+    });
   };
 
   //Here we make requests to get profile info
@@ -134,7 +137,7 @@ class ProfilePage extends React.Component {
               twitterUsername: "",
               avatarUrl: pictureData.pictureUrl,
               isEditing: false,
-              isLoading: false
+              isLoading: false,
             });
           })
           .catch(err => console.log(err));
@@ -150,19 +153,34 @@ class ProfilePage extends React.Component {
   //Picture change Method
   handleChange(e) {
     this.setState({
-      file: e.target.files[0]
+      file: e.target.files[0],
     });
   }
 
   //Delete favorite movie method
-  deleteFavorite = movie => {
+  deleteFavorite = (movie, userId) => {
     debugger;
+    this.setState({ isLoading: true });
     this.service
-      .deleteFavorite(movie)
-      .then(response => {
-        console.log(response);
+      .deleteFavorite(movie, userId)
+      .then(deleteReponse => {
+        //If the process was succesful then we need to set the state with new array of movies
+        this.service
+          .getFavorites(deleteReponse.value.user)
+          .then(favorites => {
+            this.setState({
+              favoriteMovies: favorites.favoriteMovies,
+              isLoading: false,
+            });
+            this.fillCarousel(this.state.favoriteMovies);
+          })
+          .catch(err => {
+            this.setState({ isLoading: false });
+            alert(err);
+          });
       })
       .catch(err => {
+        this.setState({ isLoading: false });
         console.log(err);
       });
   };
@@ -181,7 +199,7 @@ class ProfilePage extends React.Component {
           title: movie.title,
           backdrop: movie.background,
           release: movie.release,
-          posterPath: movie.posterPath
+          posterPath: movie.posterPath,
         };
 
         return (
@@ -204,8 +222,13 @@ class ProfilePage extends React.Component {
                 View movie details
               </Button>
 
-              <Button color="warning" onClick={this.deleteFavorite(movie)}>
-                Delete movie from favorites
+              <Button
+                color="warning"
+                onClick={() =>
+                  this.deleteFavorite(movie, this.props.match.params)
+                }
+              >
+                Delete movie
               </Button>
             </CardBody>
           </Card>

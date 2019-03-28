@@ -23,17 +23,17 @@ class App extends Component {
   service = new AuthService();
 
   fetchUser = () => {
-    if (this.state.loggedInUser === null) {
+    if (this.state.loggedUser === null) {
       this.service
         .loggedin()
         .then(response => {
           this.setState({
-            loggedInUser: response,
+            loggedUser: response,
           });
         })
         .catch(err => {
           this.setState({
-            loggedInUser: false,
+            loggedUser: false,
           });
         });
     }
@@ -43,16 +43,13 @@ class App extends Component {
     this.setState({ loggedUser: userObj, redirect: true });
   };
 
-  componentWillMount() {
-    this.fetchUser();
-  }
-
   //personality handler
   setTwitter = twitterUsername => {
     this.setState({ twitterUsername: twitterUsername });
   };
 
   render() {
+    this.fetchUser();
     const { redirect } = this.state;
     if (this.state.loggedUser) {
       return (

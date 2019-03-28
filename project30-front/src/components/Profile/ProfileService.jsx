@@ -65,15 +65,16 @@ class ProfileService {
   };
 
   //Delete favorite movies
-  deleteFavorite = movie => {
-    return this.service
-      .post("/deletefavorites", { movie })
-      .then(response => {
-        return response.data;
-      })
-      .catch(err => {
-        console.log(err);
+  deleteFavorite = async (movie, userId) => {
+    try {
+      const response = await this.service.post("/deletefavorites", {
+        movie,
+        userId,
       });
+      return response.data;
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   //Get favorite movies for the user Id
