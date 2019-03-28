@@ -18,7 +18,7 @@ import {
   Container,
   Row,
   Col,
-  UncontrolledCarousel,
+  UncontrolledCarousel
 } from "reactstrap";
 
 class ProfilePage extends React.Component {
@@ -32,7 +32,7 @@ class ProfilePage extends React.Component {
     bio: "",
     file: null,
     favoriteMovies: [],
-    carouselItems: [],
+    carouselItems: []
   };
 
   carouselItems = [];
@@ -57,7 +57,7 @@ class ProfilePage extends React.Component {
                 src: ele.background,
                 altText: ele.title,
                 caption: ele.overview,
-                pictureId: ele._id,
+                pictureId: ele._id
               };
               if (this.carouselItems.indexOf(newItem.pictureId) === -1) {
                 this.carouselItems.push(newItem);
@@ -134,7 +134,7 @@ class ProfilePage extends React.Component {
               twitterUsername: "",
               avatarUrl: pictureData.pictureUrl,
               isEditing: false,
-              isLoading: false,
+              isLoading: false
             });
           })
           .catch(err => console.log(err));
@@ -150,13 +150,21 @@ class ProfilePage extends React.Component {
   //Picture change Method
   handleChange(e) {
     this.setState({
-      file: e.target.files[0],
+      file: e.target.files[0]
     });
   }
 
   //Delete favorite movie method
   deleteFavorite = movie => {
     debugger;
+    this.service
+      .deleteFavorite(movie)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   //Render Method
@@ -173,7 +181,7 @@ class ProfilePage extends React.Component {
           title: movie.title,
           backdrop: movie.background,
           release: movie.release,
-          posterPath: movie.posterPath,
+          posterPath: movie.posterPath
         };
 
         return (
