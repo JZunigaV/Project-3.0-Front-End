@@ -154,14 +154,18 @@ class ProfilePage extends React.Component {
     });
   }
 
+  //Delete favorite movie method
+  deleteFavorite = movie => {
+    debugger;
+  };
+
   //Render Method
   render() {
     const avatar = this.state.avatarUrl;
-    const userName = this.props.loggedInUser.username;
+    const userName = this.props.loggedInUser.username.toUpperCase();
 
     //Style in card tasks.sass
 
-    debugger;
     if ((this.state.favoriteMovies || []).length > 0) {
       var movies = this.state.favoriteMovies.map(movie => {
         const details = {
@@ -191,6 +195,10 @@ class ProfilePage extends React.Component {
               >
                 View movie details
               </Button>
+
+              <Button color="warning" onClick={this.deleteFavorite(movie)}>
+                Delete movie from favorites
+              </Button>
             </CardBody>
           </Card>
         );
@@ -217,10 +225,8 @@ class ProfilePage extends React.Component {
                 <Row>
                   <Col lg="6" md="6">
                     <h1 className="profile-title text-left">{userName}</h1>
-
-                    <h5 className="text-on-back">01</h5>
                     <p className="profile-description">
-                      {this.state.profile ? this.state.profile.bio : ""}
+                      {this.state.profile && this.state.profile.bio}
                     </p>
                   </Col>
                   <Col className="ml-auto mr-auto" lg="4" md="6">
@@ -340,8 +346,10 @@ class ProfilePage extends React.Component {
           {!this.state.isLoading && (
             <>
               <div className="wrapper" style={{ marginTop: "100px" }}>
+                <h1 className="text-center">Favorite movies</h1>
                 <div className="content-center">
                   <Col lg="4" md="4" className="col-sm" />
+
                   <Row>{movies}</Row>
                 </div>
               </div>
@@ -349,7 +357,7 @@ class ProfilePage extends React.Component {
               <div className="section">
                 <Container>
                   <Row className="justify-content-between">
-                    <Col md="6">
+                    <Col md="12">
                       <Row className="justify-content-between align-items-center">
                         <UncontrolledCarousel
                           items={this.carouselItems}
@@ -361,7 +369,9 @@ class ProfilePage extends React.Component {
                       <h1 className="profile-title text-left">
                         Favorite movies
                       </h1>
-                      <h5 className="text-on-back">02</h5>
+                      <h5 className="text-on-back">
+                        {this.carouselItems.length}
+                      </h5>
                       <p className="profile-description text-left">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         Laboriosam consectetur provident iusto commodi est quis

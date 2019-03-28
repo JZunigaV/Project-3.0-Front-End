@@ -5,7 +5,7 @@ class ProfileService {
   constructor() {
     let service = axios.create({
       baseURL: "http://localhost:4000/profile",
-      withCredentials: true
+      withCredentials: true,
     });
     this.service = service;
   }
@@ -22,7 +22,7 @@ class ProfileService {
       .post("/new", {
         id: id,
         location: location,
-        bio: bio
+        bio: bio,
       })
       .then(response => response.data)
       .catch(err => this.errHandler(err));
@@ -46,8 +46,8 @@ class ProfileService {
     return this.service
       .post("/pictures", formData, {
         headers: {
-          "Content-Type": "multipart/form-data"
-        }
+          "Content-Type": "multipart/form-data",
+        },
       })
       .then(res => res.data)
       .catch(this.errHandler);
@@ -55,19 +55,29 @@ class ProfileService {
 
   //add Favorite movie to the user profile
   addFavorite = (userId, movie) => {
-    debugger;
     return this.service
       .post("/addfavorites", {
         userId: userId,
-        movie: movie
+        movie: movie,
       })
       .then(response => response.data)
       .catch(err => this.errHandler(err));
   };
 
+  //Delete favorite movies
+  deleteFavorite = movie => {
+    return this.service
+      .post("/deletefavorites", { movie })
+      .then(response => {
+        return response.data;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   //Get favorite movies for the user Id
   getFavorites = userId => {
-    debugger;
     return this.service
       .post("/favorites", { userId: userId })
       .then(response => {

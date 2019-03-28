@@ -77,7 +77,6 @@ class Recommendations extends React.Component {
 
   favoriteHandler = movie => {
     //Here we have to send parameters to our backend route profile
-    debugger;
     this.profileService
       .addFavorite(this.props.loggedInUser._id, movie)
       .then(movie => alert(movie))
@@ -213,6 +212,7 @@ class Recommendations extends React.Component {
               release={this.state.movieDetail.release}
               posterPath={this.state.movieDetail.posterPath}
               favorite={this.favoriteHandler}
+              backdrop={this.state.movieDetail.backdrop}
             />
           )}
         </div>

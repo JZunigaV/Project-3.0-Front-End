@@ -9,9 +9,8 @@ import {
 
 class MovieModal extends Component {
   addFavorite = () => {
-    debugger;
     let movie = {
-      background: this.props.background,
+      background: this.props.backdrop,
       overview: this.props.overview,
       title: this.props.title,
       release: this.props.release,

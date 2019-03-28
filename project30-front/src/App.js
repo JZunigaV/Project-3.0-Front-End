@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
-
 //Landing Page
 import LandingPage from "./components/LandingPage";
 import ExamplesNavbar from "./components/Navbars/Navbar";
@@ -8,14 +7,11 @@ import Signup from "./components/auth/Signup";
 import Login from "./components/auth/Login";
 import AuthService from "./components/auth/AuthService";
 import ProtectedRoute from "./components/auth/protected-route";
-
 //Profile routes
 import Profile from "./components/Profile/Profile";
-
 import Recommendations from "./components/recommendations/Recommendations";
 import Footer from "./components/Footer/Footer";
 import Personality from "./components/personality/Personality";
-
 import "./App.css";
 
 class App extends Component {
