@@ -35,7 +35,7 @@ class ProfilePage extends React.Component {
     carouselItems: [],
   };
 
-  carouselItems = [];
+  // carouselItems = [];
   service = new ProfileService();
   authService = new AuthService();
 
@@ -67,7 +67,7 @@ class ProfilePage extends React.Component {
 
   //Fill the carousel object
   fillCarousel = favorites => {
-    this.carouselItems = [];
+    this.setState({ carouselItems: [] });
     favorites.map((ele, index) => {
       let newItem = {
         src: ele.background,
@@ -75,10 +75,10 @@ class ProfilePage extends React.Component {
         caption: ele.overview,
         pictureId: ele._id,
       };
-      if (this.carouselItems.indexOf(newItem.pictureId) === -1) {
-        this.carouselItems.push(newItem);
+      if (this.state.carouselItems.indexOf(newItem.pictureId) === -1) {
+        this.state.carouselItems.push(newItem);
       }
-      return this.carouselItems;
+      return this.state.carouselItems;
     });
   };
 
@@ -385,50 +385,55 @@ class ProfilePage extends React.Component {
                 </div>
               </div>
 
-              <div className="section">
-                <Container>
-                  <Row className="justify-content-between">
-                    <Col md="12">
-                      <Row className="justify-content-between align-items-center">
-                        <UncontrolledCarousel
-                          items={this.carouselItems}
-                          key={this.carouselItems.pictureId}
-                        />
-                      </Row>
-                    </Col>
-                    <Col md="5">
-                      <h1 className="profile-title text-left">
-                        Favorite movies
-                      </h1>
-                      <h5 className="text-on-back">
-                        {this.carouselItems.length}
-                      </h5>
-                      <p className="profile-description text-left">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Laboriosam consectetur provident iusto commodi est quis
-                        earum magnam aliquid cupiditate harum quibusdam aliquam
-                        pariatur quo maiores, eos nemo fugiat itaque? Ad.
-                      </p>
+              {this.state.carouselItems.length > 0 ? (
+                <div className="section">
+                  <Container>
+                    <Row className="justify-content-between">
+                      <Col md="12">
+                        <Row className="justify-content-between align-items-center">
+                          <UncontrolledCarousel
+                            items={this.state.carouselItems}
+                            key={this.state.carouselItems.pictureId}
+                          />
+                        </Row>
+                      </Col>
+                      <Col md="5">
+                        <h1 className="profile-title text-left">
+                          Favorite movies
+                        </h1>
+                        <h5 className="text-on-back">
+                          {this.state.carouselItems.length}
+                        </h5>
+                        <p className="profile-description text-left">
+                          Lorem ipsum dolor sit amet consectetur adipisicing
+                          elit. Laboriosam consectetur provident iusto commodi
+                          est quis earum magnam aliquid cupiditate harum
+                          quibusdam aliquam pariatur quo maiores, eos nemo
+                          fugiat itaque? Ad.
+                        </p>
 
-                      <div className="btngit -wrapper pt-3">
-                        <Button className="btn-simple" color="primary">
-                          <i className="tim-icons icon-book-bookmark" /> Edit
-                          Profile
-                        </Button>
+                        <div className="btngit -wrapper pt-3">
+                          <Button className="btn-simple" color="primary">
+                            <i className="tim-icons icon-book-bookmark" /> Edit
+                            Profile
+                          </Button>
 
-                        <Button
-                          className="btn-simple"
-                          color="info"
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          <i className="tim-icons icon-bulb-63" /> Check it!
-                        </Button>
-                      </div>
-                    </Col>
-                  </Row>
-                </Container>
-              </div>
+                          <Button
+                            className="btn-simple"
+                            color="info"
+                            href="#pablo"
+                            onClick={e => e.preventDefault()}
+                          >
+                            <i className="tim-icons icon-bulb-63" /> Check it!
+                          </Button>
+                        </div>
+                      </Col>
+                    </Row>
+                  </Container>
+                </div>
+              ) : (
+                <h1>You dont't have favorite movies yet</h1>
+              )}
             </>
           )}
         </div>
