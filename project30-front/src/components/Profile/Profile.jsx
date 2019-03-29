@@ -67,6 +67,7 @@ class ProfilePage extends React.Component {
 
   //Fill the carousel object
   fillCarousel = favorites => {
+    this.carouselItems = [];
     favorites.map((ele, index) => {
       let newItem = {
         src: ele.background,
@@ -169,9 +170,9 @@ class ProfilePage extends React.Component {
           .then(favorites => {
             this.setState({
               favoriteMovies: favorites.favoriteMovies,
-              isLoading: false,
             });
             this.fillCarousel(this.state.favoriteMovies);
+            this.setState({ isLoading: false });
           })
           .catch(err => {
             this.setState({ isLoading: false });
