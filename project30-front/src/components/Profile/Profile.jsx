@@ -159,7 +159,6 @@ class ProfilePage extends React.Component {
 
   //Delete favorite movie method
   deleteFavorite = (movie, userId) => {
-    debugger;
     this.setState({ isLoading: true });
     this.service
       .deleteFavorite(movie, userId)
