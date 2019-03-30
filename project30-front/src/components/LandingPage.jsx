@@ -166,7 +166,7 @@ class LandingPage extends React.Component {
               className="path"
               src={require("../assets/img/path5.png")}
             />
-            <Container>
+            {/* <Container>
               <Row className="row-grid justify-content-between">
                 <Col md="5">
                   <img
@@ -251,7 +251,7 @@ class LandingPage extends React.Component {
                   </div>
                 </Col>
               </Row>
-            </Container>
+            </Container> */}
           </section>
         </div>
       </div>
