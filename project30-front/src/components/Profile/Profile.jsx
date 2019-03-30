@@ -35,7 +35,6 @@ class ProfilePage extends React.Component {
     carouselItems: [],
   };
 
-  // carouselItems = [];
   service = new ProfileService();
   authService = new AuthService();
 
