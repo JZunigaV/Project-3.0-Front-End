@@ -18,22 +18,22 @@ class ResultsStrength extends Component {
     if (this.props.wordCount < 600) {
       this.setState({
         strengthClass: "analysis-weak",
-        strengthLabel: "Weak analysis",
+        strengthLabel: "Análisis deébil",
       });
     } else if (this.props.wordCount >= 600 && this.props.wordCount < 1200) {
       this.setState({
         strengthClass: "analysis-moderate",
-        strengthLabel: "Moderate analysis",
+        strengthLabel: "Análisis moderado",
       });
     } else if (this.props.wordCount > 1200 && this.props.wordCount < 6000) {
       this.setState({
         strengthClass: "analysis-strong",
-        strengthLabel: "Strong analysis",
+        strengthLabel: "Análisis fuerte",
       });
     } else if (this.props.wordCount >= 6000) {
       this.setState({
         strengthClass: "analysis-very-strong",
-        strengthLabel: "Very strong analysis",
+        strengthLabel: "Análisis muy fuerte",
       });
     }
   };
@@ -64,13 +64,13 @@ class ResultsStrength extends Component {
                 target="analysisStrengthTooltip"
                 toggle={this.toggleTooltip}
               >
-                Analysis strength is determined by word count of unstructured
-                text provided. <br />
-                Weak &lt; 600 words. <br />
-                Moderate &lt; 1,200 words. <br />
-                Strong &gt; 1,200 words.
+                La exactitud del análisis está determinada por el conteo de palabras obtenidas de Twitter                
+               <br />
+                Débil &lt; 600 palabras. <br />
+                Moderado &lt; 1,200 palabras. <br />
+                Fuerte &gt; 1,200 palabras.
                 <br />
-                Very Strong &gt; 6,000 words.
+                Muy fuerte &gt; 6,000 palabras.
               </Tooltip>
             </div>
           </div>

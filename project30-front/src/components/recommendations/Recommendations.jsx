@@ -114,7 +114,7 @@ class Recommendations extends React.Component {
                   color="success"
                   onClick={() => this.toggleModal("modal", details)}
                 >
-                  View movie details
+                  Detalles
                 </Button>
               </CardBody>
             </Card>
@@ -136,7 +136,7 @@ class Recommendations extends React.Component {
                     onSubmit={this.handleSearchForm}
                     id="input-form"
                   >
-                    <h1>Recommendations</h1>
+                    <h1>Recomendaciones</h1>
 
                     {/* twitter username */}
                     <InputGroup
@@ -150,7 +150,7 @@ class Recommendations extends React.Component {
                         </InputGroupText>
                       </InputGroupAddon>
                       <Input
-                        placeholder="Twitter username"
+                        placeholder="usuario de twitter"
                         type="text"
                         name="twitterUsername"
                         onChange={this.onChange}
@@ -167,7 +167,7 @@ class Recommendations extends React.Component {
                       color="success"
                       size="lg"
                     >
-                      Lets go
+                      Buscar!!!
                     </Button>
                   </Form>
                 </Col>
@@ -180,7 +180,7 @@ class Recommendations extends React.Component {
 
             {this.state.recommendations.length > 0 && (
               <>
-                <h1>Here are some movies you may like</h1>
+                <h1>Algunas películas que te podrían gustar</h1>
                 <br />
 
                 <Link to="/personality">
@@ -191,7 +191,7 @@ class Recommendations extends React.Component {
                     size="sm"
                     id="btn-personality"
                   >
-                    Why did we choose these movies for you?
+                    ¿Por qué elegimos estás películas?
                   </Button>
                 </Link>
               </>

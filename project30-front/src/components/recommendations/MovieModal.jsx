@@ -49,19 +49,19 @@ class MovieModal extends Component {
             </h3>
           </div>
           <div className="modal-body">
-            <h4>Overview:</h4>
+            <h4>Sinopsis:</h4>
             <p>{this.props.overview}</p>
             <br />
-            <h4>Release Date:</h4>
+            <h4>Fecha de estreno:</h4>
             <p>{this.props.release}</p>
           </div>
           <div className="modal-footer">
             <Button color="danger" type="button" onClick={this.props.toggle}>
-              Close
+              Cerrar
             </Button>
 
             <Button color="primary" type="button" onClick={this.addFavorite}>
-              Add to favorites
+              Agregar a favoritos
             </Button>
           </div>
         </Modal>

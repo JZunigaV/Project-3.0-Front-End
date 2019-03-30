@@ -218,7 +218,7 @@ class ProfilePage extends React.Component {
                 color="success"
                 onClick={() => this.toggleModal("modal", details)}
               >
-                View movie details
+                Detalles
               </Button>
 
               <Button
@@ -227,7 +227,7 @@ class ProfilePage extends React.Component {
                   this.deleteFavorite(movie, this.props.match.params)
                 }
               >
-                Delete movie
+                Eliminar favorito
               </Button>
             </CardBody>
           </Card>
@@ -280,8 +280,8 @@ class ProfilePage extends React.Component {
                           color="primary"
                           onClick={this.handleEdit}
                         >
-                          <i className="tim-icons icon-book-bookmark" /> Edit
-                          Profile
+                          <i className="tim-icons icon-book-bookmark" /> 
+                          Editar perfil
                         </Button>
                       </CardHeader>
 
@@ -290,11 +290,11 @@ class ProfilePage extends React.Component {
                           <Form onSubmit={this.handleSubmit}>
                             {/* Location */}
                             <Row>
-                              <Label sm="3">Location</Label>
+                              <Label sm="3">País:</Label>
                               <Col sm="9">
                                 <FormGroup>
                                   <Input
-                                    placeholder="from where are you visiting us"
+                                    placeholder="De donde nos visitas"
                                     type="text"
                                     name="location"
                                     onChange={this.onChange}
@@ -306,11 +306,11 @@ class ProfilePage extends React.Component {
 
                             {/* Bio */}
                             <Row>
-                              <Label sm="3">Bio</Label>
+                              <Label sm="3">Bio:</Label>
                               <Col sm="9">
                                 <FormGroup>
                                   <Input
-                                    placeholder="tell us something about you"
+                                    placeholder="Un poco sobre tí"
                                     type="text"
                                     name="bio"
                                     onChange={this.onChange}
@@ -322,11 +322,11 @@ class ProfilePage extends React.Component {
 
                             {/* Twitter Url */}
                             <Row>
-                              <Label sm="3">Twitter</Label>
+                              <Label sm="3">Usuario de Twitter</Label>
                               <Col sm="9">
                                 <FormGroup>
                                   <Input
-                                    placeholder="twitter Username"
+                                    placeholder="Usuario de twitter"
                                     type="text"
                                     name="bio"
                                     onChange={this.onChange}
@@ -376,7 +376,7 @@ class ProfilePage extends React.Component {
           {!this.state.isLoading && (
             <>
               <div className="wrapper" style={{ marginTop: "100px" }}>
-                <h1 className="text-center">Favorite movies</h1>
+                <h1 className="text-center">Películas favoritas</h1>
                 <div className="content-center">
                   <Col lg="4" md="4" className="col-sm" />
 
@@ -431,7 +431,7 @@ class ProfilePage extends React.Component {
                   </Container>
                 </div>
               ) : (
-                <h1>You dont't have favorite movies yet</h1>
+                <h1>Aún no has agregado favoritos</h1>
               )}
             </>
           )}

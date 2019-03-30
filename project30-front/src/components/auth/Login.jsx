@@ -129,7 +129,7 @@ class Login extends React.Component {
                               </InputGroupText>
                             </InputGroupAddon>
                             <Input
-                              placeholder="Username"
+                              placeholder="Usuario"
                               type="text"
                               name="username"
                               onChange={this.onChange}
@@ -179,7 +179,7 @@ class Login extends React.Component {
                               Log in
                             </Button>
                             <p>
-                              Don't have account?
+                              ¿No tienes cuenta?
                               <Link to={"/signup"}> Signup</Link>
                             </p>
                           </CardFooter>

@@ -96,7 +96,7 @@ class PagesNavbar extends React.Component {
       <>
         <NavItem>
           <NavLink tag={Link} to={`/profile/${id}`}>
-            Hello {username}
+            Hola, {username}
           </NavLink>
         </NavItem>
 
@@ -115,7 +115,7 @@ class PagesNavbar extends React.Component {
       <>
         <NavItem>
           <NavLink tag={Link} to={`/recommendations`}>
-            Recommendations
+            Recomedaciones
           </NavLink>
         </NavItem>
       </>
@@ -146,7 +146,7 @@ class PagesNavbar extends React.Component {
               tag={Link}
             >
               <span>TWEETFLICK• </span>
-              Recommendation System
+              Recomendaciones personalizadas
             </NavbarBrand>
             <button
               aria-expanded={this.state.collapseOpen}
@@ -187,7 +187,7 @@ class PagesNavbar extends React.Component {
               <NavItem className="p-0">
                 <NavLink
                   data-placement="bottom"
-                  href="https://twitter.com/CreativeTim"
+                  href="#"
                   rel="noopener noreferrer"
                   target="_blank"
                   title="Follow us on Twitter"
@@ -199,7 +199,7 @@ class PagesNavbar extends React.Component {
               <NavItem className="p-0">
                 <NavLink
                   data-placement="bottom"
-                  href="https://www.facebook.com/CreativeTim"
+                  href="#"
                   rel="noopener noreferrer"
                   target="_blank"
                   title="Like us on Facebook"
@@ -211,7 +211,7 @@ class PagesNavbar extends React.Component {
               <NavItem className="p-0">
                 <NavLink
                   data-placement="bottom"
-                  href="https://www.instagram.com/CreativeTimOfficial"
+                  href="#"
                   rel="noopener noreferrer"
                   target="_blank"
                   title="Follow us on Instagram"
