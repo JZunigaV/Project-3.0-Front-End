@@ -19,6 +19,8 @@ class App extends Component {
     loggedUser: null,
     redirect: false,
     twitterUsername: "",
+    avatarUrl: "",
+    profileBio: "",
   };
   service = new AuthService();
 
@@ -48,6 +50,24 @@ class App extends Component {
     this.setState({ twitterUsername: twitterUsername });
   };
 
+
+  //Avatar Url
+  setAvatar = liftedAvatarUrl => {
+    let loggedUser = {...this.state.loggedUser}
+    loggedUser.avatarUrl = liftedAvatarUrl   
+    this.setState({loggedUser})
+  }
+
+  //Profile
+  setProfile = (liftedBio,twitterUsername) => {
+    debugger;
+    let loggedUser = {...this.state.loggedUser}
+    loggedUser.bio = liftedBio;
+    this.setState({loggedUser});
+  }
+
+
+
   render() {
     this.fetchUser();
     const { redirect } = this.state;
@@ -76,6 +96,8 @@ class App extends Component {
               path="/profile/:id"
               component={Profile}
               user={this.state.loggedUser}
+              liftAvatar = {this.setAvatar}
+              liftProfile = {this.setProfile}
             />
 
             {/* Tiene que ser una ruta protegida */}
@@ -148,6 +170,8 @@ class App extends Component {
               path="/profile/:id"
               component={Profile}
               user={this.state.loggedUser}
+              liftAvatar = {this.setAvatar}
+              liftProfile = {this.setProfile}
             />
           </Switch>
 

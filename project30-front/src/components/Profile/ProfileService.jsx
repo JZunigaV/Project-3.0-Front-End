@@ -17,11 +17,10 @@ class ProfileService {
       .catch(err => console.log(err));
   };
 
-  createUpdateUser = (id, location, bio) => {
+  createUpdateUser = (id, bio) => {
     return this.service
       .post("/new", {
-        id: id,
-        location: location,
+        id: id,     
         bio: bio,
       })
       .then(response => response.data)

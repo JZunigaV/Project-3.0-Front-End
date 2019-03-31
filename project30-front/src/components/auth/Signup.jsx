@@ -117,7 +117,7 @@ class Signup extends React.Component {
                           alt="..."
                           src={require("../../assets/img/square-purple-1.png")}
                         />
-                        <CardTitle tag="h4">Registrate</CardTitle>
+                        <CardTitle tag="h4">Registro</CardTitle>
                       </CardHeader>
 
                       {/* Here we have our form  */}

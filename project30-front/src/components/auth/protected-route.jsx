@@ -8,6 +8,9 @@ const protectedRoute = ({
   user,
   liftTwitter,
   twitterUsername,
+  liftAvatar,
+  liftProfile,
+
   ...rest
 }) => {
   console.log(rest);
@@ -22,6 +25,8 @@ const protectedRoute = ({
               loggedInUser={user}
               liftTwitter={liftTwitter}
               twitterUsername={twitterUsername}
+              liftAvatar={liftAvatar}
+              liftProfile = {liftProfile}
             />
           );
         } else {

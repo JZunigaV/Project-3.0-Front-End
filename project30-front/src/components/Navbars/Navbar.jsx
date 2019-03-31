@@ -146,7 +146,7 @@ class PagesNavbar extends React.Component {
               tag={Link}
             >
               <span>TWEETFLICK• </span>
-              Recomendaciones personalizadas
+             
             </NavbarBrand>
             <button
               aria-expanded={this.state.collapseOpen}

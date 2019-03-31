@@ -27,9 +27,8 @@ class ProfilePage extends React.Component {
     profile: {},
     isLoading: false,
     isEditing: false,
-    avatarUrl: "",
-    location: "",
     bio: "",
+    twitterUsername: "",
     file: null,
     favoriteMovies: [],
     carouselItems: []
@@ -40,14 +39,8 @@ class ProfilePage extends React.Component {
 
   //Method that triggers when the component loads,  where we get the avatar url and favorite movies
   componentWillMount = () => {
+
     this.setState({ isLoading: true });
-    // this.authService
-
-    this.setState({ avatarUrl: this.props.loggedInUser.avatarUrl });
-
-    // .loggedin()
-    // .then(user => {
-    //   this.setState({ avatarUrl: user.avatarUrl });
     this.service
       .getFavorites(this.props.loggedInUser._id)
       .then(favoriteRes => {
@@ -60,12 +53,6 @@ class ProfilePage extends React.Component {
         console.log(err);
         this.setState({ isLoading: false });
       });
-
-    // })
-    // .catch(error => {
-    //   console.log(error);
-    //   this.setState({ isLoading: false });
-    // });
   };
 
   //Fill the carousel object
@@ -117,7 +104,7 @@ class ProfilePage extends React.Component {
 
   //Handle Edit Profile Button
   handleEdit = event => {
-    this.setState(function(prevState) {
+    this.setState(prevState => {
       return { isEditing: !prevState.isEditing };
     });
   };
@@ -125,27 +112,43 @@ class ProfilePage extends React.Component {
   //Handle edit profile form submit
   handleSubmit = event => {
     event.preventDefault();
+
     this.setState({ isLoading: true });
+
     const userId = this.props.match.params;
-    const location = this.state.location;
     const bio = this.state.bio;
+    const twitterUsername = this.state.twitterUsername;
+
     this.service
-      .createUpdateUser(userId, location, bio)
+      .createUpdateUser(userId, bio)
       .then(response => {
-        this.service
-          .addPicture(this.state.file, userId)
-          .then(pictureData => {
-            this.setState({
-              profile: response.profile,
-              location: "",
-              bio: "",
-              twitterUsername: "",
-              avatarUrl: pictureData.pictureUrl,
-              isEditing: false,
-              isLoading: false
-            });
-          })
-          .catch(err => console.log(err));
+
+        debugger;
+        //Here we send the profile to the single source of truth
+        this.props.liftProfile(response.profile.bio, twitterUsername);
+        this.setState({ profile: response.profile });
+
+        if (this.state.file) {
+          this.service
+            .addPicture(this.state.file, userId)
+            .then(pictureData => {
+              this.props.liftAvatar(pictureData.pictureUrl);
+              this.setState({
+                bio: "",
+                twitterUsername: "",
+                isEditing: false,
+                isLoading: false
+              });
+            })
+            .catch(err => console.log(err));
+        } else {
+          this.setState({
+            bio: "",
+            twitterUsername: "",
+            isEditing: false,
+            isLoading: false
+          });
+        }
       })
       .catch(err => alert(err));
   };
@@ -191,7 +194,7 @@ class ProfilePage extends React.Component {
 
   //Render Method
   render() {
-    const avatar = this.state.avatarUrl;
+    const avatar = this.props.loggedInUser.avatarUrl;
     const userName = this.props.loggedInUser.username.toUpperCase();
 
     //Style in card tasks.sass
@@ -248,20 +251,18 @@ class ProfilePage extends React.Component {
               {!this.state.isLoading && (
                 <Row>
                   <Col lg="6" md="6">
-                    <p className="profile-description">
-                      {this.state.profile && this.state.profile.bio}
-                    </p>
+                    <div className="profile-description">
+                      <h2>
+                        {this.state.carouselItems.length} Películas agregadas{" "}
+                      </h2>
 
-                    <h1 className="profile-title text-left">Favorite movies</h1>
-                    <h5 className="text-on-back">
-                      {this.state.carouselItems.length}
-                    </h5>
-                    {this.state.carouselItems.length > 0 && (
-                      <UncontrolledCarousel
-                        items={this.state.carouselItems}
-                        key={this.state.carouselItems.pictureId}
-                      />
-                    )}
+                      {this.state.carouselItems.length > 0 && (
+                        <UncontrolledCarousel
+                          items={this.state.carouselItems}
+                          key={this.state.carouselItems.pictureId}
+                        />
+                      )}
+                    </div>
                   </Col>
                   <Col className="ml-auto mr-auto" lg="4" md="6">
                     <Card className="card-coin card-plain">
@@ -273,6 +274,12 @@ class ProfilePage extends React.Component {
                         />
 
                         <h4 className="title">{userName}</h4>
+                        <br />
+                        <p className="profile-description">
+                          {/* {this.props.loggedInUser.bio} */}
+                          {this.state.profile && this.state.profile.bio}
+                        </p>
+
                         {/* Edit Profile Button */}
                         <Button
                           className="btn-simple"
@@ -352,13 +359,12 @@ class ProfilePage extends React.Component {
           </div>
 
           {/* Favorite movies */}
-
           {!this.state.isLoading && (
             <>
               <div className="wrapper" style={{ marginTop: "100px" }}>
                 <h1 className="text-center">Películas favoritas</h1>
                 <div className="content-center">
-                  <Col lg="4" md="4" className="col-sm" />
+                  <Col lg="12" md="4" className="col-sm" />
 
                   <Row>{movies}</Row>
                 </div>
