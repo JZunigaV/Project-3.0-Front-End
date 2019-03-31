@@ -91,7 +91,7 @@ class Recommendations extends React.Component {
         return subArray.map((movie, index) => {
           const details = {
             overview: movie.overview,
-            title: movie.original_title,
+            title: movie.title,
             backdrop: movie.backdrop_path,
             release: movie.release_date,
             posterPath: movie.poster_path,
@@ -108,7 +108,7 @@ class Recommendations extends React.Component {
               </CardHeader>
 
               <CardBody>
-                <CardTitle tag="h3">{movie.original_title}</CardTitle>
+                <CardTitle tag="h3">{movie.title}</CardTitle>
 
                 <Button
                   color="success"

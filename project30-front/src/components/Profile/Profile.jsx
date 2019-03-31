@@ -18,7 +18,7 @@ import {
   Container,
   Row,
   Col,
-  UncontrolledCarousel,
+  UncontrolledCarousel
 } from "reactstrap";
 
 class ProfilePage extends React.Component {
@@ -32,7 +32,7 @@ class ProfilePage extends React.Component {
     bio: "",
     file: null,
     favoriteMovies: [],
-    carouselItems: [],
+    carouselItems: []
   };
 
   service = new ProfileService();
@@ -41,27 +41,31 @@ class ProfilePage extends React.Component {
   //Method that triggers when the component loads,  where we get the avatar url and favorite movies
   componentWillMount = () => {
     this.setState({ isLoading: true });
-    this.authService
-      .loggedin()
-      .then(user => {
-        this.setState({ avatarUrl: user.avatarUrl });
-        this.service
-          .getFavorites(user._id)
-          .then(favoriteRes => {
-            this.setState({ favoriteMovies: favoriteRes.favoriteMovies });
-            //Fill the carousel items object
-            this.fillCarousel(this.state.favoriteMovies);
-            this.setState({ isLoading: false });
-          })
-          .catch(err => {
-            console.log(err);
-            this.setState({ isLoading: false });
-          });
+    // this.authService
+
+    this.setState({ avatarUrl: this.props.loggedInUser.avatarUrl });
+
+    // .loggedin()
+    // .then(user => {
+    //   this.setState({ avatarUrl: user.avatarUrl });
+    this.service
+      .getFavorites(this.props.loggedInUser._id)
+      .then(favoriteRes => {
+        this.setState({ favoriteMovies: favoriteRes.favoriteMovies });
+        //Fill the carousel items object
+        this.fillCarousel(this.state.favoriteMovies);
+        this.setState({ isLoading: false });
       })
-      .catch(error => {
-        console.log(error);
+      .catch(err => {
+        console.log(err);
         this.setState({ isLoading: false });
       });
+
+    // })
+    // .catch(error => {
+    //   console.log(error);
+    //   this.setState({ isLoading: false });
+    // });
   };
 
   //Fill the carousel object
@@ -71,8 +75,8 @@ class ProfilePage extends React.Component {
       let newItem = {
         src: ele.background,
         altText: ele.title,
-        caption: ele.overview,
-        pictureId: ele._id,
+        caption: "",
+        pictureId: ele._id
       };
       if (this.state.carouselItems.indexOf(newItem.pictureId) === -1) {
         this.state.carouselItems.push(newItem);
@@ -113,8 +117,9 @@ class ProfilePage extends React.Component {
 
   //Handle Edit Profile Button
   handleEdit = event => {
-    event.preventDefault();
-    this.setState({ isEditing: true });
+    this.setState(function(prevState) {
+      return { isEditing: !prevState.isEditing };
+    });
   };
 
   //Handle edit profile form submit
@@ -137,7 +142,7 @@ class ProfilePage extends React.Component {
               twitterUsername: "",
               avatarUrl: pictureData.pictureUrl,
               isEditing: false,
-              isLoading: false,
+              isLoading: false
             });
           })
           .catch(err => console.log(err));
@@ -153,7 +158,7 @@ class ProfilePage extends React.Component {
   //Picture change Method
   handleChange(e) {
     this.setState({
-      file: e.target.files[0],
+      file: e.target.files[0]
     });
   }
 
@@ -168,7 +173,7 @@ class ProfilePage extends React.Component {
           .getFavorites(deleteReponse.value.user)
           .then(favorites => {
             this.setState({
-              favoriteMovies: favorites.favoriteMovies,
+              favoriteMovies: favorites.favoriteMovies
             });
             this.fillCarousel(this.state.favoriteMovies);
             this.setState({ isLoading: false });
@@ -198,7 +203,7 @@ class ProfilePage extends React.Component {
           title: movie.title,
           backdrop: movie.background,
           release: movie.release,
-          posterPath: movie.posterPath,
+          posterPath: movie.posterPath
         };
 
         return (
@@ -239,25 +244,24 @@ class ProfilePage extends React.Component {
       <>
         <div className="wrapper">
           <div className="page-header">
-            <img
-              alt="..."
-              className="dots"
-              src={require("../../assets/img/dots.png")}
-            />
-            <img
-              alt="..."
-              className="path"
-              src={require("../../assets/img/path4.png")}
-            />
-
             <Container className="align-items-center">
               {!this.state.isLoading && (
                 <Row>
                   <Col lg="6" md="6">
-                    <h1 className="profile-title text-left">{userName}</h1>
                     <p className="profile-description">
                       {this.state.profile && this.state.profile.bio}
                     </p>
+
+                    <h1 className="profile-title text-left">Favorite movies</h1>
+                    <h5 className="text-on-back">
+                      {this.state.carouselItems.length}
+                    </h5>
+                    {this.state.carouselItems.length > 0 && (
+                      <UncontrolledCarousel
+                        items={this.state.carouselItems}
+                        key={this.state.carouselItems.pictureId}
+                      />
+                    )}
                   </Col>
                   <Col className="ml-auto mr-auto" lg="4" md="6">
                     <Card className="card-coin card-plain">
@@ -268,19 +272,14 @@ class ProfilePage extends React.Component {
                           src={avatar}
                         />
 
-                        <h4 className="title">
-                          Country{" "}
-                          {this.state.profile
-                            ? this.state.profile.location
-                            : ""}
-                        </h4>
+                        <h4 className="title">{userName}</h4>
                         {/* Edit Profile Button */}
                         <Button
                           className="btn-simple"
                           color="primary"
                           onClick={this.handleEdit}
                         >
-                          <i className="tim-icons icon-book-bookmark" /> 
+                          <i className="tim-icons icon-book-bookmark" />
                           Editar perfil
                         </Button>
                       </CardHeader>
@@ -288,22 +287,6 @@ class ProfilePage extends React.Component {
                       <CardBody>
                         {this.state.isEditing && (
                           <Form onSubmit={this.handleSubmit}>
-                            {/* Location */}
-                            <Row>
-                              <Label sm="3">País:</Label>
-                              <Col sm="9">
-                                <FormGroup>
-                                  <Input
-                                    placeholder="De donde nos visitas"
-                                    type="text"
-                                    name="location"
-                                    onChange={this.onChange}
-                                    value={this.state.location}
-                                  />
-                                </FormGroup>
-                              </Col>
-                            </Row>
-
                             {/* Bio */}
                             <Row>
                               <Label sm="3">Bio:</Label>
@@ -340,17 +323,14 @@ class ProfilePage extends React.Component {
                             <Row>
                               <Label sm="3">Avatar:</Label>
                               <Col sm="9">
-                                <FormGroup>
-                                  <Input
-                                    type="file"
-                                    name="file"
-                                    id="exampleFile"
-                                    onChange={e => this.handleChange(e)}
-                                    className="holaaa"
-                                  />
-
-                                  <br />
-                                </FormGroup>
+                                <Input
+                                  type="file"
+                                  name="file"
+                                  id="exampleFile"
+                                  onChange={e => this.handleChange(e)}
+                                  className="holaaa"
+                                />
+                                <br />
                               </Col>
                             </Row>
 
@@ -385,51 +365,7 @@ class ProfilePage extends React.Component {
               </div>
 
               {this.state.carouselItems.length > 0 ? (
-                <div className="section">
-                  <Container>
-                    <Row className="justify-content-between">
-                      <Col md="12">
-                        <Row className="justify-content-between align-items-center">
-                          <UncontrolledCarousel
-                            items={this.state.carouselItems}
-                            key={this.state.carouselItems.pictureId}
-                          />
-                        </Row>
-                      </Col>
-                      <Col md="5">
-                        <h1 className="profile-title text-left">
-                          Favorite movies
-                        </h1>
-                        <h5 className="text-on-back">
-                          {this.state.carouselItems.length}
-                        </h5>
-                        <p className="profile-description text-left">
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit. Laboriosam consectetur provident iusto commodi
-                          est quis earum magnam aliquid cupiditate harum
-                          quibusdam aliquam pariatur quo maiores, eos nemo
-                          fugiat itaque? Ad.
-                        </p>
-
-                        <div className="btngit -wrapper pt-3">
-                          <Button className="btn-simple" color="primary">
-                            <i className="tim-icons icon-book-bookmark" /> Edit
-                            Profile
-                          </Button>
-
-                          <Button
-                            className="btn-simple"
-                            color="info"
-                            href="#pablo"
-                            onClick={e => e.preventDefault()}
-                          >
-                            <i className="tim-icons icon-bulb-63" /> Check it!
-                          </Button>
-                        </div>
-                      </Col>
-                    </Row>
-                  </Container>
-                </div>
+                <div className="section" />
               ) : (
                 <h1>Aún no has agregado favoritos</h1>
               )}
