@@ -111,7 +111,7 @@ class Login extends React.Component {
                           alt="..."
                           src={require("../../assets/img/square4.png")}
                         />
-                        <CardTitle tag="h4">Login</CardTitle>
+                        <CardTitle tag="h4">Entrar</CardTitle>
                       </CardHeader>
 
                       {/* Here we have our form  */}
@@ -176,11 +176,11 @@ class Login extends React.Component {
                               color="info"
                               size="lg"
                             >
-                              Log in
+                              Entrar
                             </Button>
                             <p>
                               ¿No tienes cuenta?
-                              <Link to={"/signup"}> Signup</Link>
+                              <Link to={"/signup"}>Registrate</Link>
                             </p>
                           </CardFooter>
                         </Form>

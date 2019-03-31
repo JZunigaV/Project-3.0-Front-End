@@ -117,7 +117,7 @@ class Signup extends React.Component {
                           alt="..."
                           src={require("../../assets/img/square-purple-1.png")}
                         />
-                        <CardTitle tag="h4">Register</CardTitle>
+                        <CardTitle tag="h4">Registrate</CardTitle>
                       </CardHeader>
 
                       {/* Here we have our form  */}
@@ -138,7 +138,7 @@ class Signup extends React.Component {
                               </InputGroupText>
                             </InputGroupAddon>
                             <Input
-                              placeholder="Username"
+                              placeholder="Usuario"
                               type="text"
                               name="username"
                               onChange={this.onChange}
@@ -207,7 +207,7 @@ class Signup extends React.Component {
                               color="primary"
                               size="lg"
                             >
-                              Get Started
+                              Comenzar
                             </Button>
                           </CardFooter>
                         </Form>
