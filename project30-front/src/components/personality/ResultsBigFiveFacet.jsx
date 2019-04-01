@@ -11,7 +11,7 @@ class ResultsBigFiveFacet extends Component {
         name: {
           textStyle: {
             color: "#fff",
-            fontSize: 13,
+            fontSize: 12,
           },
         },
         // shape: "circle",
@@ -33,7 +33,7 @@ class ResultsBigFiveFacet extends Component {
           type: "radar",
           symbolSize: "7",
           areaStyle: {
-            color:["rgba(64, 72, 79, 0.3)"],
+            color: ["rgba(64, 72, 79, 0.3)"],
             normal: {
               opacity: 0.3,
             },

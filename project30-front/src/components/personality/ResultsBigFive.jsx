@@ -14,7 +14,7 @@ class ResultsBigFive extends Component {
         name: {
           textStyle: {
             color: "#fff",
-            fontSize: 16,
+            fontSize: 13,
           },
         },
         //shape: "circle",
@@ -62,7 +62,6 @@ class ResultsBigFive extends Component {
       <div className="plot-wrapper">
         <Row className="plot-contents">
           <Col lg="12" md="12" sm="12" xs="12">
-          
             <ReactEcharts
               option={this.getOption()}
               style={{ width: "100%", height: 600 }}
@@ -70,27 +69,42 @@ class ResultsBigFive extends Component {
             />
             <div className="plot-description">
               <p className="lead">
-              El modelo de los cinco grandes o modelo OCEAN es una de las formas más famosas de estructurar la personalidad. Se utiliza para la realización de multitud de estudios. 
+                El modelo de los cinco grandes o modelo OCEAN es una de las
+                formas más famosas de estructurar la personalidad. Se utiliza
+                para la realización de multitud de estudios.
               </p>
               <ol>
                 <li>
-                  <strong>Amabilidad (Agreeableness )</strong>Es el grado en que la persona se muestra respetuosa, tolerante y tranquila.
+                  <strong>Amabilidad (Agreeableness )</strong>Es el grado en que
+                  la persona se muestra respetuosa, tolerante y tranquila.
                 </li>
                 <li>
-                  <strong>Responsabilidad (Conscientiousness) </strong> Refiere a cuán centrado está el sujeto en sus objetivos, además de cuán disciplinado se muestra para la consecución de dichos fines.{" "}
+                  <strong>Responsabilidad (Conscientiousness) </strong> Refiere
+                  a cuán centrado está el sujeto en sus objetivos, además de
+                  cuán disciplinado se muestra para la consecución de dichos
+                  fines.{" "}
                 </li>
                 <li>
-                  <strong>Extraversión (Extraversion )</strong> Define el grado en que el sujeto se muestra abierto con los demás y canaliza su energía en contextos sociales.{" "}
+                  <strong>Extraversión (Extraversion )</strong> Define el grado
+                  en que el sujeto se muestra abierto con los demás y canaliza
+                  su energía en contextos sociales.{" "}
                 </li>
                 <li>
-                  <strong>Estabilidad emocional (Neuroticism) </strong>Define en qué grado una persona afronta sin problema las situaciones complicadas de la vida. Los sujetos tranquilos, no muy proclives a sentir rabia o a enfadarse, suelen permanecer animados y gestionan muy bien sus crisis personales.
+                  <strong>Estabilidad emocional (Neuroticism) </strong>Define en
+                  qué grado una persona afronta sin problema las situaciones
+                  complicadas de la vida. Los sujetos tranquilos, no muy
+                  proclives a sentir rabia o a enfadarse, suelen permanecer
+                  animados y gestionan muy bien sus crisis personales.
                 </li>
                 <li>
-                  <strong>Apertura a la Experiencia (Openness)</strong> Muestra en qué grado un sujeto tiende a buscar nuevas experiencias personales y concibe de una manera creativa su futuro.{" "}
+                  <strong>Apertura a la Experiencia (Openness)</strong> Muestra
+                  en qué grado un sujeto tiende a buscar nuevas experiencias
+                  personales y concibe de una manera creativa su futuro.{" "}
                 </li>
               </ol>
               <p>
-                Cada uno de estos rubros se divide en 6 subcategorias las cuales son:
+                Cada uno de estos rubros se divide en 6 subcategorias las cuales
+                son:
               </p>
             </div>
           </Col>
@@ -220,7 +234,9 @@ class ResultsBigFive extends Component {
             </div> */}
           </Col>
           <Col lg="6" md="12" sm="12" xs="12" className="plot-facet">
-            <h2 className="text-center">Apertura a la Experiencia (Openness)</h2>
+            <h2 className="text-center">
+              Apertura a la Experiencia (Openness)
+            </h2>
             <ResultsBigFiveFacet
               chartTitle={this.props.resultData[0]["name"]}
               resultData={this.props.resultData[0]["children"]}
