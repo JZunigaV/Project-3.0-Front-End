@@ -17,11 +17,12 @@ class ProfileService {
       .catch(err => console.log(err));
   };
 
-  createUpdateUser = (id, bio) => {
+  createUpdateUser = (id, bio, twitterUsername) => {
     return this.service
       .post("/new", {
         id: id,     
         bio: bio,
+        twitterUsername:twitterUsername
       })
       .then(response => response.data)
       .catch(err => this.errHandler(err));

@@ -39,7 +39,6 @@ class ProfilePage extends React.Component {
 
   //Method that triggers when the component loads,  where we get the avatar url and favorite movies
   componentWillMount = () => {
-
     this.setState({ isLoading: true });
     this.service
       .getFavorites(this.props.loggedInUser._id)
@@ -111,23 +110,22 @@ class ProfilePage extends React.Component {
 
   //Handle edit profile form submit
   handleSubmit = event => {
+    debugger;
     event.preventDefault();
-
     this.setState({ isLoading: true });
-
     const userId = this.props.match.params;
     const bio = this.state.bio;
     const twitterUsername = this.state.twitterUsername;
 
     this.service
-      .createUpdateUser(userId, bio)
+      .createUpdateUser(userId, bio, twitterUsername)
       .then(response => {
+        //Here we send the  twitter profile to the single source of truth
+        if (response.profile.social.twitter) {
+          this.props.liftProfile(response.profile.social.twitter);
+        }
 
-        debugger;
-        //Here we send the profile to the single source of truth
-        this.props.liftProfile(response.profile.bio, twitterUsername);
         this.setState({ profile: response.profile });
-
         if (this.state.file) {
           this.service
             .addPicture(this.state.file, userId)
@@ -198,7 +196,6 @@ class ProfilePage extends React.Component {
     const userName = this.props.loggedInUser.username.toUpperCase();
 
     //Style in card tasks.sass
-
     if ((this.state.favoriteMovies || []).length > 0) {
       var movies = this.state.favoriteMovies.map(movie => {
         const details = {
@@ -318,7 +315,7 @@ class ProfilePage extends React.Component {
                                   <Input
                                     placeholder="Usuario de twitter"
                                     type="text"
-                                    name="bio"
+                                    name="twitterUsername"
                                     onChange={this.onChange}
                                     value={this.state.twitterUsername}
                                   />

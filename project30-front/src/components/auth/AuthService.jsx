@@ -29,6 +29,15 @@ class AuthService {
       .post("/signup", { username, password, email })
       .then(response => response.data);
   };
+
+
+  updateTwitter = (userId,twitterUsername) => {
+    return this.service
+    .post("/updateTwitter", {userId,twitterUsername})
+    .then(response => response.data)
+  }
+
+
 }
 
 export default AuthService;

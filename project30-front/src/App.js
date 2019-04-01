@@ -21,6 +21,7 @@ class App extends Component {
     twitterUsername: "",
     avatarUrl: "",
     profileBio: "",
+    
   };
   service = new AuthService();
 
@@ -30,12 +31,12 @@ class App extends Component {
         .loggedin()
         .then(response => {
           this.setState({
-            loggedUser: response,
+            loggedUser: response
           });
         })
         .catch(err => {
           this.setState({
-            loggedUser: false,
+            loggedUser: false
           });
         });
     }
@@ -50,23 +51,24 @@ class App extends Component {
     this.setState({ twitterUsername: twitterUsername });
   };
 
-
   //Avatar Url
   setAvatar = liftedAvatarUrl => {
-    let loggedUser = {...this.state.loggedUser}
-    loggedUser.avatarUrl = liftedAvatarUrl   
-    this.setState({loggedUser})
-  }
+    let loggedUser = { ...this.state.loggedUser };
+    loggedUser.avatarUrl = liftedAvatarUrl;
+    this.setState({ loggedUser });
+  };
 
   //Profile
-  setProfile = (liftedBio,twitterUsername) => {
-    debugger;
-    let loggedUser = {...this.state.loggedUser}
-    loggedUser.bio = liftedBio;
-    this.setState({loggedUser});
-  }
+  setTwitterProfile = twitterProfileUsername => {
+
+    this.service.updateTwitter(this.state.loggedUser._id,twitterProfileUsername);
+    
+    let loggedUser = { ...this.state.loggedUser };
+    loggedUser.twitterUsername = twitterProfileUsername
+    this.setState({ loggedUser });
 
 
+  };
 
   render() {
     this.fetchUser();
@@ -96,8 +98,8 @@ class App extends Component {
               path="/profile/:id"
               component={Profile}
               user={this.state.loggedUser}
-              liftAvatar = {this.setAvatar}
-              liftProfile = {this.setProfile}
+              liftAvatar={this.setAvatar}
+              liftProfile={this.setTwitterProfile}
             />
 
             {/* Tiene que ser una ruta protegida */}
@@ -170,8 +172,8 @@ class App extends Component {
               path="/profile/:id"
               component={Profile}
               user={this.state.loggedUser}
-              liftAvatar = {this.setAvatar}
-              liftProfile = {this.setProfile}
+              liftAvatar={this.setAvatar}
+              liftProfile={this.setTwitterProfile}
             />
           </Switch>
 
