@@ -14,7 +14,6 @@ class ResultsStrength extends Component {
 
   //When the component first starts
   componentWillMount = () => {
-    debugger;
     if (this.props.wordCount < 600) {
       this.setState({
         strengthClass: "analysis-weak",
@@ -64,8 +63,9 @@ class ResultsStrength extends Component {
                 target="analysisStrengthTooltip"
                 toggle={this.toggleTooltip}
               >
-                La exactitud del análisis está determinada por el conteo de palabras obtenidas de Twitter                
-               <br />
+                La exactitud del análisis está determinada por el conteo de
+                palabras obtenidas de Twitter
+                <br />
                 Débil &lt; 600 palabras. <br />
                 Moderado &lt; 1,200 palabras. <br />
                 Fuerte &gt; 1,200 palabras.

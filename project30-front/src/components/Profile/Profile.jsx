@@ -4,6 +4,9 @@ import React from "react";
 import ProfileService from "./ProfileService";
 import AuthService from "../auth/AuthService";
 
+//Loading component
+import Loading from "../Loading";
+
 // reactstrap components
 import {
   Button,
@@ -18,7 +21,7 @@ import {
   Container,
   Row,
   Col,
-  UncontrolledCarousel
+  UncontrolledCarousel,
 } from "reactstrap";
 
 class ProfilePage extends React.Component {
@@ -31,7 +34,7 @@ class ProfilePage extends React.Component {
     twitterUsername: "",
     file: null,
     favoriteMovies: [],
-    carouselItems: []
+    carouselItems: [],
   };
 
   service = new ProfileService();
@@ -62,7 +65,7 @@ class ProfilePage extends React.Component {
         src: ele.background,
         altText: ele.title,
         caption: "",
-        pictureId: ele._id
+        pictureId: ele._id,
       };
       if (this.state.carouselItems.indexOf(newItem.pictureId) === -1) {
         this.state.carouselItems.push(newItem);
@@ -110,7 +113,6 @@ class ProfilePage extends React.Component {
 
   //Handle edit profile form submit
   handleSubmit = event => {
-    debugger;
     event.preventDefault();
     this.setState({ isLoading: true });
     const userId = this.props.match.params;
@@ -135,7 +137,7 @@ class ProfilePage extends React.Component {
                 bio: "",
                 twitterUsername: "",
                 isEditing: false,
-                isLoading: false
+                isLoading: false,
               });
             })
             .catch(err => console.log(err));
@@ -144,7 +146,7 @@ class ProfilePage extends React.Component {
             bio: "",
             twitterUsername: "",
             isEditing: false,
-            isLoading: false
+            isLoading: false,
           });
         }
       })
@@ -159,7 +161,7 @@ class ProfilePage extends React.Component {
   //Picture change Method
   handleChange(e) {
     this.setState({
-      file: e.target.files[0]
+      file: e.target.files[0],
     });
   }
 
@@ -174,7 +176,7 @@ class ProfilePage extends React.Component {
           .getFavorites(deleteReponse.value.user)
           .then(favorites => {
             this.setState({
-              favoriteMovies: favorites.favoriteMovies
+              favoriteMovies: favorites.favoriteMovies,
             });
             this.fillCarousel(this.state.favoriteMovies);
             this.setState({ isLoading: false });
@@ -196,8 +198,6 @@ class ProfilePage extends React.Component {
     const userName = this.props.loggedInUser.username.toUpperCase();
     const twiterUsername = this.props.loggedInUser.twitterUsername;
 
-    
-
     //Style in card tasks.sass
     if ((this.state.favoriteMovies || []).length > 0) {
       var movies = this.state.favoriteMovies.map(movie => {
@@ -206,7 +206,7 @@ class ProfilePage extends React.Component {
           title: movie.title,
           backdrop: movie.background,
           release: movie.release,
-          posterPath: movie.posterPath
+          posterPath: movie.posterPath,
         };
 
         return (
@@ -245,124 +245,124 @@ class ProfilePage extends React.Component {
 
     return (
       <>
-        <div className="wrapper">
-          <div className="page-header">
-            <Container className="align-items-center">
-              {!this.state.isLoading && (
-                <Row>
-                  <Col lg="6" md="6">
-                    <div className="profile-description">
-                      <h2>
-                        {this.state.carouselItems.length} Películas agregadas{" "}
-                      </h2>
+        {!this.state.isLoading ? (
+          <>
+            <div className="wrapper">
+              <div className="page-header">
+                <Container className="align-items-center">
+                  <Row>
+                    <Col lg="6" md="6">
+                      <div className="profile-description">
+                        <h2>
+                          {this.state.carouselItems.length} Películas agregadas{" "}
+                        </h2>
 
-                      {this.state.carouselItems.length > 0 && (
-                        <UncontrolledCarousel
-                          items={this.state.carouselItems}
-                          key={this.state.carouselItems.pictureId}
-                        />
-                      )}
-                    </div>
-                  </Col>
-                  <Col className="ml-auto mr-auto" lg="4" md="6">
-                    <Card className="card-coin card-plain">
-                      <CardHeader>
-                        <img
-                          alt="avatar"
-                          className="img-center img-fluid rounded-circle"
-                          src={avatar}
-                        />
-
-                        <h4 className="title">{userName}</h4>
-                        {twiterUsername && twiterUsername !== "" && <h5>@{twiterUsername}</h5>}                        
-                        
-                        <br />
-                        <p className="profile-description">
-                          {/* {this.props.loggedInUser.bio} */}
-                          {this.state.profile && this.state.profile.bio}
-                        </p>
-
-                        {/* Edit Profile Button */}
-                        <Button
-                          className="btn-simple"
-                          color="primary"
-                          onClick={this.handleEdit}
-                        >
-                          <i className="tim-icons icon-book-bookmark" />
-                          Editar perfil
-                        </Button>
-                      </CardHeader>
-
-                      <CardBody>
-                        {this.state.isEditing && (
-                          <Form onSubmit={this.handleSubmit}>
-                            {/* Bio */}
-                            <Row>
-                              <Label sm="3">Bio:</Label>
-                              <Col sm="9">
-                                <FormGroup>
-                                  <Input
-                                    placeholder="Un poco sobre tí"
-                                    type="text"
-                                    name="bio"
-                                    onChange={this.onChange}
-                                    value={this.state.bio}
-                                  />
-                                </FormGroup>
-                              </Col>
-                            </Row>
-
-                            {/* Twitter Url */}
-                            <Row>
-                              <Label sm="3">Usuario de Twitter</Label>
-                              <Col sm="9">
-                                <FormGroup>
-                                  <Input
-                                    placeholder="Usuario de twitter"
-                                    type="text"
-                                    name="twitterUsername"
-                                    onChange={this.onChange}
-                                    value={this.state.twitterUsername}
-                                  />
-                                </FormGroup>
-                              </Col>
-                            </Row>
-
-                            {/* Avatar */}
-                            <Row>
-                              <Label sm="3">Avatar:</Label>
-                              <Col sm="9">
-                                <Input
-                                  type="file"
-                                  name="file"
-                                  id="exampleFile"
-                                  onChange={e => this.handleChange(e)}
-                                  className="holaaa"
-                                />
-                                <br />
-                              </Col>
-                            </Row>
-
-                            <Button
-                              className="btn-simple btn-icon btn-round float-right"
-                              color="primary"
-                              type="submit"
-                            >
-                              <i className="tim-icons icon-send" />
-                            </Button>
-                          </Form>
+                        {this.state.carouselItems.length > 0 && (
+                          <UncontrolledCarousel
+                            items={this.state.carouselItems}
+                            key={this.state.carouselItems.pictureId}
+                          />
                         )}
-                      </CardBody>
-                    </Card>
-                  </Col>
-                </Row>
-              )}
-            </Container>
-          </div>
+                      </div>
+                    </Col>
+                    <Col className="ml-auto mr-auto" lg="4" md="6">
+                      <Card className="card-coin card-plain">
+                        <CardHeader>
+                          <img
+                            alt="avatar"
+                            className="img-center img-fluid rounded-circle"
+                            src={avatar}
+                          />
 
-          {/* Favorite movies */}
-          {!this.state.isLoading && (
-            <>
+                          <h4 className="title">{userName}</h4>
+                          {twiterUsername && twiterUsername !== "" && (
+                            <h5>@{twiterUsername}</h5>
+                          )}
+
+                          <br />
+                          <p className="profile-description">
+                            {/* {this.props.loggedInUser.bio} */}
+                            {this.state.profile && this.state.profile.bio}
+                          </p>
+
+                          {/* Edit Profile Button */}
+                          <Button
+                            className="btn-simple"
+                            color="primary"
+                            onClick={this.handleEdit}
+                          >
+                            <i className="tim-icons icon-book-bookmark" />
+                            Editar perfil
+                          </Button>
+                        </CardHeader>
+
+                        <CardBody>
+                          {this.state.isEditing && (
+                            <Form onSubmit={this.handleSubmit}>
+                              {/* Bio */}
+                              <Row>
+                                <Label sm="3">Bio:</Label>
+                                <Col sm="9">
+                                  <FormGroup>
+                                    <Input
+                                      placeholder="Un poco sobre tí"
+                                      type="text"
+                                      name="bio"
+                                      onChange={this.onChange}
+                                      value={this.state.bio}
+                                    />
+                                  </FormGroup>
+                                </Col>
+                              </Row>
+
+                              {/* Twitter Url */}
+                              <Row>
+                                <Label sm="3">Usuario de Twitter</Label>
+                                <Col sm="9">
+                                  <FormGroup>
+                                    <Input
+                                      placeholder="Usuario de twitter"
+                                      type="text"
+                                      name="twitterUsername"
+                                      onChange={this.onChange}
+                                      value={this.state.twitterUsername}
+                                    />
+                                  </FormGroup>
+                                </Col>
+                              </Row>
+
+                              {/* Avatar */}
+                              <Row>
+                                <Label sm="3">Avatar:</Label>
+                                <Col sm="9">
+                                  <Input
+                                    type="file"
+                                    name="file"
+                                    id="exampleFile"
+                                    onChange={e => this.handleChange(e)}
+                                    className="holaaa"
+                                  />
+                                  <br />
+                                </Col>
+                              </Row>
+
+                              <Button
+                                className="btn-simple btn-icon btn-round float-right"
+                                color="primary"
+                                type="submit"
+                              >
+                                <i className="tim-icons icon-send" />
+                              </Button>
+                            </Form>
+                          )}
+                        </CardBody>
+                      </Card>
+                    </Col>
+                  </Row>
+                </Container>
+              </div>
+
+              {/* Favorite movies */}
               <div className="wrapper" style={{ marginTop: "100px" }}>
                 <h1 className="text-center">Películas favoritas</h1>
                 <div className="content-center">
@@ -371,15 +371,16 @@ class ProfilePage extends React.Component {
                   <Row>{movies}</Row>
                 </div>
               </div>
-
               {this.state.carouselItems.length > 0 ? (
                 <div className="section" />
               ) : (
                 <h1>Aún no has agregado favoritos</h1>
               )}
-            </>
-          )}
-        </div>
+            </div>
+          </>
+        ) : (
+          <Loading loadingmsg={"Obteniendo datos del perfil"} />
+        )}
       </>
     );
   }

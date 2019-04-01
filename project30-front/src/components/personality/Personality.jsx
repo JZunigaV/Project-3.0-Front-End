@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import Results from "./Results";
 //Service
 import RecommendationService from "../recommendations/RecommendationService";
-
+//Loading component
+import Loading from "../Loading";
 class Personality extends Component {
   state = {
     responseData: {},
@@ -15,7 +16,6 @@ class Personality extends Component {
   componentDidMount = () => {
     //Landing page style
     //Call api to get the personality insights data
-    debugger;
     this.service
       .personalityInsights(this.props.twitterUsername)
       .then(response => {
@@ -42,8 +42,10 @@ class Personality extends Component {
 
     return (
       <div>
-        {!this.state.isLoading && (
+        {!this.state.isLoading ? (
           <Results resultData={this.state.responseData} />
+        ) : (
+          <Loading loadingmsg={"Graficando detalles de personalidad"} />
         )}
       </div>
     );

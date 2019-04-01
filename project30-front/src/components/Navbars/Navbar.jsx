@@ -12,14 +12,14 @@ import {
   Nav,
   Container,
   Row,
-  Col
+  Col,
 } from "reactstrap";
 
 class PagesNavbar extends React.Component {
   state = {
     collapseOpen: false,
     color: "navbar-transparent",
-    loggedInUser: null
+    loggedInUser: null,
   };
 
   service = new AuthService();
@@ -43,31 +43,31 @@ class PagesNavbar extends React.Component {
       document.body.scrollTop > 99
     ) {
       this.setState({
-        color: "bg-info"
+        color: "bg-info",
       });
     } else if (
       document.documentElement.scrollTop < 100 ||
       document.body.scrollTop < 100
     ) {
       this.setState({
-        color: "navbar-transparent"
+        color: "navbar-transparent",
       });
     }
   };
   toggleCollapse = () => {
     document.documentElement.classList.toggle("nav-open");
     this.setState({
-      collapseOpen: !this.state.collapseOpen
+      collapseOpen: !this.state.collapseOpen,
     });
   };
   onCollapseExiting = () => {
     this.setState({
-      collapseOut: "collapsing-out"
+      collapseOut: "collapsing-out",
     });
   };
   onCollapseExited = () => {
     this.setState({
-      collapseOut: ""
+      collapseOut: "",
     });
   };
 
@@ -146,7 +146,6 @@ class PagesNavbar extends React.Component {
               tag={Link}
             >
               <span>TWEETFLICK• </span>
-             
             </NavbarBrand>
             <button
               aria-expanded={this.state.collapseOpen}
@@ -169,7 +168,7 @@ class PagesNavbar extends React.Component {
               <Row>
                 <Col className="collapse-brand" xs="6">
                   <a href="#pablo" onClick={e => e.preventDefault()}>
-                    JESUS•
+                    TWEETFLICK•
                   </a>
                 </Col>
                 <Col className="collapse-close text-right" xs="6">
@@ -225,13 +224,12 @@ class PagesNavbar extends React.Component {
               {this.state.loggedInUser
                 ? this.profileElement(
                     this.state.loggedInUser.username,
-                    this.state.loggedInUser._id
+                    this.state.loggedInUser._id,
                   )
                 : this.renderSignup()}
 
               {/* si el usuario esta logeado recomendaciones aparecen */}
               {this.state.loggedInUser ? this.moviesElement() : ""}
-                            
             </Nav>
           </Collapse>
         </Container>

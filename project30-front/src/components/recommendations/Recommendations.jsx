@@ -6,6 +6,9 @@ import RecommendationService from "./RecommendationService";
 import ProfileService from "../Profile/ProfileService";
 import MovieModal from "./MovieModal";
 
+//Loading Component
+import Loading from "../Loading";
+
 // reactstrap components
 import {
   Form,
@@ -19,7 +22,7 @@ import {
   Card,
   CardBody,
   CardHeader,
-  CardTitle
+  CardTitle,
   // Modal,
 
   // Container
@@ -33,7 +36,8 @@ class Recommendations extends React.Component {
     modal: false,
     formShowing: false,
     userShowing: false,
-    movieDetail: {}
+    movieDetail: {},
+    isLoading: false,
   };
 
   componentDidMount() {
@@ -48,19 +52,22 @@ class Recommendations extends React.Component {
   }
 
   searchMoviesForUser = () => {
+    this.setState({ isLoading: true });
     if (this.props.loggedInUser.twitterUsername) {
       this.service
         .movieRecommendations(this.props.loggedInUser.twitterUsername)
         .then(response => {
           this.setState({
             recommendations: response,
-            twitterUsername: this.props.loggedInUser.twitterUsername
+            twitterUsername: this.props.loggedInUser.twitterUsername,
+            isLoading: false,
           });
           //Here we pass twitter username to App.js
           this.props.liftTwitter(this.state.twitterUsername);
         })
         .catch(err => {
           console.log(err);
+          this.setState({ isLoading: false });
         });
     }
   };
@@ -80,17 +87,18 @@ class Recommendations extends React.Component {
 
   handleSearchForm = event => {
     event.preventDefault();
-    const twitterUsername = this.state.twitterUsername;
 
+    this.setState({ isLoading: true });
+    const twitterUsername = this.state.twitterUsername;
     this.service
       .movieRecommendations(twitterUsername)
       .then(response => {
-        this.setState({ recommendations: response });
-
+        this.setState({ recommendations: response, isLoading: false });
         //Here we pass twitter username to App.js
         this.props.liftTwitter(this.state.twitterUsername);
       })
       .catch(err => {
+        this.setState({ isLoading: false });
         console.log(err);
       });
   };
@@ -99,16 +107,23 @@ class Recommendations extends React.Component {
   toggleModal = (modalState, details) => {
     this.setState({
       [modalState]: !this.state[modalState],
-      movieDetail: details
+      movieDetail: details,
     });
   };
 
   favoriteHandler = movie => {
     //Here we have to send parameters to our backend route profile
+    this.setState({ isLoading: true });
     this.profileService
       .addFavorite(this.props.loggedInUser._id, movie)
-      .then(movie => alert(movie))
-      .catch(err => console.log(err));
+      .then(movie => {
+        alert(movie);
+        this.setState({ isLoading: false });
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({ isLoading: false });
+      });
   };
 
   toggleForm = event => {
@@ -136,7 +151,7 @@ class Recommendations extends React.Component {
             title: movie.title,
             backdrop: movie.backdrop_path,
             release: movie.release_date,
-            posterPath: movie.poster_path
+            posterPath: movie.poster_path,
           };
 
           return (
@@ -204,7 +219,7 @@ class Recommendations extends React.Component {
                         {/* twitter username */}
                         <InputGroup
                           className={classnames({
-                            "input-group-focus": this.state.fullNameFocus
+                            "input-group-focus": this.state.fullNameFocus,
                           })}
                         >
                           <InputGroupAddon addonType="prepend">
@@ -260,29 +275,33 @@ class Recommendations extends React.Component {
             </div>
           </div>
 
-          <div className="content-center">
-            <Col lg="4" md="4" className="col-sm" />
+          {!this.state.isLoading ? (
+            <div className="content-center">
+              <Col lg="4" md="4" className="col-sm" />
 
-            {this.state.recommendations.length > 0 && (
-              <>
-                <h1>Algunas películas que te podrían gustar</h1>
-                <br />
+              {this.state.recommendations.length > 0 && (
+                <>
+                  <h1>Algunas películas que te podrían gustar</h1>
+                  <br />
 
-                <Link to="/personality">
-                  <Button
-                    type="submit"
-                    className="btn-round"
-                    color="warning"
-                    size="sm"
-                    id="btn-personality"
-                  >
-                    ¿Por qué elegimos estás películas?
-                  </Button>
-                </Link>
-              </>
-            )}
-            <Row>{movies}</Row>
-          </div>
+                  <Link to="/personality">
+                    <Button
+                      type="submit"
+                      className="btn-round"
+                      color="warning"
+                      size="sm"
+                      id="btn-personality"
+                    >
+                      ¿Por qué elegimos estás películas?
+                    </Button>
+                  </Link>
+                </>
+              )}
+              <Row>{movies}</Row>
+            </div>
+          ) : (
+            <Loading loadingmsg={"Trabajando en las recomendaciones"} />
+          )}
 
           {/* Movie modal */}
           {this.state.movieDetail && (
