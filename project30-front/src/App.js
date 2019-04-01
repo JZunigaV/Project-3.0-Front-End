@@ -21,7 +21,6 @@ class App extends Component {
     twitterUsername: "",
     avatarUrl: "",
     profileBio: "",
-    
   };
   service = new AuthService();
 
@@ -31,12 +30,12 @@ class App extends Component {
         .loggedin()
         .then(response => {
           this.setState({
-            loggedUser: response
+            loggedUser: response,
           });
         })
         .catch(err => {
           this.setState({
-            loggedUser: false
+            loggedUser: false,
           });
         });
     }
@@ -60,14 +59,14 @@ class App extends Component {
 
   //Profile
   setTwitterProfile = twitterProfileUsername => {
+    this.service.updateTwitter(
+      this.state.loggedUser._id,
+      twitterProfileUsername,
+    );
 
-    this.service.updateTwitter(this.state.loggedUser._id,twitterProfileUsername);
-    
     let loggedUser = { ...this.state.loggedUser };
-    loggedUser.twitterUsername = twitterProfileUsername
+    loggedUser.twitterUsername = twitterProfileUsername;
     this.setState({ loggedUser });
-
-
   };
 
   render() {
@@ -95,7 +94,7 @@ class App extends Component {
             {/* Profile routes */}
             <ProtectedRoute
               exact
-              path="/profile/:id"
+              path="/profile"
               component={Profile}
               user={this.state.loggedUser}
               liftAvatar={this.setAvatar}
@@ -169,7 +168,7 @@ class App extends Component {
             {/* Profile routes */}
             <ProtectedRoute
               exact
-              path="/profile/:id"
+              path="/profile"
               component={Profile}
               user={this.state.loggedUser}
               liftAvatar={this.setAvatar}

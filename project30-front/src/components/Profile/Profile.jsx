@@ -85,7 +85,7 @@ class ProfilePage extends React.Component {
 
     //Backend request to profile info
     this.setState({ isLoading: true });
-    const { id: userId } = this.props.match.params;
+    const userId = this.props.loggedInUser._id;
 
     this.service
       .getUser(userId)
@@ -115,7 +115,7 @@ class ProfilePage extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
     this.setState({ isLoading: true });
-    const userId = this.props.match.params;
+    const userId = this.props.loggedInUser._id;
     const bio = this.state.bio;
     const twitterUsername = this.state.twitterUsername;
 
@@ -232,7 +232,7 @@ class ProfilePage extends React.Component {
               <Button
                 color="warning"
                 onClick={() =>
-                  this.deleteFavorite(movie, this.props.match.params)
+                  this.deleteFavorite(movie._id, this.props.loggedInUser._id)
                 }
               >
                 Eliminar favorito

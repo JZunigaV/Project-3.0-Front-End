@@ -17,6 +17,7 @@ class MovieModal extends Component {
       posterPath: this.props.posterPath,
     };
 
+    //Lift state up with prop favorite
     this.props.favorite(movie);
   };
 

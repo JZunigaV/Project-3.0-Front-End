@@ -95,7 +95,7 @@ class PagesNavbar extends React.Component {
     return (
       <>
         <NavItem>
-          <NavLink tag={Link} to={`/profile/${id}`}>
+          <NavLink tag={Link} to={`/profile`}>
             Hola, {username}
           </NavLink>
         </NavItem>

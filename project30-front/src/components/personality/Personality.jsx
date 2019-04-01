@@ -34,12 +34,6 @@ class Personality extends Component {
     this.setState({ responseData: {}, isLoading: true });
   };
   render() {
-    console.log(this.props);
-
-    if (!this.state.isLoading) {
-      alert("Terminó de cargar");
-    }
-
     return (
       <div>
         {!this.state.isLoading ? (
