@@ -19,7 +19,7 @@ import {
   Card,
   CardBody,
   CardHeader,
-  CardTitle,
+  CardTitle
   // Modal,
 
   // Container
@@ -31,12 +31,40 @@ class Recommendations extends React.Component {
     twitterUsername: "",
     recommendations: [],
     modal: false,
-    movieDetail: {},
+    formShowing: false,
+    userShowing: false,
+    movieDetail: {}
   };
 
   componentDidMount() {
     document.body.classList.toggle("landing-page");
+    //Listen for the state of the twitter Username
+    this.props.loggedInUser.twitterUsername
+      ? this.setState({ userShowing: true })
+      : this.setState({ formShowing: true });
+
+    //If the user registered a twitter on his profile the search will launch atomatically
+    this.searchMoviesForUser();
   }
+
+  searchMoviesForUser = () => {
+    if (this.props.loggedInUser.twitterUsername) {
+      this.service
+        .movieRecommendations(this.props.loggedInUser.twitterUsername)
+        .then(response => {
+          this.setState({
+            recommendations: response,
+            twitterUsername: this.props.loggedInUser.twitterUsername
+          });
+          //Here we pass twitter username to App.js
+          this.props.liftTwitter(this.state.twitterUsername);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  };
+
   componentWillUnmount() {
     document.body.classList.toggle("landing-page");
   }
@@ -71,7 +99,7 @@ class Recommendations extends React.Component {
   toggleModal = (modalState, details) => {
     this.setState({
       [modalState]: !this.state[modalState],
-      movieDetail: details,
+      movieDetail: details
     });
   };
 
@@ -83,8 +111,22 @@ class Recommendations extends React.Component {
       .catch(err => console.log(err));
   };
 
+  toggleForm = event => {
+    event.preventDefault();
+    this.setState({ userShowing: false });
+  };
+
+  toggleUser = event => {
+    event.preventDefault();
+    this.setState({ userShowing: true });
+    this.searchMoviesForUser();
+  };
+
   render() {
     //Javascript
+
+    // this.checkUser(this.props.loggedInUser.twiterUsername);
+
     //Style in card tasks.sass
     if ((this.state.recommendations || []).length > 0) {
       var movies = this.state.recommendations.map(subArray => {
@@ -94,7 +136,7 @@ class Recommendations extends React.Component {
             title: movie.title,
             backdrop: movie.backdrop_path,
             release: movie.release_date,
-            posterPath: movie.poster_path,
+            posterPath: movie.poster_path
           };
 
           return (
@@ -129,49 +171,92 @@ class Recommendations extends React.Component {
           {/* Header */}
           <div className="page-header-recommendation">
             <div className="content-center">
-              <Row className="">
-                <Col lg="12" md="12">
-                  <Form
-                    className="form form-recommend"
-                    onSubmit={this.handleSearchForm}
-                    id="input-form"
-                  >
-                    <h1>Recomendaciones</h1>
+              {this.state.userShowing ? (
+                <div className="username-recommend">
+                  <Row>
+                    <Col lg="12" md="12">
+                      <h1>
+                        Recomendaciones para @
+                        {this.props.loggedInUser.twitterUsername}
+                      </h1>
+                      <Button
+                        type="submit"
+                        className="btn-round"
+                        color="success"
+                        size="lg"
+                        onClick={this.toggleForm}
+                      >
+                        Buscar para alguien más
+                      </Button>
+                    </Col>
+                  </Row>
+                </div>
+              ) : (
+                <>
+                  <Row className="">
+                    <Col lg="12" md="12">
+                      <Form
+                        className="form form-recommend"
+                        onSubmit={this.handleSearchForm}
+                        id="input-form"
+                      >
+                        <h1>Recomendaciones</h1>
+                        {/* twitter username */}
+                        <InputGroup
+                          className={classnames({
+                            "input-group-focus": this.state.fullNameFocus
+                          })}
+                        >
+                          <InputGroupAddon addonType="prepend">
+                            <InputGroupText>
+                              <i className="fab fa-twitter" />
+                            </InputGroupText>
+                          </InputGroupAddon>
+                          <Input
+                            placeholder="usuario de twitter"
+                            type="text"
+                            name="twitterUsername"
+                            onChange={this.onChange}
+                            value={this.state.username}
+                            onFocus={e =>
+                              this.setState({ fullNameFocus: true })
+                            }
+                            onBlur={e =>
+                              this.setState({ fullNameFocus: false })
+                            }
+                            required={true}
+                          />
+                        </InputGroup>
 
-                    {/* twitter username */}
-                    <InputGroup
-                      className={classnames({
-                        "input-group-focus": this.state.fullNameFocus,
-                      })}
-                    >
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <i className="fab fa-twitter" />
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <Input
-                        placeholder="usuario de twitter"
-                        type="text"
-                        name="twitterUsername"
-                        onChange={this.onChange}
-                        value={this.state.username}
-                        onFocus={e => this.setState({ fullNameFocus: true })}
-                        onBlur={e => this.setState({ fullNameFocus: false })}
-                        required={true}
-                      />
-                    </InputGroup>
+                        <Button
+                          type="submit"
+                          className="btn-round"
+                          color="success"
+                          size="lg"
+                        >
+                          Buscar!!!
+                        </Button>
+                      </Form>
+                    </Col>
+                  </Row>
 
-                    <Button
-                      type="submit"
-                      className="btn-round"
-                      color="success"
-                      size="lg"
-                    >
-                      Buscar!!!
-                    </Button>
-                  </Form>
-                </Col>
-              </Row>
+                  <Row>
+                    <Col lg="12" md="12">
+                      {this.props.loggedInUser.twitterUsername && (
+                        <Button
+                          type="submit"
+                          className="btn-round movies-me"
+                          color="success"
+                          size="lg"
+                          onClick={this.toggleUser}
+                        >
+                          Buscar con mi usuario
+                        </Button>
+                      )}
+                    </Col>
+                  </Row>
+                </>
+              )}
             </div>
           </div>
 

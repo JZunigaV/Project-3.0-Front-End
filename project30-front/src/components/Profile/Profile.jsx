@@ -194,6 +194,9 @@ class ProfilePage extends React.Component {
   render() {
     const avatar = this.props.loggedInUser.avatarUrl;
     const userName = this.props.loggedInUser.username.toUpperCase();
+    const twiterUsername = this.props.loggedInUser.twitterUsername;
+
+    
 
     //Style in card tasks.sass
     if ((this.state.favoriteMovies || []).length > 0) {
@@ -271,6 +274,8 @@ class ProfilePage extends React.Component {
                         />
 
                         <h4 className="title">{userName}</h4>
+                        {twiterUsername && twiterUsername !== "" && <h5>@{twiterUsername}</h5>}                        
+                        
                         <br />
                         <p className="profile-description">
                           {/* {this.props.loggedInUser.bio} */}

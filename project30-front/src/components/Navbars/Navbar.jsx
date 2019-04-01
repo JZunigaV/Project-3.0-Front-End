@@ -115,7 +115,7 @@ class PagesNavbar extends React.Component {
       <>
         <NavItem>
           <NavLink tag={Link} to={`/recommendations`}>
-            Recomedaciones
+            Recomendaciones
           </NavLink>
         </NavItem>
       </>
