@@ -24,6 +24,10 @@ import {
   UncontrolledCarousel,
 } from "reactstrap";
 
+//SweetAlert
+import SweetAlert from "sweetalert-react";
+import "sweetalert/dist/sweetalert.css";
+
 class ProfilePage extends React.Component {
   state = {
     tabs: 1,
@@ -35,6 +39,7 @@ class ProfilePage extends React.Component {
     file: null,
     favoriteMovies: [],
     carouselItems: [],
+    show: false,
   };
 
   service = new ProfileService();
@@ -172,6 +177,8 @@ class ProfilePage extends React.Component {
       .deleteFavorite(movie, userId)
       .then(deleteReponse => {
         //If the process was succesful then we need to set the state with new array of movies
+        this.setState({ show: false });
+
         this.service
           .getFavorites(deleteReponse.value.user)
           .then(favorites => {
@@ -182,12 +189,12 @@ class ProfilePage extends React.Component {
             this.setState({ isLoading: false });
           })
           .catch(err => {
-            this.setState({ isLoading: false });
+            this.setState({ isLoading: false, show: false });
             alert(err);
           });
       })
       .catch(err => {
-        this.setState({ isLoading: false });
+        this.setState({ isLoading: false, show: false });
         console.log(err);
       });
   };
@@ -231,12 +238,29 @@ class ProfilePage extends React.Component {
 
               <Button
                 color="warning"
-                onClick={() =>
-                  this.deleteFavorite(movie._id, this.props.loggedInUser._id)
-                }
+                onClick={() => this.setState({ show: true })}
+                // onClick={() =>
+                //   this.deleteFavorite(movie._id, this.props.loggedInUser._id)
+                // }
               >
                 Eliminar favorito
               </Button>
+
+              <SweetAlert
+                show={this.state.show}
+                title="Demo with Cancel"
+                text="SweetAlert in React"
+                showCancelButton
+                onConfirm={() => {
+                  console.log("confirm"); // eslint-disable-line no-console
+                  alert("holaasdasdas");
+                }}
+                onCancel={() => {
+                  console.log("cancel"); // eslint-disable-line no-console
+                  this.setState({ show: false });
+                }}
+                onClose={() => console.log("close")} // eslint-disable-line no-console
+              />
             </CardBody>
           </Card>
         );

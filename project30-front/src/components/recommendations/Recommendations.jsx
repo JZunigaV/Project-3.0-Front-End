@@ -26,9 +26,9 @@ import {
 } from "reactstrap";
 
 //SweetAlert
-import { withSwalInstance } from "sweetalert2-react";
-import swal from "sweetalert2";
-const SweetAlert = withSwalInstance(swal);
+// import { withSwalInstance } from "sweetalert2-react";
+// import swal from "sweetalert2";
+// const SweetAlert = withSwalInstance(swal);
 
 class Recommendations extends React.Component {
   //Class part
@@ -116,15 +116,13 @@ class Recommendations extends React.Component {
 
   favoriteHandler = movie => {
     //Here we have to send parameters to our backend route profile to add favorite
-    this.setState({ isLoading: true });
     this.profileService
       .addFavorite(this.props.loggedInUser._id, movie)
       .then(movie => {
-        this.setState({ isLoading: false, showAlert: true });
+        this.setState({ showAlert: true });
       })
       .catch(err => {
         console.log(err);
-        this.setState({ isLoading: false });
       });
   };
 
@@ -141,9 +139,7 @@ class Recommendations extends React.Component {
 
   render() {
     //Javascript
-
     // this.checkUser(this.props.loggedInUser.twiterUsername);
-
     //Style in card tasks.sass
     if ((this.state.recommendations || []).length > 0) {
       var movies = this.state.recommendations.map(subArray => {
@@ -321,13 +317,13 @@ class Recommendations extends React.Component {
           )}
 
           {/* SweetalertComponent */}
-          <SweetAlert
+          {/* <SweetAlert
             show={this.state.showAlert}
             title="Exito"
             text="Película agregada correctamente a favoritos"
             type="success"
             onConfirm={() => this.setState({ showAlert: false })}
-          />
+          /> */}
         </div>
       </div>
     );
