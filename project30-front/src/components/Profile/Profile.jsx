@@ -186,15 +186,15 @@ class ProfilePage extends React.Component {
               favoriteMovies: favorites.favoriteMovies
             });
             this.fillCarousel(this.state.favoriteMovies);
-            this.setState({ isLoading: false, });
+            this.setState({ isLoading: false });
           })
           .catch(err => {
-            this.setState({ isLoading: false, });
+            this.setState({ isLoading: false });
             alert(err);
           });
       })
       .catch(err => {
-        this.setState({ isLoading: false,});
+        this.setState({ isLoading: false });
         console.log(err);
       });
   };
@@ -241,7 +241,6 @@ class ProfilePage extends React.Component {
                 onClick={() =>
                   this.setState({ show: true, selectedMovieId: movie._id })
                 }
-         
               >
                 Eliminar favorito
               </Button>
@@ -249,20 +248,18 @@ class ProfilePage extends React.Component {
               <SweetAlert
                 show={this.state.show}
                 title="Seguro que quieres eliminar esta película?"
-                type="info" 
-                confirmButtonColor="#a3190d"    
-                cancelButtonText="Cancelar"                           
+                type="info"
+                confirmButtonColor="#a3190d"
+                cancelButtonText="Cancelar"
                 showCancelButton
                 onConfirm={() => {
-                  this.setState({show:false})
+                  this.setState({ show: false });
                   this.deleteFavorite(
                     this.state.selectedMovieId,
                     this.props.loggedInUser._id
                   );
-                
-                
                 }}
-                onCancel={() => {            
+                onCancel={() => {
                   this.setState({ show: false });
                 }}
                 onClose={() => console.log("close")} // eslint-disable-line no-console

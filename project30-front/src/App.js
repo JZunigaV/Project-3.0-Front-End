@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 //Landing Page
 import LandingPage from "./components/LandingPage";
-import ExamplesNavbar from "./components/Navbars/Navbar";
+import Navbar from "./components/Navbars/Navbar";
 import Signup from "./components/auth/Signup";
 import Login from "./components/auth/Login";
 import AuthService from "./components/auth/AuthService";
@@ -42,6 +42,7 @@ class App extends Component {
   };
 
   getTheUser = userObj => {
+    debugger;
     this.setState({ loggedUser: userObj, redirect: true });
   };
 
@@ -79,7 +80,7 @@ class App extends Component {
           {redirect ? <Redirect push to="/" /> : ""}
 
           {/*  NavBar */}
-          <ExamplesNavbar
+          <Navbar
             userInSession={this.state.loggedUser}
             getUser={this.getTheUser}
           />
@@ -127,7 +128,7 @@ class App extends Component {
       return (
         <div className="App">
           {/*  NavBar */}
-          <ExamplesNavbar userInSession={this.state.loggedUser} />
+          <Navbar userInSession={this.state.loggedUser} />
           <Route
             exact
             path="/signup"

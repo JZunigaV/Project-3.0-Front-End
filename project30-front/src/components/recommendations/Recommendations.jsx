@@ -26,9 +26,8 @@ import {
 } from "reactstrap";
 
 //SweetAlert
-// import { withSwalInstance } from "sweetalert2-react";
-// import swal from "sweetalert2";
-// const SweetAlert = withSwalInstance(swal);
+import SweetAlert from "sweetalert-react";
+import "sweetalert/dist/sweetalert.css";
 
 class Recommendations extends React.Component {
   //Class part
@@ -314,13 +313,12 @@ class Recommendations extends React.Component {
                 />
               )}
               {/* SweetalertComponent */}
-              {/* <SweetAlert
-            show={this.state.showAlert}
-            title="Exito"
-            text="Película agregada correctamente a favoritos"
-            type="success"
-            onConfirm={() => this.setState({ showAlert: false })}
-          /> */}
+              <SweetAlert
+                show={this.state.showAlert}
+                title="Agregada a favoritos"             
+                type="success"
+                onConfirm={() => this.setState({ showAlert: false })}
+              />
             </>
           ) : (
             <Loading loadingmsg={"Trabajando en las recomendaciones"} />

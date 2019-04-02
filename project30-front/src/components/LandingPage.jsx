@@ -80,11 +80,11 @@ class LandingPage extends React.Component {
                   </div>
                 </Col>
                 <Col lg="4" md="5">
-                  {/* <img
+                  <img
                     alt="..."
                     className="img-fluid"
-                    src={require("../assets/img/etherum.png")}
-                  /> */}
+                    src={require("../assets/img/logo.png")}
+                  />
                 </Col>
               </Row>
             </div>
@@ -172,7 +172,7 @@ class LandingPage extends React.Component {
                   <img
                     alt="..."
                     className="img-fluid floating"
-                    src={require("../assets/img/chester-wade.jpg")}
+                    src={require("../assets/img/movies.jpg")}
                   />
                   <Card className="card-stats bg-danger">
                     <CardBody>
