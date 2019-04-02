@@ -21,7 +21,7 @@ import {
   Container,
   Row,
   Col,
-  UncontrolledCarousel,
+  UncontrolledCarousel
 } from "reactstrap";
 
 //SweetAlert
@@ -40,6 +40,7 @@ class ProfilePage extends React.Component {
     favoriteMovies: [],
     carouselItems: [],
     show: false,
+    selectedMovieId: ""
   };
 
   service = new ProfileService();
@@ -70,7 +71,7 @@ class ProfilePage extends React.Component {
         src: ele.background,
         altText: ele.title,
         caption: "",
-        pictureId: ele._id,
+        pictureId: ele._id
       };
       if (this.state.carouselItems.indexOf(newItem.pictureId) === -1) {
         this.state.carouselItems.push(newItem);
@@ -142,7 +143,7 @@ class ProfilePage extends React.Component {
                 bio: "",
                 twitterUsername: "",
                 isEditing: false,
-                isLoading: false,
+                isLoading: false
               });
             })
             .catch(err => console.log(err));
@@ -151,7 +152,7 @@ class ProfilePage extends React.Component {
             bio: "",
             twitterUsername: "",
             isEditing: false,
-            isLoading: false,
+            isLoading: false
           });
         }
       })
@@ -166,7 +167,7 @@ class ProfilePage extends React.Component {
   //Picture change Method
   handleChange(e) {
     this.setState({
-      file: e.target.files[0],
+      file: e.target.files[0]
     });
   }
 
@@ -177,24 +178,23 @@ class ProfilePage extends React.Component {
       .deleteFavorite(movie, userId)
       .then(deleteReponse => {
         //If the process was succesful then we need to set the state with new array of movies
-        this.setState({ show: false });
 
         this.service
           .getFavorites(deleteReponse.value.user)
           .then(favorites => {
             this.setState({
-              favoriteMovies: favorites.favoriteMovies,
+              favoriteMovies: favorites.favoriteMovies
             });
             this.fillCarousel(this.state.favoriteMovies);
-            this.setState({ isLoading: false });
+            this.setState({ isLoading: false, });
           })
           .catch(err => {
-            this.setState({ isLoading: false, show: false });
+            this.setState({ isLoading: false, });
             alert(err);
           });
       })
       .catch(err => {
-        this.setState({ isLoading: false, show: false });
+        this.setState({ isLoading: false,});
         console.log(err);
       });
   };
@@ -206,14 +206,14 @@ class ProfilePage extends React.Component {
     const twiterUsername = this.props.loggedInUser.twitterUsername;
 
     //Style in card tasks.sass
-    if ((this.state.favoriteMovies || []).length > 0) {
+    if ((this.state.favoriteMovies || []).length > 0 && !this.state.isLoading) {
       var movies = this.state.favoriteMovies.map(movie => {
         const details = {
           overview: movie.overview,
           title: movie.title,
           backdrop: movie.background,
           release: movie.release,
-          posterPath: movie.posterPath,
+          posterPath: movie.posterPath
         };
 
         return (
@@ -238,25 +238,31 @@ class ProfilePage extends React.Component {
 
               <Button
                 color="warning"
-                onClick={() => this.setState({ show: true })}
-                // onClick={() =>
-                //   this.deleteFavorite(movie._id, this.props.loggedInUser._id)
-                // }
+                onClick={() =>
+                  this.setState({ show: true, selectedMovieId: movie._id })
+                }
+         
               >
                 Eliminar favorito
               </Button>
 
               <SweetAlert
                 show={this.state.show}
-                title="Demo with Cancel"
-                text="SweetAlert in React"
+                title="Seguro que quieres eliminar esta película?"
+                type="info" 
+                confirmButtonColor="#a3190d"    
+                cancelButtonText="Cancelar"                           
                 showCancelButton
                 onConfirm={() => {
-                  console.log("confirm"); // eslint-disable-line no-console
-                  alert("holaasdasdas");
+                  this.setState({show:false})
+                  this.deleteFavorite(
+                    this.state.selectedMovieId,
+                    this.props.loggedInUser._id
+                  );
+                
+                
                 }}
-                onCancel={() => {
-                  console.log("cancel"); // eslint-disable-line no-console
+                onCancel={() => {            
                   this.setState({ show: false });
                 }}
                 onClose={() => console.log("close")} // eslint-disable-line no-console

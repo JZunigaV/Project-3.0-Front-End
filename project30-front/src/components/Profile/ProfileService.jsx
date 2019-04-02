@@ -41,7 +41,7 @@ class ProfileService {
   addPicture = (file, userId) => {
     const formData = new FormData();
     formData.append("picture", file);
-    formData.append("userId", userId.id);
+    formData.append("userId", userId);
 
     return this.service
       .post("/pictures", formData, {

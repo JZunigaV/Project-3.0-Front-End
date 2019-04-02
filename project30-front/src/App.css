@@ -142,17 +142,19 @@ Recommendations */
 }
 
 .icon-loading-status {
-  position: absolute;
+  
   border-radius: 5px;
   width: 200px;
-  top: 50%;
-  left: 50%;
-  margin-top: -160px;
-  margin-left: -100px;
-  text-align: center;
   background: #fff;
   padding: 1rem;
   font-size: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  margin-left: 43%;
 }
 
 .icon-loading-status img {
