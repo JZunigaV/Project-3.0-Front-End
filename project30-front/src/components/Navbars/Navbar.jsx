@@ -12,23 +12,21 @@ import {
   Nav,
   Container,
   Row,
-  Col
+  Col,
 } from "reactstrap";
 
 class PagesNavbar extends React.Component {
   state = {
     collapseOpen: false,
     color: "navbar-transparent",
-    loggedInUser: null
+    loggedInUser: null,
   };
 
   service = new AuthService();
 
   //Aqui agarra al usuario que está actualmente logeado
   componentWillReceiveProps(nextProps) {
-    debugger;
     this.setState({ ...this.state, loggedInUser: nextProps["userInSession"] });
- 
   }
 
   //Metodos esteticos
@@ -45,31 +43,31 @@ class PagesNavbar extends React.Component {
       document.body.scrollTop > 99
     ) {
       this.setState({
-        color: "bg-info"
+        color: "bg-info",
       });
     } else if (
       document.documentElement.scrollTop < 100 ||
       document.body.scrollTop < 100
     ) {
       this.setState({
-        color: "navbar-transparent"
+        color: "navbar-transparent",
       });
     }
   };
   toggleCollapse = () => {
     document.documentElement.classList.toggle("nav-open");
     this.setState({
-      collapseOpen: !this.state.collapseOpen
+      collapseOpen: !this.state.collapseOpen,
     });
   };
   onCollapseExiting = () => {
     this.setState({
-      collapseOut: "collapsing-out"
+      collapseOut: "collapsing-out",
     });
   };
   onCollapseExited = () => {
     this.setState({
-      collapseOut: ""
+      collapseOut: "",
     });
   };
 
@@ -227,12 +225,12 @@ class PagesNavbar extends React.Component {
               {this.state.loggedInUser
                 ? this.profileElement(
                     this.state.loggedInUser.username,
-                    this.state.loggedInUser._id
+                    this.state.loggedInUser._id,
                   )
                 : this.renderSignup()}
 
               {/* si el usuario esta logeado recomendaciones aparecen */}
-              {this.state.loggedInUser && this.moviesElement() }
+              {this.state.loggedInUser && this.moviesElement()}
             </Nav>
           </Collapse>
         </Container>

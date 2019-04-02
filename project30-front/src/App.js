@@ -42,7 +42,6 @@ class App extends Component {
   };
 
   getTheUser = userObj => {
-    debugger;
     this.setState({ loggedUser: userObj, redirect: true });
   };
 

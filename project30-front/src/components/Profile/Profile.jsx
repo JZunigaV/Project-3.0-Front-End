@@ -5,6 +5,7 @@ import ProfileService from "./ProfileService";
 import AuthService from "../auth/AuthService";
 
 //Loading component
+import InfoModal from "../Profile/InfoModal";
 import Loading from "../Loading";
 
 // reactstrap components
@@ -21,7 +22,7 @@ import {
   Container,
   Row,
   Col,
-  UncontrolledCarousel
+  UncontrolledCarousel,
 } from "reactstrap";
 
 //SweetAlert
@@ -40,7 +41,9 @@ class ProfilePage extends React.Component {
     favoriteMovies: [],
     carouselItems: [],
     show: false,
-    selectedMovieId: ""
+    selectedMovieId: "",
+    modal: false,
+    movieDetail: {},
   };
 
   service = new ProfileService();
@@ -71,7 +74,7 @@ class ProfilePage extends React.Component {
         src: ele.background,
         altText: ele.title,
         caption: "",
-        pictureId: ele._id
+        pictureId: ele._id,
       };
       if (this.state.carouselItems.indexOf(newItem.pictureId) === -1) {
         this.state.carouselItems.push(newItem);
@@ -105,7 +108,7 @@ class ProfilePage extends React.Component {
       });
   };
 
-  //Clear style when componen unmounts
+  //Clear style when component unmounts
   componentWillUnmount = () => {
     document.body.classList.toggle("profile-page");
   };
@@ -143,7 +146,7 @@ class ProfilePage extends React.Component {
                 bio: "",
                 twitterUsername: "",
                 isEditing: false,
-                isLoading: false
+                isLoading: false,
               });
             })
             .catch(err => console.log(err));
@@ -152,7 +155,7 @@ class ProfilePage extends React.Component {
             bio: "",
             twitterUsername: "",
             isEditing: false,
-            isLoading: false
+            isLoading: false,
           });
         }
       })
@@ -167,7 +170,7 @@ class ProfilePage extends React.Component {
   //Picture change Method
   handleChange(e) {
     this.setState({
-      file: e.target.files[0]
+      file: e.target.files[0],
     });
   }
 
@@ -183,7 +186,7 @@ class ProfilePage extends React.Component {
           .getFavorites(deleteReponse.value.user)
           .then(favorites => {
             this.setState({
-              favoriteMovies: favorites.favoriteMovies
+              favoriteMovies: favorites.favoriteMovies,
             });
             this.fillCarousel(this.state.favoriteMovies);
             this.setState({ isLoading: false });
@@ -197,6 +200,20 @@ class ProfilePage extends React.Component {
         this.setState({ isLoading: false });
         console.log(err);
       });
+  };
+
+  //Modal handlers
+  toggleModal = (modalState, details) => {
+    debugger;
+    //Aqui llamaremos al api
+    let newLol = { ...details };
+    newLol.adios = "Byeeee";
+    details = newLol;
+
+    this.setState({
+      [modalState]: !this.state[modalState],
+      movieDetail: details,
+    });
   };
 
   //Render Method
@@ -213,7 +230,7 @@ class ProfilePage extends React.Component {
           title: movie.title,
           backdrop: movie.background,
           release: movie.release,
-          posterPath: movie.posterPath
+          posterPath: movie.posterPath,
         };
 
         return (
@@ -256,7 +273,7 @@ class ProfilePage extends React.Component {
                   this.setState({ show: false });
                   this.deleteFavorite(
                     this.state.selectedMovieId,
-                    this.props.loggedInUser._id
+                    this.props.loggedInUser._id,
                   );
                 }}
                 onCancel={() => {
@@ -404,6 +421,24 @@ class ProfilePage extends React.Component {
                 <h1>Aún no has agregado favoritos</h1>
               )}
             </div>
+
+            {/* Info Modal */}
+
+            {this.state.movieDetail && (
+              <InfoModal
+                isOpen={this.state.modal}
+                toggle={() => this.toggleModal("modal")}
+                title={this.state.movieDetail.title}
+                overview={this.state.movieDetail.overview}
+                background={`http://image.tmdb.org/t/p/w500/${
+                  this.state.movieDetail.backdrop
+                }`}
+                release={this.state.movieDetail.release}
+                posterPath={this.state.movieDetail.posterPath}
+                favorite={this.favoriteHandler}
+                backdrop={this.state.movieDetail.backdrop}
+              />
+            )}
           </>
         ) : (
           <Loading loadingmsg={"Obteniendo datos del perfil"} />
