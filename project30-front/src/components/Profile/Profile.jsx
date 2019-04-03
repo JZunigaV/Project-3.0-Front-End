@@ -4,7 +4,7 @@ import React from "react";
 import ProfileService from "./ProfileService";
 import AuthService from "../auth/AuthService";
 
-//Loading component
+//components
 import InfoModal from "../Profile/InfoModal";
 import Loading from "../Loading";
 
@@ -44,6 +44,7 @@ class ProfilePage extends React.Component {
     selectedMovieId: "",
     modal: false,
     movieDetail: {},
+    movieInfo: {},
   };
 
   service = new ProfileService();
@@ -204,16 +205,16 @@ class ProfilePage extends React.Component {
 
   //Modal handlers
   toggleModal = (modalState, details) => {
-    debugger;
-    //Aqui llamaremos al api
-
-    //https://images.justwatch.com/icon/614494/s100/ Ruta de iconos
     if (details) {
       let releaseDate = parseInt(details.release.substring(0, 4));
+
+      this.setState({ isLoading: true });
+
       this.service
         .getMovieInfo(details.title, releaseDate)
         .then(info => {
-          console.log(info);
+          let movieInfo = { ...info };
+          this.setState({ movieInfo: movieInfo, isLoading: false });
         })
         .catch(err => {
           console.log(err);
@@ -434,21 +435,21 @@ class ProfilePage extends React.Component {
 
             {/* Info Modal */}
 
-            {this.state.movieDetail && (
-              <InfoModal
-                isOpen={this.state.modal}
-                toggle={() => this.toggleModal("modal")}
-                title={this.state.movieDetail.title}
-                overview={this.state.movieDetail.overview}
-                background={`http://image.tmdb.org/t/p/w500/${
-                  this.state.movieDetail.backdrop
-                }`}
-                release={this.state.movieDetail.release}
-                posterPath={this.state.movieDetail.posterPath}
-                favorite={this.favoriteHandler}
-                backdrop={this.state.movieDetail.backdrop}
-              />
-            )}
+            {this.state.movieDetail &&
+              this.state.movieInfo &&
+              !this.state.isLoading && (
+                <InfoModal
+                  isOpen={this.state.modal}
+                  toggle={() => this.toggleModal("modal")}
+                  title={this.state.movieDetail.title}
+                  background={`http://image.tmdb.org/t/p/w500/${
+                    this.state.movieDetail.backdrop
+                  }`}
+                  posterPath={this.state.movieDetail.posterPath}
+                  backdrop={this.state.movieDetail.backdrop}
+                  info={this.state.movieInfo}
+                />
+              )}
           </>
         ) : (
           <Loading loadingmsg={"Obteniendo datos del perfil"} />

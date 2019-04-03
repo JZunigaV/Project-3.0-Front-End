@@ -142,7 +142,6 @@ Recommendations */
 }
 
 .icon-loading-status {
-  
   border-radius: 5px;
   width: 200px;
   background: #fff;
@@ -159,6 +158,22 @@ Recommendations */
 
 .icon-loading-status img {
   width: 100%;
+}
+
+/* info modal */
+.modal-content .modal-body img {
+  padding: 0px;
+}
+
+.btn-providers {
+  height: 3.375rem;
+  min-width: 2.375rem;
+  width: 3.375rem;
+  padding: 0;
+  font-size: 0.9375rem;
+  overflow: hidden;
+  position: relative;
+  line-height: normal;
 }
 
 @keyframes App-logo-spin {
