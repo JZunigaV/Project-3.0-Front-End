@@ -206,9 +206,19 @@ class ProfilePage extends React.Component {
   toggleModal = (modalState, details) => {
     debugger;
     //Aqui llamaremos al api
-    let newLol = { ...details };
-    newLol.adios = "Byeeee";
-    details = newLol;
+
+    //https://images.justwatch.com/icon/614494/s100/ Ruta de iconos
+    if (details) {
+      let releaseDate = parseInt(details.release.substring(0, 4));
+      this.service
+        .getMovieInfo(details.title, releaseDate)
+        .then(info => {
+          console.log(info);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
 
     this.setState({
       [modalState]: !this.state[modalState],

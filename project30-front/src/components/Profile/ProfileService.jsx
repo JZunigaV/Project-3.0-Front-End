@@ -20,9 +20,9 @@ class ProfileService {
   createUpdateUser = (id, bio, twitterUsername) => {
     return this.service
       .post("/new", {
-        id: id,     
+        id: id,
         bio: bio,
-        twitterUsername:twitterUsername
+        twitterUsername: twitterUsername,
       })
       .then(response => response.data)
       .catch(err => this.errHandler(err));
@@ -81,6 +81,18 @@ class ProfileService {
   getFavorites = userId => {
     return this.service
       .post("/favorites", { userId: userId })
+      .then(response => {
+        return response.data;
+      })
+      .catch(err => {
+        return this.errHandler(err);
+      });
+  };
+
+  //Get the movie info
+  getMovieInfo = (title, releaseDate) => {
+    return this.service
+      .post("/info", { movieTitle: title, movieRelease: releaseDate })
       .then(response => {
         return response.data;
       })
