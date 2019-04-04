@@ -14,6 +14,11 @@ class InfoModal extends Component {
     this.setState({ movieInfo: info });
   };
 
+  linkeado = (e, url) => {
+    e.preventDefault();
+    window.open(url, "_blank");
+  };
+
   isToolTipOpen = targetName => {
     return this.state[targetName] ? this.state[targetName].tooltipOpen : false;
   };
@@ -178,7 +183,7 @@ class InfoModal extends Component {
                 className="btn-providers"
                 color="default"
                 href={offer.movieUrl}
-                onClick={e => e.preventDefault()}
+                onClick={e => this.linkeado(e, offer.movieUrl)}
                 id={`btn-${index}`}
               >
                 <img alt="..." src={offer.iconUrl} />
@@ -225,13 +230,6 @@ class InfoModal extends Component {
             <div className="btn-wrapper text-center" key={this.props.title}>
               {/* providers button */}
               {this.state.movieInfo && this.providers()}
-              <div role="form">
-                <div className="text-center">
-                  <Button className="my-4" color="primary" type="button">
-                    Sign in
-                  </Button>
-                </div>
-              </div>
             </div>
           </div>
         </Modal>
