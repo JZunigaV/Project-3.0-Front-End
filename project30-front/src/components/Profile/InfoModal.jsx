@@ -1,13 +1,7 @@
 import React, { Component } from "react";
 //Components
-
 // reactstrap components
-import {
-  Button,
-  Modal,
-
-  // Container
-} from "reactstrap";
+import { Button, Modal, Tooltip } from "reactstrap";
 
 class InfoModal extends Component {
   state = {
@@ -20,11 +14,30 @@ class InfoModal extends Component {
     this.setState({ movieInfo: info });
   };
 
+  isToolTipOpen = targetName => {
+    return this.state[targetName] ? this.state[targetName].tooltipOpen : false;
+  };
+
+  toggle = targetName => {
+    if (!this.state[targetName]) {
+      this.setState({
+        ...this.state,
+        [targetName]: {
+          tooltipOpen: true,
+        },
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        [targetName]: {
+          tooltipOpen: !this.state[targetName].tooltipOpen,
+        },
+      });
+    }
+  };
+
   providers = () => {
     let providers = this.state.movieInfo.offers;
-
-    debugger;
-
     if (providers) {
       let iconsUrl = [];
       //Remove duplicate providers
@@ -33,18 +46,19 @@ class InfoModal extends Component {
           index === self.findIndex(t => t.provider_id === ele.provider_id),
       );
 
-      uniqueProviders.map((ele, index) => {
+      uniqueProviders.map(ele => {
         if (ele.monetization_type === "cinema") {
           let cine = ele.urls.standard_web.substr(8, 7);
           let newObj = { ...ele };
           if (cine === "cinemex") {
             newObj.provider_id = 1200;
             ele = newObj;
+          } else {
+            newObj.provider_id = 1201;
+            ele = newObj;
           }
         }
-
-        debugger;
-
+        //Providers Id
         switch (ele.provider_id) {
           case 8:
             let netflix = {
@@ -135,15 +149,18 @@ class InfoModal extends Component {
               movieUrl: ele.urls.standard_web,
             };
 
+            iconsUrl.push(cinemex);
+            break;
+
+          case 1201:
             let cinepolis = {
               name: "Cinepolis",
               iconUrl:
-                "https://www.google.com/search?biw=1016&bih=486&tbm=isch&sa=1&ei=MEqlXNfhIIaWsgW_8oHYBg&q=cinepolis+icon&oq=cinepolis+icon&gs_l=img.3..35i39j0.2022.4243..4403...0.0..0.83.928.14......1....1..gws-wiz-img.....0..0i67j0i5i30j0i8i30j0i10i24.793zeJqxKtc#imgrc=OdSttiYvHUuuBM:",
+                "https://img2.androidappsapk.co/300/9/6/f/air.Cinepolis.png",
               link: ele.urls.standard_web,
               movieUrl: ele.urls.standard_web,
             };
-
-            iconsUrl.push(cinemex, cinepolis);
+            iconsUrl.push(cinepolis);
             break;
 
           default:
@@ -155,18 +172,27 @@ class InfoModal extends Component {
 
       return (
         <>
-          {iconsUrl.map(offer => (
-            <>
+          {iconsUrl.map((offer, index) => (
+            <React.Fragment key={index}>
               <Button
-                key={offer.name}
                 className="btn-providers"
                 color="default"
                 href={offer.movieUrl}
                 onClick={e => e.preventDefault()}
+                id={`btn-${index}`}
               >
                 <img alt="..." src={offer.iconUrl} />
               </Button>
-            </>
+              <Tooltip
+                placement="top"
+                isOpen={this.isToolTipOpen(`btn-${index}`)}
+                target={`btn-${index}`}
+                toggle={() => this.toggle(`btn-${index}`)}
+                delay={0}
+              >
+                {offer.name}
+              </Tooltip>
+            </React.Fragment>
           ))}
         </>
       );
@@ -196,7 +222,7 @@ class InfoModal extends Component {
             </div>
           </div>
           <div className="modal-body">
-            <div className="btn-wrapper text-center">
+            <div className="btn-wrapper text-center" key={this.props.title}>
               {/* providers button */}
               {this.state.movieInfo && this.providers()}
               <div role="form">
