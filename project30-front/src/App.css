@@ -176,6 +176,18 @@ Recommendations */
   line-height: normal;
 }
 
+
+body.modal-open .wrapper{
+  -webkit-filter: blur(1px);
+  -moz-filter: blur(1px);
+  -o-filter: blur(1px);
+  -ms-filter: blur(1px);
+  filter: blur(3px);
+
+
+  }
+  
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

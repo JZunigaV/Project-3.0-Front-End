@@ -214,6 +214,19 @@
 
   //Jzuniga
   &.modal-movie {
+
+    position: fixed;
+    top: -160px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    display: none;
+    overflow: hidden;
+    outline: 0;
+
+
+
     .modal-content {
       background: $card-black-background;
       width: 100%;

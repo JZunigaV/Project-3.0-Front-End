@@ -6,7 +6,7 @@ import { Button, Modal, Tooltip } from "reactstrap";
 class InfoModal extends Component {
   state = {
     isLoading: false,
-    movieInfo: {},
+    movieInfo: {}
   };
 
   componentDidMount = () => {
@@ -28,15 +28,15 @@ class InfoModal extends Component {
       this.setState({
         ...this.state,
         [targetName]: {
-          tooltipOpen: true,
-        },
+          tooltipOpen: true
+        }
       });
     } else {
       this.setState({
         ...this.state,
         [targetName]: {
-          tooltipOpen: !this.state[targetName].tooltipOpen,
-        },
+          tooltipOpen: !this.state[targetName].tooltipOpen
+        }
       });
     }
   };
@@ -48,7 +48,7 @@ class InfoModal extends Component {
       //Remove duplicate providers
       let uniqueProviders = providers.filter(
         (ele, index, self) =>
-          index === self.findIndex(t => t.provider_id === ele.provider_id),
+          index === self.findIndex(t => t.provider_id === ele.provider_id)
       );
 
       uniqueProviders.map(ele => {
@@ -70,7 +70,7 @@ class InfoModal extends Component {
               name: "Netflix",
               iconUrl: "https://images.justwatch.com/icon/430997/s100/",
               link: ele.urls.standard_web,
-              movieUrl: ele.urls.standard_web,
+              movieUrl: ele.urls.standard_web
             };
             iconsUrl.push(netflix);
             break;
@@ -80,7 +80,7 @@ class InfoModal extends Component {
               name: "ClaroVideo",
               iconUrl: "https://images.justwatch.com/icon/9899714/s100/",
               link: ele.urls.standard_web,
-              movieUrl: ele.urls.standard_web,
+              movieUrl: ele.urls.standard_web
             };
             iconsUrl.push(claro);
             break;
@@ -90,7 +90,7 @@ class InfoModal extends Component {
               name: "HBO GO",
               iconUrl: "https://images.justwatch.com/icon/614494/s100/",
               link: ele.urls.standard_web,
-              movieUrl: ele.urls.standard_web,
+              movieUrl: ele.urls.standard_web
             };
             iconsUrl.push(hbo);
             break;
@@ -100,7 +100,7 @@ class InfoModal extends Component {
               name: "Amazon Prime Video",
               iconUrl: "https://images.justwatch.com/icon/52449861/s100/",
               link: ele.urls.standard_web,
-              movieUrl: ele.urls.standard_web,
+              movieUrl: ele.urls.standard_web
             };
             iconsUrl.push(amazon);
             break;
@@ -110,7 +110,7 @@ class InfoModal extends Component {
               name: "YouTube Premium",
               iconUrl: "https://images.justwatch.com/icon/70189310/s100/",
               link: ele.urls.standard_web,
-              movieUrl: ele.urls.standard_web,
+              movieUrl: ele.urls.standard_web
             };
             iconsUrl.push(youtube);
             break;
@@ -120,7 +120,7 @@ class InfoModal extends Component {
               name: "Apple iTunes",
               iconUrl: "https://images.justwatch.com/icon/430995/s100/",
               link: ele.urls.standard_web,
-              movieUrl: ele.urls.standard_web,
+              movieUrl: ele.urls.standard_web
             };
             iconsUrl.push(apple);
             break;
@@ -130,7 +130,7 @@ class InfoModal extends Component {
               name: "Google Play Movies",
               iconUrl: "https://images.justwatch.com/icon/430996/s100/",
               link: ele.urls.standard_web,
-              movieUrl: ele.urls.standard_web,
+              movieUrl: ele.urls.standard_web
             };
             iconsUrl.push(google);
             break;
@@ -140,7 +140,7 @@ class InfoModal extends Component {
               name: "Microsoft Store",
               iconUrl: "https://images.justwatch.com/icon/820542/s100/",
               link: ele.urls.standard_web,
-              movieUrl: ele.urls.standard_web,
+              movieUrl: ele.urls.standard_web
             };
             iconsUrl.push(microsoft);
             break;
@@ -151,7 +151,7 @@ class InfoModal extends Component {
               iconUrl:
                 "https://is1-ssl.mzstatic.com/image/thumb/Purple114/v4/ec/99/ca/ec99ca66-ef8e-e39f-e747-cd0fb3645b5b/AppIcon-1-0-1x_U007emarketing-0-0-GLES2_U002c0-512MB-sRGB-0-0-0-85-220-0-0-0-5.png/246x0w.jpg",
               link: ele.urls.standard_web,
-              movieUrl: ele.urls.standard_web,
+              movieUrl: ele.urls.standard_web
             };
 
             iconsUrl.push(cinemex);
@@ -163,7 +163,7 @@ class InfoModal extends Component {
               iconUrl:
                 "https://img2.androidappsapk.co/300/9/6/f/air.Cinepolis.png",
               link: ele.urls.standard_web,
-              movieUrl: ele.urls.standard_web,
+              movieUrl: ele.urls.standard_web
             };
             iconsUrl.push(cinepolis);
             break;
@@ -205,7 +205,7 @@ class InfoModal extends Component {
   };
 
   render() {
-    // const backgorund = this.props.backdrop;
+    const backgorund = this.props.backdrop;
 
     return (
       <>
@@ -213,20 +213,28 @@ class InfoModal extends Component {
         <Modal
           isOpen={this.props.isOpen}
           toggle={this.props.toggle}
-          modalClassName="modal-movie"
+          modalClassName="modal-black"
         >
-          <div className="modal-header justify-content-center">
-            <button className="close" onClick={this.props.toggle}>
-              <i className="tim-icons icon-simple-remove text-white" />
-            </button>
-
+          <div
+            className="modal-header justify-content-center"
+            style={{
+              background: `url(${backgorund})`,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+              padding: "100px",
+              border: "2px solid black"
+            }}
+          >
+            <h3 className="title title-up" id="modal-title">
+              {this.props.title}{" "}
+            </h3>
+          </div>
+          <div className="modal-body">
             <div className="text-muted text-center ml-auto mr-auto">
               <h5 className="mb-0">
                 Puedes ver <strong>{this.props.title}</strong> en :
               </h5>
             </div>
-          </div>
-          <div className="modal-body">
             <div className="btn-wrapper text-center" key={this.props.title}>
               {/* providers button */}
               {this.state.movieInfo && this.providers()}

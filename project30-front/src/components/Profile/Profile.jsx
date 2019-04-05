@@ -160,7 +160,12 @@ class ProfilePage extends React.Component {
           });
         }
       })
-      .catch(err => alert(err));
+      .catch(err =>  {
+
+          this.setState({isLoading:false})
+          alert(err)
+
+      });
   };
 
   //Inputs on  change Method
