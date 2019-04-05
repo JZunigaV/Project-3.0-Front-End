@@ -32,9 +32,9 @@ class ProfileService {
     // console.error(err);
     if (err.response && err.response.data) {
       // console.error("API response", err.response.data);
-      throw err.response.data.message;
+      return err.response.data.msg;
     }
-    throw err;
+    return err;
   };
 
   // Method addPicture

@@ -196,6 +196,8 @@
         }
       }
       .modal-body {
+        max-height: calc(100vh - 210px);
+    overflow-y: auto;
         p {
           color: rgba($white, 0.8);
         }
@@ -222,7 +224,7 @@
     left: 0;
     z-index: 1050;
     display: none;
-    overflow: hidden;
+    overflow: auto;
     outline: 0;
 
 
@@ -239,6 +241,7 @@
         }
       }
       .modal-body {
+        
         p {
           color: rgba($white, 0.8);
         }
@@ -259,7 +262,7 @@
 .modal-search {
   .modal-dialog {
     margin: 20px auto;
-    max-width: 650px;
+    max-width: 750px;
     input {
       border: none;
       font-size: 17px;

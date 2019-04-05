@@ -39,18 +39,21 @@ class Recommendations extends React.Component {
     userShowing: false,
     movieDetail: {},
     isLoading: false,
-    showAlert: false
+    showAlert: false,
+    noTwitter:false,
+    fromForm:false
   };
 
   componentDidMount() {
     document.body.classList.toggle("landing-page");
     //Listen for the state of the twitter Username
-    this.props.loggedInUser.twitterUsername
-      ? this.setState({ userShowing: true })
-      : this.setState({ formShowing: true });
-
-    //If the user registered a twitter on his profile the search will launch atomatically
-    this.searchMoviesForUser();
+    if (this.props.loggedInUser.twitterUsername) {
+      this.setState({ userShowing: true });
+      //If the user registered a twitter on his profile the search will launch atomatically
+      this.searchMoviesForUser();
+    } else {
+      this.setState({ formShowing: true });
+    }
   }
 
   searchMoviesForUser = () => {
@@ -62,7 +65,8 @@ class Recommendations extends React.Component {
           this.setState({
             recommendations: response,
             twitterUsername: this.props.loggedInUser.twitterUsername,
-            isLoading: false
+            isLoading: false,
+            fromForm:false
           });
           //Here we pass twitter username to App.js
           this.props.liftTwitter(this.state.twitterUsername);
@@ -88,16 +92,23 @@ class Recommendations extends React.Component {
   };
 
   handleSearchForm = event => {
+  
     event.preventDefault();
-
     this.setState({ isLoading: true });
     const twitterUsername = this.state.twitterUsername;
     this.service
       .movieRecommendations(twitterUsername)
       .then(response => {
-        this.setState({ recommendations: response, isLoading: false });
+        if (response) {
+          
+        
+        this.setState({ recommendations: response, isLoading: false,fromForm:true });
         //Here we pass twitter username to App.js
         this.props.liftTwitter(this.state.twitterUsername);
+      }else{
+        this.setState({isLoading:false})
+        alert("el usuario no existe")
+      }
       })
       .catch(err => {
         this.setState({ isLoading: false });
@@ -278,7 +289,14 @@ class Recommendations extends React.Component {
                 <Col lg="4" md="4" className="col-sm" />
                 {this.state.recommendations.length > 0 && (
                   <>
-                    <h1>Algunas películas que te podrían gustar</h1>
+                    {this.state.fromForm ? (
+                      <h1>
+                        Algunas películas que te podrian gustar @{this.state.twitterUsername}
+                      </h1>
+                    ) : (
+                      <h1>Algunas películas que te podrían gustar</h1>
+                    )}
+
                     <br />
                     <Link to="/personality">
                       <Button
@@ -315,7 +333,7 @@ class Recommendations extends React.Component {
               {/* SweetalertComponent */}
               <SweetAlert
                 show={this.state.showAlert}
-                title="Agregada a favoritos"             
+                title="Agregada a favoritos"
                 type="success"
                 onConfirm={() => this.setState({ showAlert: false })}
               />

@@ -15,7 +15,7 @@ class RecommendationService {
       .post("/recommendedMovies", { username: twitterUsername })
       .then(response => response.data)
       .catch(err => {
-        console.log(err);
+        this.errHandler(err)
       });
   };
 
@@ -26,6 +26,15 @@ class RecommendationService {
       .catch(err => {
         console.log(err);
       });
+  };
+
+  errHandler = err => {
+    // console.error(err);
+    if (err.response && err.response.data) {
+      // console.error("API response", err.response.data);
+      return err.response.data[0].message;
+    }
+    return err;
   };
   
 }
