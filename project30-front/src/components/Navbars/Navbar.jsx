@@ -77,13 +77,13 @@ class PagesNavbar extends React.Component {
     return (
       <>
         <NavItem>
-          <NavLink tag={Link} to="/signup">
+          <NavLink tag={Link}  to="/signup">
             Registrarse
           </NavLink>
         </NavItem>
 
         <NavItem>
-          <NavLink tag={Link} to="/login">
+          <NavLink tag={Link}  to="/login">
             Entrar
           </NavLink>
         </NavItem>
@@ -95,13 +95,13 @@ class PagesNavbar extends React.Component {
     return (
       <>
         <NavItem>
-          <NavLink tag={Link} to="/" onClick={() => this.logoutUser()}>
+          <NavLink tag={Link}  to="/" onClick={() => this.logoutUser()}>
             Logout
           </NavLink>
         </NavItem>
 
         <NavItem>
-          <NavLink tag={Link} to={`/profile`}>
+          <NavLink tag={Link}  to={`/profile`}>
             Hola, {username}
           </NavLink>
         </NavItem>
@@ -114,7 +114,7 @@ class PagesNavbar extends React.Component {
     return (
       <>
         <NavItem>
-          <NavLink tag={Link} to={`/recommendations`}>
+          <NavLink tag={Link}  to={`/recommendations`}>
             Recomendaciones
           </NavLink>
         </NavItem>

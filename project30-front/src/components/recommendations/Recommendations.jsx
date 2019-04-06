@@ -344,7 +344,7 @@ class Recommendations extends React.Component {
             <SweetAlert
                 show={this.state.showError}
                 title="El usuario de twitter no existe"
-                text="Por favor verifiquelo"
+                text="Por favor verifícalo e intenta otra vez"
                 type="error"
                 onConfirm={() => this.setState({ showError: false })}
               />
