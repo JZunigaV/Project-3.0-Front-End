@@ -225,6 +225,9 @@ class InfoModal extends Component {
               border: "2px solid black"
             }}
           >
+             <button className="close" onClick={this.props.toggle}>
+              <i className="tim-icons icon-simple-remove" />
+            </button>
             <h3 className="title title-up" id="modal-title">
               {this.props.title}{" "}
             </h3>

@@ -41,6 +41,7 @@ class ProfilePage extends React.Component {
     favoriteMovies: [],
     carouselItems: [],
     show: false,
+    showError: false,
     selectedMovieId: "",
     modal: false,
     movieDetail: {},
@@ -56,12 +57,10 @@ class ProfilePage extends React.Component {
     this.service
       .getFavorites(this.props.loggedInUser._id)
       .then(favoriteRes => {
-       
-          this.setState({ favoriteMovies: favoriteRes.favoriteMovies });
-          //Fill the carousel items object
-          this.fillCarousel(this.state.favoriteMovies);
-          this.setState({ isLoading: false });
-        
+        this.setState({ favoriteMovies: favoriteRes.favoriteMovies });
+        //Fill the carousel items object
+        this.fillCarousel(this.state.favoriteMovies);
+        this.setState({ isLoading: false });
       })
       .catch(err => {
         console.log(err);
@@ -137,8 +136,8 @@ class ProfilePage extends React.Component {
         //Here we send the  twitter profile to the single source of truth
 
         if (response === "El usuario de twitter no existe") {
-          this.setState({ isLoading: false });
-          alert(response);
+          this.setState({ isLoading: false,showError:true });
+          
           return;
         }
 
@@ -274,7 +273,7 @@ class ProfilePage extends React.Component {
                 color="success"
                 onClick={() => this.toggleModal("modal", details)}
               >
-                Detalles
+                Donde ver
               </Button>
 
               <Button
@@ -463,6 +462,18 @@ class ProfilePage extends React.Component {
                   info={this.state.movieInfo}
                 />
               )}
+
+            {/* Error alert */}
+            <SweetAlert
+                show={this.state.showError}
+                title="El usuario de twitter no existe"
+                text="Por favor verifiquelo"
+                type="error"
+                onConfirm={() => this.setState({ showError: false })}
+              />
+
+
+
           </>
         ) : (
           <Loading loadingmsg={"Obteniendo datos del perfil"} />

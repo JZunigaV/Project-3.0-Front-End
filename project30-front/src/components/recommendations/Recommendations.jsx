@@ -40,6 +40,7 @@ class Recommendations extends React.Component {
     movieDetail: {},
     isLoading: false,
     showAlert: false,
+    showError:false,
     noTwitter:false,
     fromForm:false
   };
@@ -106,8 +107,8 @@ class Recommendations extends React.Component {
         //Here we pass twitter username to App.js
         this.props.liftTwitter(this.state.twitterUsername);
       }else{
-        this.setState({isLoading:false})
-        alert("el usuario no existe")
+        this.setState({isLoading:false,showError:true})
+     
       }
       })
       .catch(err => {
@@ -337,6 +338,18 @@ class Recommendations extends React.Component {
                 type="success"
                 onConfirm={() => this.setState({ showAlert: false })}
               />
+
+              
+            {/* Error alert */}
+            <SweetAlert
+                show={this.state.showError}
+                title="El usuario de twitter no existe"
+                text="Por favor verifiquelo"
+                type="error"
+                onConfirm={() => this.setState({ showError: false })}
+              />
+
+
             </>
           ) : (
             <Loading loadingmsg={"Trabajando en las recomendaciones"} />
