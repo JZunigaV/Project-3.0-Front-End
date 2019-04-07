@@ -41,8 +41,11 @@ class Recommendations extends React.Component {
     isLoading: false,
     showAlert: false,
     showError:false,
+    showDuplicate:false,
     noTwitter:false,
-    fromForm:false
+    fromForm:false,
+    isRepeated:false,
+    
   };
 
   componentDidMount() {
@@ -126,15 +129,34 @@ class Recommendations extends React.Component {
   };
 
   favoriteHandler = movie => {
+
     //Here we have to send parameters to our backend route profile to add favorite
-    this.profileService
-      .addFavorite(this.props.loggedInUser._id, movie)
-      .then(movie => {
-        this.setState({ showAlert: true });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    this.profileService.getFavorites(this.props.loggedInUser._id)
+    .then(favorites => {   
+      
+      if (favorites.favoriteMovies.some(e => e.posterPath === movie.posterPath)) {
+        this.setState({isRepeated:true})
+      }else{
+        this.setState({isRepeated:false})
+      }
+
+      if (!this.state.isRepeated) {    
+        this.profileService
+          .addFavorite(this.props.loggedInUser._id, movie)
+          .then(movie => {
+            this.setState({ showAlert: true });
+          })
+          .catch(err => {
+            console.log(err);
+          });
+        }else{
+          
+          this.setState({showDuplicate:true})
+        }
+
+    })
+
+  
   };
 
   toggleForm = event => {
@@ -347,6 +369,14 @@ class Recommendations extends React.Component {
                 text="Por favor verifícalo e intenta otra vez"
                 type="error"
                 onConfirm={() => this.setState({ showError: false })}
+              />
+
+              {/* Duplicate favorite Alert */}
+              <SweetAlert
+                show={this.state.showDuplicate}
+                title="Ya agregaste esta película a favoritos con anterioridad"               
+                type="info"
+                onConfirm={() => this.setState({ showDuplicate:false })}
               />
 
 
