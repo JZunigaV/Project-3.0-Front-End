@@ -22,7 +22,7 @@ import {
   Card,
   CardBody,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from "reactstrap";
 
 //SweetAlert
@@ -47,7 +47,7 @@ class Recommendations extends React.Component {
     showDuplicate: false,
     noTwitter: false,
     fromForm: false,
-    isRepeated: false
+    isRepeated: false,
   };
 
   componentDidMount() {
@@ -77,7 +77,7 @@ class Recommendations extends React.Component {
                   errorIBMTitle: "No se pudó realizar el análisis",
                   errorIBMText:
                     "El usuario no tiene mínimo 100 palabras las cuales son necesarias para realizar el análisis, intente de nuevo con otro usuario",
-                  isLoading: false
+                  isLoading: false,
                 });
                 break;
 
@@ -89,7 +89,7 @@ class Recommendations extends React.Component {
               recommendations: response,
               twitterUsername: this.props.loggedInUser.twitterUsername,
               isLoading: false,
-              fromForm: false
+              fromForm: false,
             });
             //Here we pass twitter username to App.js
             this.props.liftTwitter(this.state.twitterUsername);
@@ -133,7 +133,7 @@ class Recommendations extends React.Component {
                   errorIBMTitle: "No se pudó realizar el análisis",
                   errorIBMText:
                     "El usuario no tiene mínimo 100 palabras las cuales son necesarias para realizar el análisis, intente de nuevo con otro usuario",
-                  isLoading: false
+                  isLoading: false,
                 });
                 break;
 
@@ -145,7 +145,7 @@ class Recommendations extends React.Component {
           this.setState({
             recommendations: response,
             isLoading: false,
-            fromForm: true
+            fromForm: true,
           });
           //Here we pass twitter username to App.js
           this.props.liftTwitter(this.state.twitterUsername);
@@ -163,7 +163,7 @@ class Recommendations extends React.Component {
   toggleModal = (modalState, details) => {
     this.setState({
       [modalState]: !this.state[modalState],
-      movieDetail: details
+      movieDetail: details,
     });
   };
 
@@ -184,7 +184,7 @@ class Recommendations extends React.Component {
         } else {
           if (
             favorites.favoriteMovies.some(
-              e => e.posterPath === movie.posterPath
+              e => e.posterPath === movie.posterPath,
             )
           ) {
             this.setState({ isRepeated: true });
@@ -203,7 +203,6 @@ class Recommendations extends React.Component {
               });
           } else {
             this.setState({ showDuplicate: true });
-            
           }
         }
       })
@@ -233,7 +232,7 @@ class Recommendations extends React.Component {
             title: movie.title,
             backdrop: movie.backdrop_path,
             release: movie.release_date,
-            posterPath: movie.poster_path
+            posterPath: movie.poster_path,
           };
 
           return (
@@ -247,7 +246,7 @@ class Recommendations extends React.Component {
               </CardHeader>
 
               <CardBody>
-                <CardTitle tag="h3">{movie.title}</CardTitle>
+                <CardTitle tag="h4">{movie.title}</CardTitle>
 
                 <Button
                   color="success"
@@ -303,7 +302,7 @@ class Recommendations extends React.Component {
                             {/* twitter username */}
                             <InputGroup
                               className={classnames({
-                                "input-group-focus": this.state.fullNameFocus
+                                "input-group-focus": this.state.fullNameFocus,
                               })}
                             >
                               <InputGroupAddon addonType="prepend">
@@ -440,7 +439,7 @@ class Recommendations extends React.Component {
                   this.setState({
                     showErrorIBM: false,
                     errorIBMTitle: "",
-                    errorIBMText: ""
+                    errorIBMText: "",
                   })
                 }
               />
