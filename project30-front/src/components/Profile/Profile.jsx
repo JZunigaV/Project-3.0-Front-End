@@ -22,7 +22,7 @@ import {
   Container,
   Row,
   Col,
-  UncontrolledCarousel
+  UncontrolledCarousel,
 } from "reactstrap";
 
 //SweetAlert
@@ -45,7 +45,7 @@ class ProfilePage extends React.Component {
     selectedMovieId: "",
     modal: false,
     movieDetail: {},
-    movieInfo: {}
+    movieInfo: {},
   };
 
   service = new ProfileService();
@@ -76,7 +76,7 @@ class ProfilePage extends React.Component {
         src: ele.background,
         altText: ele.title,
         caption: "",
-        pictureId: ele._id
+        pictureId: ele._id,
       };
       if (this.state.carouselItems.indexOf(newItem.pictureId) === -1) {
         this.state.carouselItems.push(newItem);
@@ -136,8 +136,8 @@ class ProfilePage extends React.Component {
         //Here we send the  twitter profile to the single source of truth
 
         if (response === "El usuario de twitter no existe") {
-          this.setState({ isLoading: false,showError:true });
-          
+          this.setState({ isLoading: false, showError: true });
+
           return;
         }
 
@@ -155,7 +155,7 @@ class ProfilePage extends React.Component {
                 bio: "",
                 twitterUsername: "",
                 isEditing: false,
-                isLoading: false
+                isLoading: false,
               });
             })
             .catch(err => console.log(err));
@@ -164,7 +164,7 @@ class ProfilePage extends React.Component {
             bio: "",
             twitterUsername: "",
             isEditing: false,
-            isLoading: false
+            isLoading: false,
           });
         }
       })
@@ -183,7 +183,7 @@ class ProfilePage extends React.Component {
   //Picture change Method
   handleChange(e) {
     this.setState({
-      file: e.target.files[0]
+      file: e.target.files[0],
     });
   }
 
@@ -199,7 +199,7 @@ class ProfilePage extends React.Component {
           .getFavorites(deleteReponse.value.user)
           .then(favorites => {
             this.setState({
-              favoriteMovies: favorites.favoriteMovies
+              favoriteMovies: favorites.favoriteMovies,
             });
             this.fillCarousel(this.state.favoriteMovies);
             this.setState({ isLoading: false });
@@ -235,7 +235,7 @@ class ProfilePage extends React.Component {
 
     this.setState({
       [modalState]: !this.state[modalState],
-      movieDetail: details
+      movieDetail: details,
     });
   };
 
@@ -253,7 +253,7 @@ class ProfilePage extends React.Component {
           title: movie.title,
           backdrop: movie.background,
           release: movie.release,
-          posterPath: movie.posterPath
+          posterPath: movie.posterPath,
         };
 
         return (
@@ -267,7 +267,7 @@ class ProfilePage extends React.Component {
             </CardHeader>
 
             <CardBody>
-              <CardTitle tag="h3">{movie.title}</CardTitle>
+              <CardTitle tag="h4">{movie.title}</CardTitle>
 
               <Button
                 color="success"
@@ -296,7 +296,7 @@ class ProfilePage extends React.Component {
                   this.setState({ show: false });
                   this.deleteFavorite(
                     this.state.selectedMovieId,
-                    this.props.loggedInUser._id
+                    this.props.loggedInUser._id,
                   );
                 }}
                 onCancel={() => {
@@ -465,15 +465,12 @@ class ProfilePage extends React.Component {
 
             {/* Error alert */}
             <SweetAlert
-                show={this.state.showError}
-                title="El usuario de twitter no existe"
-                text="Por favor verifícalo e intenta otra vez"
-                type="error"
-                onConfirm={() => this.setState({ showError: false })}
-              />
-
-
-
+              show={this.state.showError}
+              title="El usuario de twitter no existe"
+              text="Por favor verifícalo e intenta otra vez"
+              type="error"
+              onConfirm={() => this.setState({ showError: false })}
+            />
           </>
         ) : (
           <Loading loadingmsg={"Obteniendo datos del perfil"} />
