@@ -4,7 +4,7 @@ import axios from "axios";
 class ProfileService {
   constructor() {
     let service = axios.create({
-      baseURL: "http://localhost:4000/profile",
+      baseURL: "https://tweetflick-back.herokuapp.com/profile",
       withCredentials: true,
     });
     this.service = service;

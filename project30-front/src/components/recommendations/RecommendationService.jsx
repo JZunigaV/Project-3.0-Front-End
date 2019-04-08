@@ -4,7 +4,7 @@ import axios from "axios";
 class RecommendationService {
   constructor() {
     let service = axios.create({
-      baseURL: "http://localhost:4000/api",
+      baseURL: "https://tweetflick-back.herokuapp.com/api",
       withCredentials: true,
     });
     this.service = service;
@@ -15,7 +15,7 @@ class RecommendationService {
       .post("/recommendedMovies", { username: twitterUsername })
       .then(response => response.data)
       .catch(err => {
-        this.errHandler(err)
+        this.errHandler(err);
       });
   };
 
@@ -36,7 +36,6 @@ class RecommendationService {
     }
     return err;
   };
-  
 }
 
 export default RecommendationService;

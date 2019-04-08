@@ -68,7 +68,6 @@ class Recommendations extends React.Component {
       this.service
         .movieRecommendations(this.props.loggedInUser.twitterUsername)
         .then(response => {
-          debugger;
           if (response.error) {
             switch (response.error.code) {
               case 400:
@@ -122,8 +121,6 @@ class Recommendations extends React.Component {
     this.service
       .movieRecommendations(twitterUsername)
       .then(response => {
-        debugger;
-
         if (response) {
           if (response.error) {
             switch (response.error.code) {

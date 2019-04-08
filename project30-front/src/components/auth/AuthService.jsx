@@ -4,7 +4,7 @@ import axios from "axios";
 class AuthService {
   constructor() {
     let service = axios.create({
-      baseURL: "http://localhost:4000/auth",
+      baseURL: `https://tweetflick-back.herokuapp.com/auth`,
       withCredentials: true,
     });
     this.service = service;
@@ -30,13 +30,11 @@ class AuthService {
       .then(response => response.data);
   };
 
-
-  updateTwitter = (userId,twitterUsername) => {
+  updateTwitter = (userId, twitterUsername) => {
     return this.service
-    .post("/updateTwitter", {userId,twitterUsername})
-    .then(response => response.data)
-  }
-
+      .post("/updateTwitter", { userId, twitterUsername })
+      .then(response => response.data);
+  };
 }
 
 export default AuthService;
