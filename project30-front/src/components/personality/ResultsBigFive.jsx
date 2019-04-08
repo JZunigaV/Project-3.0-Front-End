@@ -75,31 +75,28 @@ class ResultsBigFive extends Component {
               </p>
               <ol>
                 <li>
-                  <strong>Amabilidad (Agreeableness )</strong>Es el grado en que
-                  la persona se muestra respetuosa, tolerante y tranquila.
+                  <strong>Amabilidad</strong>Es el grado en que la persona se
+                  muestra respetuosa, tolerante y tranquila.
                 </li>
                 <li>
-                  <strong>Responsabilidad (Conscientiousness) </strong> Refiere
-                  a cuán centrado está el sujeto en sus objetivos, además de
-                  cuán disciplinado se muestra para la consecución de dichos
-                  fines.{" "}
+                  <strong>Responsabilidad </strong> Refiere a cuán centrado está
+                  el sujeto en sus objetivos, además de cuán disciplinado se
+                  muestra para la consecución de dichos fines.{" "}
                 </li>
                 <li>
-                  <strong>Extraversión (Extraversion )</strong> Define el grado
-                  en que el sujeto se muestra abierto con los demás y canaliza
-                  su energía en contextos sociales.{" "}
+                  <strong>Extroversión</strong> Define el grado en que el sujeto
+                  se muestra abierto con los demás y canaliza su energía en
+                  contextos sociales.{" "}
                 </li>
                 <li>
-                  <strong>Estabilidad emocional (Neuroticism) </strong>Define en
-                  qué grado una persona afronta sin problema las situaciones
-                  complicadas de la vida. Los sujetos tranquilos, no muy
-                  proclives a sentir rabia o a enfadarse, suelen permanecer
-                  animados y gestionan muy bien sus crisis personales.
+                  <strong>Rango emocional</strong>Define en qué grado una
+                  persona afronta sin problema las situaciones complicadas de la
+                  vida.
                 </li>
                 <li>
-                  <strong>Apertura a la Experiencia (Openness)</strong> Muestra
-                  en qué grado un sujeto tiende a buscar nuevas experiencias
-                  personales y concibe de una manera creativa su futuro.{" "}
+                  <strong>Apertura a experiencias</strong> Muestra en qué grado
+                  un sujeto tiende a buscar nuevas experiencias personales y
+                  concibe de una manera creativa su futuro.{" "}
                 </li>
               </ol>
               <p>
@@ -114,159 +111,162 @@ class ResultsBigFive extends Component {
         {/* Second Row */}
         <Row className="plot-contents plot-facets">
           <Col lg="6" md="12" sm="12" xs="12" className="plot-facet">
-            <h2 className="text-center">Amabilidad (Agreeableness)</h2>
+            <h2 className="text-center">Empatía</h2>
             <ResultsBigFiveFacet
               chartTitle={this.props.resultData[3]["name"]}
               resultData={this.props.resultData[3]["children"]}
             />
-            {/* <div className="plot-description-facet">
-              <strong>Altruism</strong> Find that helping others is genuinely
-              rewarding, that doing things for others is a form of
-              self-fulfillment rather than self-sacrifice.
+            <div className="plot-description-facet">
+              <strong>Altruismo</strong> Tienen la tendencia a procurar el bien
+              de las personas de manera desinteresada, incluso a costa del
+              interés propio.
               <br />
-              <strong>Cooperation</strong> Dislike confrontation. They are
-              perfectly willing to compromise or to deny their own needs to get
-              along with others.
+              <strong>Confianza</strong> Asumen que la mayoría de las personas
+              son justas, honestas, y tienen buenas intenciones.están dispuestas
+              a perdonar y olvidar.
               <br />
-              <strong>Modesty</strong> Are unassuming, rather self-effacing, and
-              humble. However, they do not necessarily lack self-confidence or
-              self-esteem.
+              <strong>Compasión</strong> Son tiernos y compasivos.
               <br />
-              <strong>Uncompromising</strong> See no need for pretense or
-              manipulation when dealing with others and are therefore candid,
-              frank, and genuine.
+              <strong>Intransigencia</strong> No ven la necesidad de pretender o
+              manipular cuando conviven con otros, por lo tanto son francos y
+              genuinos
               <br />
-              <strong>Sympathy</strong> Are tender-hearted and compassionate.
+              <strong>Modestia</strong> Son sencillos, y humildes, sin embargo,
+              no necesariamente carecen de confianza en sí mismos o baja
+              autoestima.
               <br />
-              <strong>Trust</strong> Assume that most people are fundamentally
-              fair, honest, and have good intentions. They take people at face
-              value and are willing to forgive and forget.
-            </div> */}
+              <strong>Cooperación</strong> No les gusta la confrontación. están
+              dispuestos a transigir o negar sus propias necesidades para
+              llevarse bien con los demás.
+              <br />
+            </div>
           </Col>
           <Col lg="6" md="12" sm="12" xs="12" className="plot-facet">
-            <h2 className="text-center">Responsabilidad (Conscientiousness)</h2>
+            <h2 className="text-center">Responsabilidad</h2>
             <ResultsBigFiveFacet
               chartTitle={this.props.resultData[1]["name"]}
               resultData={this.props.resultData[1]["children"]}
             />
-            {/* <div className="plot-description-facet">
-              <strong>Achievement striving</strong> Try hard to achieve
-              excellence. Their drive to be recognized as successful keeps them
-              on track as they work hard to accomplish their goals.
+            <div className="plot-description-facet">
+              <strong>Necesidad de éxito</strong>
+              Siempre tratan de lograr la excelencia,Su impulso para ser
+              reconocido como exitoso los mantiene en el camino mientras
+              trabajan duro para lograr sus objetivos.
               <br />
-              <strong>Cautiousness</strong> Are disposed to think through
-              possibilities carefully before acting.
+              <strong>Autoeficacia</strong> Confían en su capacidad para
+              alcanzar objetivos.
               <br />
-              <strong>Dutifulness</strong> Have a strong sense of duty and
-              obligation.
+              <strong>Autodisciplina</strong> Tienen la "fuerza de voluntad",
+              para persistir en tareas difíciles o desagradables hasta se hayan
+              completado
               <br />
-              <strong>Orderliness</strong> Are well-organized, tidy, and neat.
+              <strong>Disciplina</strong>
+              Tienen un fuerte sentido del deber y obligación.
               <br />
-              <strong>Self-discipline</strong> Have the self-discipline, or
-              "will-power," to persist at difficult or unpleasant tasks until
-              they are completed.
+              <strong>Obediencia</strong>
+              Están bien organizados y ordenados.
               <br />
-              <strong>Self-efficacy</strong> Are confident in their ability to
-              accomplish things.
+              <strong>Cautela</strong>Están dispuestos a pensar las diferentes
+              posibilidades cuidadosamente antes de actuar.
               <br />
-            </div> */}
+            </div>
           </Col>
           <Col lg="6" md="12" sm="12" xs="12" className="plot-facet">
-            <h2 className="text-center">Extraversión (Extraversion)</h2>
+            <h2 className="text-center">Extroversión</h2>
             <ResultsBigFiveFacet
               chartTitle={this.props.resultData[2]["name"]}
               resultData={this.props.resultData[2]["children"]}
             />
-            {/* <div className="plot-description-facet">
-              <strong>Activity level</strong> Lead fast-paced and busy lives.
-              They do things and move about quickly, energetically, and
-              vigorously, and they are involved in many activities.
+            <div className="plot-description-facet">
+              <strong>Nivel de actividad</strong>
+              Llevan vidas rápidas y ocupadas. Se mueven rápidamente,
+              enérgicamente, y están involucrados en muchas actividades.
               <br />
-              <strong>Assertiveness</strong> Like to take charge and direct the
-              activities of others. They tend to be leaders in groups.
+              <strong>Sociabilidad</strong> Encuentran la compañía de los demás
+              estimulante y gratificante.
               <br />
-              <strong>Cheerfulness</strong> Experience a range of positive
-              feelings, including happiness, enthusiasm, optimism, and joy.
+              <strong>Seguridad en uno mismo</strong>
+              Les gusta hacerse cargo y dirigir las actividades de otros.
+              Tienden a ser líderes en grupos.
               <br />
-              <strong>Excitement-seeking</strong> Are easily bored without high
-              levels of stimulation.
+              <strong>Alegría</strong>
+              Experimentan un rango de sentimientos positivos incluyendo la
+              felicidad, el entusiasmo, el optimismo y la alegría.
               <br />
-              <strong>Outgoing</strong> Genuinely like other people and openly
-              demonstrate positive feelings toward others.
+              <strong>Búsqueda de emociones</strong> Se aburren fácilmente sin
+              la altos niveles de estimulación.
               <br />
-              <strong>Gregariousness</strong> Find the company of others
-              pleasantly stimulating and rewarding. They enjoy the excitement of
-              crowds.
-            </div> */}
+              <strong>Simpatía</strong> Se llevan bien con otras personas y
+              demuestran abiertamente sentimientos positivos hacia los demás.
+              <br />
+            </div>
           </Col>
           <Col lg="6" md="12" sm="12" xs="12" className="plot-facet">
-            <h2 className="text-center">Estabilidad emocional (Neuroticism)</h2>
+            <h2 className="text-center">Estabilidad emocional</h2>
             <ResultsBigFiveFacet
               chartTitle={this.props.resultData[4]["name"]}
               resultData={this.props.resultData[4]["children"]}
             />
-            {/* <div className="plot-description-facet">
-              <strong>Fiery</strong> Have a tendency to feel angry.
+            <div className="plot-description-facet">
+              <strong>Vehemencia</strong> Tienen la tendencia a sentirse
+              enojados.
               <br />
-              <strong>Prone to worry </strong> Often feel like something
-              unpleasant, threatening, or dangerous is about to happen. The
-              "fight-or-flight" system of their brains is too easily and too
-              often engaged.
+              <strong>Susceptibilidad a la tensión </strong>
+              Tienen dificultad sobrellevar el estrés. Experimentan pánico,
+              confusión e impotencia ante presiones o situaciones de emergencia.
               <br />
-              <strong>Melancholy</strong> Tend to react more readily to life's
-              ups and downs.
+              <strong>Timidez</strong>
+              Son sensibles a lo que otros piensan de ellos. Sus preocupaciones
+              sobre el rechazo y el ridículo lose hacen que sentirse incómodos
+              con los demás; se sienten apenados con facilidad.
               <br />
-              <strong>Immoderation</strong> Feel strong cravings and urges that
-              they have difficulty resisting, even though they know that they
-              are likely to regret them later. They tend to be oriented toward
-              short-term pleasures and rewards rather than long-term
-              consequences.
+              <strong>Desmesura</strong> Sienten fuertes antojos y urgencias que
+              no pueden resistir facilmente, aunque saben que es probable que se
+              arrepientan más tarde. Tienden a orientarse hacia Placeres y
+              recompensas a corto plazo en lugar de a largo plazo.
               <br />
-              <strong>Self-consciousness</strong> Are sensitive about what
-              others think of them. Their concerns about rejection and ridicule
-              cause them to feel shy and uncomfortable around others; they are
-              easily embarrassed.
+              <strong>Melancolía</strong> Tienden a reaccionar fuertemente a las
+              subidas y bajadas de la vida.
               <br />
-              <strong>Susceptible to stress</strong> Have difficulty coping with
-              stress. They experience panic, confusion, and helplessness when
-              under pressure or when facing emergency situations.
+              <strong>Tendencia a la preocupación</strong>
+              A menudo se sienten que algo desagradable, amenazante o peligroso
+              está a punto de ocurrir. El sistema de "lucha o huida" se activa
+              facilmente y con mucha frecuencia en sus cerebros.
               <br />
-            </div> */}
+            </div>
           </Col>
           <Col lg="6" md="12" sm="12" xs="12" className="plot-facet">
-            <h2 className="text-center">
-              Apertura a la Experiencia (Openness)
-            </h2>
+            <h2 className="text-center">Apertura a la Experiencia</h2>
             <ResultsBigFiveFacet
               chartTitle={this.props.resultData[0]["name"]}
               resultData={this.props.resultData[0]["children"]}
             />
-            {/* <div className="plot-description-facet">
-              <strong>Adventurousness</strong> Are eager to try new activities
-              and experience different things. They find familiarity and routine
-              boring.
+            <div className="plot-description-facet">
+              <strong>Audacia</strong>
+              Están ansiosos por probar nuevas actividades y experimentar cosas
+              diferentes. Encuentran en la familiaridad y rutina algo aburrido.
               <br />
-              <strong>Artistic interests </strong> Love beauty, both in art and
-              in nature. They become easily involved and absorbed in artistic
-              and natural events. With intellect, this facet is one of the two
-              most important, central aspects of this characteristic.
+              <strong>Desafío a la autoridad</strong>
+              Tienen una disposición para desafiar las convenciónes y valores
+              tradicionales.
               <br />
-              <strong>Emotionality</strong> Have good access to and awareness of
-              their own feelings.
+              <strong>Intelecto</strong>
+              Son intelectualmente curiosos y tienden a pensar en símbolos y
+              abstracciones con intereses artísticos.
               <br />
-              <strong>Imagination</strong> View the real world as often too
-              plain and ordinary. They use fantasy not as an escape but as a way
-              of creating for themselves a richer and more interesting
-              inner-world.
+              <strong>Imaginación</strong>
+              Ven el mundo real a menudo muy sencillo y ordinario. Usan la
+              fantasía no como un escape sino como un camino para crear por sí
+              mismos un rico y más interesante mundo interior.
               <br />
-              <strong>Intellect</strong> Are intellectually curious and tend to
-              think in symbols and abstractions. With artistic interests, this
-              facet is one of the two most important, central aspects of this
-              characteristic.
+              <strong>Emocionalidad</strong>
+              Tienen una conciencia plena de sus propios sentimientos.
               <br />
-              <strong>Authority challenging</strong> Have a readiness to
-              challenge authority, convention, and traditional values.
-            </div> */}
+              <strong>Intereses artísticos</strong>
+              Aman la belleza, tanto en arte como en en naturaleza. Se
+              involucran fácilmente en el arte.
+              <br />
+            </div>
           </Col>
         </Row>
       </div>
