@@ -21,6 +21,10 @@ import {
   Col
 } from "reactstrap";
 
+//SweetAlert
+import SweetAlert from "sweetalert-react";
+import "sweetalert/dist/sweetalert.css";
+
 class Signup extends React.Component {
   state = {
     //Design properties
@@ -30,7 +34,9 @@ class Signup extends React.Component {
     //Form properties
     username: "",
     email: "",
-    password: ""
+    password: "",
+    errorText: "",
+    showError: false
   };
 
   service = new AuthService();
@@ -89,7 +95,9 @@ class Signup extends React.Component {
         });
         this.props.getUser(response);
       })
-      .catch(error => console.log(error));
+      .catch(error =>
+        this.setState({ errorText: error.response.data.message, showError: true })
+      );
   };
   render() {
     return (
@@ -165,7 +173,7 @@ class Signup extends React.Component {
                             </InputGroupAddon>
                             <Input
                               placeholder="Email"
-                              type="text"
+                              type="email"
                               name="email"
                               onChange={this.onChange}
                               value={this.state.email}
@@ -247,6 +255,15 @@ class Signup extends React.Component {
                   style={{ transform: this.state.squares1to6 }}
                 />
               </Container>
+              {/* Error alert */}
+              <SweetAlert
+                show={this.state.showError}
+                title={this.state.errorText}
+                type="error"
+                onConfirm={() =>
+                  this.setState({ showError: false, errorText: "" })
+                }
+              />
             </div>
           </div>
         </div>

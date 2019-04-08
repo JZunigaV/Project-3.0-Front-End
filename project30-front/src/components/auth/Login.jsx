@@ -3,6 +3,10 @@ import classnames from "classnames";
 import AuthService from "./AuthService";
 import { Link } from "react-router-dom";
 
+//SweetAlert
+import SweetAlert from "sweetalert-react";
+import "sweetalert/dist/sweetalert.css";
+
 // reactstrap components
 import {
   Button,
@@ -31,7 +35,12 @@ class Login extends React.Component {
 
     //Form properties
     username: "",
-    password: ""
+    password: "",
+
+    //Error message
+    showError:false,
+    errorText:""
+
   };
 
   service = new AuthService();
@@ -68,6 +77,7 @@ class Login extends React.Component {
   };
 
   handleFormSubmit = event => {
+  
     event.preventDefault();
     const username = this.state.username;
     const password = this.state.password;
@@ -77,7 +87,7 @@ class Login extends React.Component {
         this.setState({ username: "", password: "" });
         this.props.getUser(response);
       })
-      .catch(error => console.log(error));
+      .catch(error => this.setState({errorText:error.response.data.message,showError:true}));
   };
 
   //Form methods
@@ -220,6 +230,15 @@ class Login extends React.Component {
                   style={{ transform: this.state.squares1to6 }}
                 />
               </Container>
+                    {/* Error alert */}
+            <SweetAlert
+                show={this.state.showError}
+                title={this.state.errorText}               
+                type="error"
+                onConfirm={() => this.setState({ showError: false,errorText:"" })}
+              />
+
+
             </div>
           </div>
         

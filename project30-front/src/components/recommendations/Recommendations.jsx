@@ -40,12 +40,14 @@ class Recommendations extends React.Component {
     movieDetail: {},
     isLoading: false,
     showAlert: false,
-    showError:false,
-    showDuplicate:false,
-    noTwitter:false,
-    fromForm:false,
-    isRepeated:false,
-    
+    showError: false,
+    showErrorIBM: false,
+    errorIBMTitle: "",
+    errorIBMText: "",
+    showDuplicate: false,
+    noTwitter: false,
+    fromForm: false,
+    isRepeated: false
   };
 
   componentDidMount() {
@@ -66,14 +68,32 @@ class Recommendations extends React.Component {
       this.service
         .movieRecommendations(this.props.loggedInUser.twitterUsername)
         .then(response => {
-          this.setState({
-            recommendations: response,
-            twitterUsername: this.props.loggedInUser.twitterUsername,
-            isLoading: false,
-            fromForm:false
-          });
-          //Here we pass twitter username to App.js
-          this.props.liftTwitter(this.state.twitterUsername);
+          debugger;
+          if (response.error) {
+            switch (response.error.code) {
+              case 400:
+                this.setState({
+                  showErrorIBM: true,
+                  errorIBMTitle: "No se pudó realizar el análisis",
+                  errorIBMText:
+                    "El usuario no tiene mínimo 100 palabras las cuales son necesarias para realizar el análisis, intente de nuevo con otro usuario",
+                  isLoading: false
+                });
+                break;
+
+              default:
+                break;
+            }
+          } else {
+            this.setState({
+              recommendations: response,
+              twitterUsername: this.props.loggedInUser.twitterUsername,
+              isLoading: false,
+              fromForm: false
+            });
+            //Here we pass twitter username to App.js
+            this.props.liftTwitter(this.state.twitterUsername);
+          }
         })
         .catch(err => {
           console.log(err);
@@ -96,23 +116,42 @@ class Recommendations extends React.Component {
   };
 
   handleSearchForm = event => {
-  
     event.preventDefault();
     this.setState({ isLoading: true });
     const twitterUsername = this.state.twitterUsername;
     this.service
       .movieRecommendations(twitterUsername)
       .then(response => {
+        debugger;
+
         if (response) {
-          
-        
-        this.setState({ recommendations: response, isLoading: false,fromForm:true });
-        //Here we pass twitter username to App.js
-        this.props.liftTwitter(this.state.twitterUsername);
-      }else{
-        this.setState({isLoading:false,showError:true})
-     
-      }
+          if (response.error) {
+            switch (response.error.code) {
+              case 400:
+                this.setState({
+                  showErrorIBM: true,
+                  errorIBMTitle: "No se pudó realizar el análisis",
+                  errorIBMText:
+                    "El usuario no tiene mínimo 100 palabras las cuales son necesarias para realizar el análisis, intente de nuevo con otro usuario",
+                  isLoading: false
+                });
+                break;
+
+              default:
+                break;
+            }
+          }
+
+          this.setState({
+            recommendations: response,
+            isLoading: false,
+            fromForm: true
+          });
+          //Here we pass twitter username to App.js
+          this.props.liftTwitter(this.state.twitterUsername);
+        } else {
+          this.setState({ isLoading: false, showError: true });
+        }
       })
       .catch(err => {
         this.setState({ isLoading: false });
@@ -129,34 +168,46 @@ class Recommendations extends React.Component {
   };
 
   favoriteHandler = movie => {
-
     //Here we have to send parameters to our backend route profile to add favorite
-    this.profileService.getFavorites(this.props.loggedInUser._id)
-    .then(favorites => {   
-      
-      if (favorites.favoriteMovies.some(e => e.posterPath === movie.posterPath)) {
-        this.setState({isRepeated:true})
-      }else{
-        this.setState({isRepeated:false})
-      }
+    this.profileService
+      .getFavorites(this.props.loggedInUser._id)
+      .then(favorites => {
+        if (favorites.msg === "no hay favoritas aun") {
+          this.profileService
+            .addFavorite(this.props.loggedInUser._id, movie)
+            .then(movie => {
+              this.setState({ showAlert: true });
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        } else {
+          if (
+            favorites.favoriteMovies.some(
+              e => e.posterPath === movie.posterPath
+            )
+          ) {
+            this.setState({ isRepeated: true });
+          } else {
+            this.setState({ isRepeated: false });
+          }
 
-      if (!this.state.isRepeated) {    
-        this.profileService
-          .addFavorite(this.props.loggedInUser._id, movie)
-          .then(movie => {
-            this.setState({ showAlert: true });
-          })
-          .catch(err => {
-            console.log(err);
-          });
-        }else{
-          
-          this.setState({showDuplicate:true})
+          if (!this.state.isRepeated) {
+            this.profileService
+              .addFavorite(this.props.loggedInUser._id, movie)
+              .then(movie => {
+                this.setState({ showAlert: true });
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          } else {
+            this.setState({ showDuplicate: true });
+            
+          }
         }
-
-    })
-
-  
+      })
+      .catch(err => alert(err));
   };
 
   toggleForm = event => {
@@ -314,7 +365,8 @@ class Recommendations extends React.Component {
                   <>
                     {this.state.fromForm ? (
                       <h1>
-                        Algunas películas que te podrian gustar @{this.state.twitterUsername}
+                        Algunas películas que te podrian gustar @
+                        {this.state.twitterUsername}
                       </h1>
                     ) : (
                       <h1>Algunas películas que te podrían gustar</h1>
@@ -361,9 +413,8 @@ class Recommendations extends React.Component {
                 onConfirm={() => this.setState({ showAlert: false })}
               />
 
-              
-            {/* Error alert */}
-            <SweetAlert
+              {/* Error alert */}
+              <SweetAlert
                 show={this.state.showError}
                 title="El usuario de twitter no existe"
                 text="Por favor verifícalo e intenta otra vez"
@@ -374,12 +425,25 @@ class Recommendations extends React.Component {
               {/* Duplicate favorite Alert */}
               <SweetAlert
                 show={this.state.showDuplicate}
-                title="Ya agregaste esta película a favoritos con anterioridad"               
+                title="Ya agregaste esta película a favoritos con anterioridad"
                 type="info"
-                onConfirm={() => this.setState({ showDuplicate:false })}
+                onConfirm={() => this.setState({ showDuplicate: false })}
               />
 
-
+              {/* Not enough words alert */}
+              <SweetAlert
+                show={this.state.showErrorIBM}
+                title={this.state.errorIBMTitle}
+                text={this.state.errorIBMText}
+                type="error"
+                onConfirm={() =>
+                  this.setState({
+                    showErrorIBM: false,
+                    errorIBMTitle: "",
+                    errorIBMText: ""
+                  })
+                }
+              />
             </>
           ) : (
             <Loading loadingmsg={"Trabajando en las recomendaciones"} />
