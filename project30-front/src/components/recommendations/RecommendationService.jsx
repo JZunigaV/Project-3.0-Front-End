@@ -4,8 +4,7 @@ import axios from "axios";
 class RecommendationService {
   constructor() {
     let service = axios.create({
-      baseURL: "http://localhost:4000/api",
-      // baseURL: "https://tweetflick-back.herokuapp.com/api",
+      baseURL: `${process.env.REACT_APP_API_URL}/api`,
       withCredentials: true,
     });
     this.service = service;

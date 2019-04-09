@@ -4,8 +4,7 @@ import axios from "axios";
 class AuthService {
   constructor() {
     let service = axios.create({
-      baseURL: "http://localhost:4000/auth",
-      // baseURL: `https://tweetflick-back.herokuapp.com/auth`,
+      baseURL: `${process.env.REACT_APP_API_URL}/auth`,
       withCredentials: true,
     });
     this.service = service;
