@@ -194,3 +194,20 @@ body.modal-open .wrapper {
     transform: rotate(360deg);
   }
 }
+
+@media only screen and (max-width: 600px) {
+  .icon-loading-status {
+    border-radius: 5px;
+    width: 200px;
+    background: #fff;
+    padding: 1rem;
+    font-size: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    margin-left: 25%;
+  }
+}
