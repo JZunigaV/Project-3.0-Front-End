@@ -75,18 +75,9 @@ class ResultsBigFive extends Component {
               </p>
               <ol>
                 <li>
-                  <strong>Amabilidad: </strong> Es el grado en que la persona se
-                  muestra respetuosa, tolerante y tranquila.
-                </li>
-                <li>
-                  <strong>Responsabilidad: </strong> Refiere a cuán centrado está
-                  el sujeto en sus objetivos, además de cuán disciplinado se
-                  muestra para la consecución de dichos fines.{" "}
-                </li>
-                <li>
-                  <strong>Extroversión: </strong> Define el grado en que el
-                  sujeto se muestra abierto con los demás y canaliza su energía
-                  en contextos sociales.{" "}
+                  <strong>Apertura a experiencias: </strong> Muestra en qué
+                  grado un sujeto tiende a buscar nuevas experiencias personales
+                  y concibe de una manera creativa su futuro.{" "}
                 </li>
                 <li>
                   <strong>Rango emocional: </strong> Define en qué grado una
@@ -94,9 +85,18 @@ class ResultsBigFive extends Component {
                   vida.
                 </li>
                 <li>
-                  <strong>Apertura a experiencias: </strong> Muestra en qué grado
-                  un sujeto tiende a buscar nuevas experiencias personales y
-                  concibe de una manera creativa su futuro.{" "}
+                  <strong>Amabilidad: </strong> Es el grado en que la persona se
+                  muestra respetuosa, tolerante y tranquila.
+                </li>
+                <li>
+                  <strong>Extroversión: </strong> Define el grado en que el
+                  sujeto se muestra abierto con los demás y canaliza su energía
+                  en contextos sociales.{" "}
+                </li>
+                <li>
+                  <strong>Responsabilidad: </strong> Refiere a cuán centrado
+                  está el sujeto en sus objetivos, además de cuán disciplinado
+                  se muestra para la consecución de dichos fines.{" "}
                 </li>
               </ol>
               <p>
@@ -129,14 +129,14 @@ class ResultsBigFive extends Component {
               <br />
               <strong>Intransigencia: </strong> No ven la necesidad de pretender
               o manipular cuando conviven con otros, por lo tanto son francos y
-              genuinos
+              genuinos.
               <br />
-              <strong>Modestia: </strong> Son sencillos, y humildes, sin embargo,
-              no necesariamente carecen de confianza en sí mismos o baja
-              autoestima.
+              <strong>Modestia: </strong> Son sencillos, y humildes, sin
+              embargo, no necesariamente carecen de confianza en sí mismos o
+              baja autoestima.
               <br />
-              <strong>Cooperación: </strong> No les gusta la confrontación. están
-              dispuestos a transigir o negar sus propias necesidades para
+              <strong>Cooperación: </strong> No les gusta la confrontación.
+              están dispuestos a transigir o negar sus propias necesidades para
               llevarse bien con los demás.
               <br />
             </div>
@@ -158,7 +158,7 @@ class ResultsBigFive extends Component {
               <br />
               <strong>Autodisciplina: </strong> Tienen la "fuerza de voluntad",
               para persistir en tareas difíciles o desagradables hasta se hayan
-              completado
+              completado.
               <br />
               <strong>Disciplina: </strong>
               Tienen un fuerte sentido del deber y obligación.
@@ -166,8 +166,8 @@ class ResultsBigFive extends Component {
               <strong>Obediencia: </strong>
               Están bien organizados y ordenados.
               <br />
-              <strong>Cautela: </strong> Están dispuestos a pensar las diferentes
-              posibilidades cuidadosamente antes de actuar.
+              <strong>Cautela: </strong> Están dispuestos a pensar las
+              diferentes posibilidades cuidadosamente antes de actuar.
               <br />
             </div>
           </Col>
@@ -182,8 +182,8 @@ class ResultsBigFive extends Component {
               Llevan vidas rápidas y ocupadas. Se mueven rápidamente,
               enérgicamente, y están involucrados en muchas actividades.
               <br />
-              <strong>Sociabilidad: </strong> Encuentran la compañía de los demás
-              estimulante y gratificante.
+              <strong>Sociabilidad: </strong> Encuentran la compañía de los
+              demás estimulante y gratificante.
               <br />
               <strong>Seguridad en uno mismo: </strong>
               Les gusta hacerse cargo y dirigir las actividades de otros.
