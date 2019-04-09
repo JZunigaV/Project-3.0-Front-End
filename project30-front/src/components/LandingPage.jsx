@@ -8,7 +8,7 @@ import {
   CardTitle,
   Container,
   Row,
-  Col
+  Col,
   //   UncontrolledCarousel,
 } from "reactstrap";
 
@@ -199,7 +199,9 @@ class LandingPage extends React.Component {
                     <CardBody>
                       <div className="justify-content-center">
                         <div className="numbers">
-                          <CardTitle tag="p">Más de 133,000 películas</CardTitle>
+                          <CardTitle tag="p">
+                            Más de 133,000 películas
+                          </CardTitle>
                           <p className="card-category text-white">
                             En nuestra base de datos
                           </p>
@@ -207,7 +209,6 @@ class LandingPage extends React.Component {
                       </div>
                     </CardBody>
                   </Card>
-             
                 </Col>
                 <Col md="6">
                   <div className="px-md-5">
@@ -224,7 +225,7 @@ class LandingPage extends React.Component {
                             <i className="tim-icons icon-vector" />
                           </div>
                           <div className="ml-3">
-                            <h6>Conexiones hacia proovedores de streaming</h6>
+                            <h6>Conexiones hacia proveedores de streaming</h6>
                           </div>
                         </div>
                       </li>
@@ -238,7 +239,6 @@ class LandingPage extends React.Component {
                           </div>
                         </div>
                       </li>
-            
                     </ul>
                   </div>
                 </Col>
