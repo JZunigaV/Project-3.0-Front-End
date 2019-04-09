@@ -8,7 +8,7 @@ import {
   CardTitle,
   Container,
   Row,
-  Col,
+  Col
   //   UncontrolledCarousel,
 } from "reactstrap";
 
@@ -71,7 +71,8 @@ class LandingPage extends React.Component {
                     <br />
                   </h1>
                   <p className="text-white mb-3">
-                    Usando Personality insights y twitter daremos recomendaciones 100% personalizadas
+                    Usando Personality insights y twitter daremos
+                    recomendaciones 100% personalizadas
                   </p>
                   <div className="btn-wrapper mb-3">
                     <Link to="/recommendations" className="btn btn-info">
@@ -112,7 +113,9 @@ class LandingPage extends React.Component {
             <Container>
               <Row className="justify-content-center">
                 <Col lg="12">
-                  <h1 className="text-center">Así es como funciona TWEETFLICK</h1>
+                  <h1 className="text-center">
+                    Así es como funciona TWEETFLICK
+                  </h1>
                   <Row className="row-grid justify-content-center">
                     <Col lg="3">
                       <div className="info">
@@ -124,7 +127,8 @@ class LandingPage extends React.Component {
                         </h4>
                         <hr className="line-primary" />
                         <p>
-                          Utilizaremos el usuario para obtener datos sobre tu personalidad con el Api de personality insights
+                          Utilizaremos el usuario para obtener datos sobre tu
+                          personalidad con el Api de personality insights
                         </p>
                       </div>
                     </Col>
@@ -134,11 +138,13 @@ class LandingPage extends React.Component {
                           <i className="tim-icons icon-atom" />
                         </div>
                         <h4 className="info-title">
-                          2- Calcularemos las películas que más te podrian gustar
+                          2- Calcularemos las películas que más te podrian
+                          gustar
                         </h4>
                         <hr className="line-warning" />
                         <p>
-                          nuestro sistema obtendrá las peliculas de una gran base de datos
+                          nuestro sistema obtendrá las peliculas de una gran
+                          base de datos
                         </p>
                       </div>
                     </Col>
@@ -151,7 +157,12 @@ class LandingPage extends React.Component {
                           3- Aparecerán las recomendaciones
                         </h4>
                         <hr className="line-success" />
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi quam ullam voluptates nobis iusto molestias dicta eum, repudiandae possimus nemo explicabo aliquam aperiam veritatis ab, sit repellat officiis praesentium odio?!</p>
+                        <p>
+                          Nuestro sistema te dará un catálogo de películas que
+                          te podrían gustar, dependiendo de nuestro análisis.Si
+                          agregas alguna como favorita encontrarás en donde está
+                          disponible!
+                        </p>
                       </div>
                     </Col>
                   </Row>
@@ -179,7 +190,7 @@ class LandingPage extends React.Component {
                       <div className="justify-content-center">
                         <div className="numbers">
                           <CardTitle tag="p">100%</CardTitle>
-                          <p className="card-category text-white">Safe</p>
+                          <p className="card-category text-white">Seguro</p>
                         </div>
                       </div>
                     </CardBody>
@@ -188,33 +199,23 @@ class LandingPage extends React.Component {
                     <CardBody>
                       <div className="justify-content-center">
                         <div className="numbers">
-                          <CardTitle tag="p">573 K</CardTitle>
+                          <CardTitle tag="p">Más de 133,000 películas</CardTitle>
                           <p className="card-category text-white">
-                            Satisfied customers
+                            En nuestra base de datos
                           </p>
                         </div>
                       </div>
                     </CardBody>
                   </Card>
-                  <Card className="card-stats bg-default">
-                    <CardBody>
-                      <div className="justify-content-center">
-                        <div className="numbers">
-                          <CardTitle tag="p">10 425</CardTitle>
-                          <p className="card-category text-white">Business</p>
-                        </div>
-                      </div>
-                    </CardBody>
-                  </Card>
+             
                 </Col>
                 <Col md="6">
                   <div className="px-md-5">
                     <hr className="line-success" />
-                    <h3>Awesome features</h3>
+                    <h3>Funcionalidades increibles</h3>
                     <p>
-                      The design system comes with three pre-built pages to help
-                      you get started faster. You can change the text and images
-                      and you're good to go.
+                      Olvida pasar horas buscando una película que te interese,
+                      con tweetflick la encontrarás rápidamente.
                     </p>
                     <ul className="list-unstyled mt-5">
                       <li className="py-2">
@@ -223,7 +224,7 @@ class LandingPage extends React.Component {
                             <i className="tim-icons icon-vector" />
                           </div>
                           <div className="ml-3">
-                            <h6>Carefully crafted components</h6>
+                            <h6>Conexiones hacia proovedores de streaming</h6>
                           </div>
                         </div>
                       </li>
@@ -233,20 +234,11 @@ class LandingPage extends React.Component {
                             <i className="tim-icons icon-tap-02" />
                           </div>
                           <div className="ml-3">
-                            <h6>Amazing page examples</h6>
+                            <h6>Funcionalidad intuitiva</h6>
                           </div>
                         </div>
                       </li>
-                      <li className="py-2">
-                        <div className="d-flex align-items-center">
-                          <div className="icon icon-success mb-2">
-                            <i className="tim-icons icon-single-02" />
-                          </div>
-                          <div className="ml-3">
-                            <h6>Super friendly support team</h6>
-                          </div>
-                        </div>
-                      </li>
+            
                     </ul>
                   </div>
                 </Col>
