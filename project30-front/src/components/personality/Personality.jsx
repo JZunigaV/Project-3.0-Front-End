@@ -21,10 +21,8 @@ class Personality extends Component {
       .then(response => {
         this.setState({ responseData: response });
         this.setState({ isLoading: false });
-        console.log(this.state.responseData);
       })
       .catch(err => {
-        console.log(err);
         this.setState({ isLoading: false });
       });
   };

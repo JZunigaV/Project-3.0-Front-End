@@ -4,7 +4,8 @@ import axios from "axios";
 class AuthService {
   constructor() {
     let service = axios.create({
-      baseURL: `https://tweetflick-back.herokuapp.com/auth`,
+      baseURL: "http://localhost:4000/auth",
+      // baseURL: `https://tweetflick-back.herokuapp.com/auth`,
       withCredentials: true,
     });
     this.service = service;

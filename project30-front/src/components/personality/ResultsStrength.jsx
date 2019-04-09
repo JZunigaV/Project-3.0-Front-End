@@ -39,7 +39,6 @@ class ResultsStrength extends Component {
 
   render() {
     //Javascript
-    console.log(this.props.wordCount);
 
     return (
       <div>

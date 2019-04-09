@@ -13,7 +13,6 @@ const protectedRoute = ({
 
   ...rest
 }) => {
-  console.log(rest);
   return (
     <Route
       {...rest}
@@ -26,7 +25,7 @@ const protectedRoute = ({
               liftTwitter={liftTwitter}
               twitterUsername={twitterUsername}
               liftAvatar={liftAvatar}
-              liftProfile = {liftProfile}
+              liftProfile={liftProfile}
             />
           );
         } else {

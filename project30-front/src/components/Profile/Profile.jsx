@@ -335,11 +335,19 @@ class ProfilePage extends React.Component {
                     <Col className="ml-auto mr-auto" lg="4" md="6">
                       <Card className="card-coin card-plain">
                         <CardHeader>
-                          <img
-                            alt="avatar"
-                            className="img-center img-fluid rounded-circle"
-                            src={avatar}
-                          />
+                          {avatar ? (
+                            <img
+                              alt="avatar"
+                              className="img-center img-fluid rounded-circle"
+                              src={avatar}
+                            />
+                          ) : (
+                            <img
+                              alt="avatar"
+                              className="img-center img-fluid rounded-circle"
+                              src={require("../../assets/img/user-placeholder.png")}
+                            />
+                          )}
 
                           <h4 className="title">{userName}</h4>
                           {twiterUsername && twiterUsername !== "" && (
