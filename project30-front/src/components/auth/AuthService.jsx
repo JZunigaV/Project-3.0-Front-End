@@ -24,9 +24,9 @@ class AuthService {
     return this.service.post("/logout", {}).then(response => response.data);
   };
 
-  signup = (username, password, email) => {
+  signup = (username, password, email, twitterUsername) => {
     return this.service
-      .post("/signup", { username, password, email })
+      .post("/signup", { username, password, email, twitterUsername })
       .then(response => response.data);
   };
 

@@ -17,7 +17,7 @@ class ResultsStrength extends Component {
     if (this.props.wordCount < 600) {
       this.setState({
         strengthClass: "analysis-weak",
-        strengthLabel: "Análisis deébil",
+        strengthLabel: "Análisis débil",
       });
     } else if (this.props.wordCount >= 600 && this.props.wordCount < 1200) {
       this.setState({
@@ -73,9 +73,9 @@ class ResultsStrength extends Component {
               </Tooltip>
             </div>
           </div>
-          {this.props.warnings.map(warning => {
+          {this.props.warnings.map((warning, index) => {
             return (
-              <Alert className="result-msg" color="warning">
+              <Alert className="result-msg" color="warning" key={index}>
                 {warning.message}
               </Alert>
             );

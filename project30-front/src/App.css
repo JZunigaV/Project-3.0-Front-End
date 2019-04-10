@@ -78,6 +78,10 @@
   margin-top: 5px;
 }
 
+.result-msg {
+  padding-top: 19px;
+}
+
 .icon-brain {
   position: relative;
   max-width: 150px;
@@ -192,6 +196,11 @@ body.modal-open .wrapper {
   justify-items: center;
   align-items: center;
   flex-wrap: wrap;
+}
+
+#exampleFile {
+  border-radius: 100px;
+  color: blueviolet;
 }
 
 /* Media queries */

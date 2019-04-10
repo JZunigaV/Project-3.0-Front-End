@@ -35,6 +35,7 @@ class Signup extends React.Component {
     username: "",
     email: "",
     password: "",
+    twitterUsername: "",
     errorText: "",
     showError: false,
   };
@@ -83,14 +84,16 @@ class Signup extends React.Component {
     const username = this.state.username;
     const password = this.state.password;
     const email = this.state.email;
+    const twitterUsername = this.state.twitterUsername;
 
     this.service
-      .signup(username, password, email)
+      .signup(username, password, email, twitterUsername)
       .then(response => {
         this.setState({
           username: "",
           password: "",
           email: "",
+          twitterUsername: "",
         });
         this.props.getUser(response);
       })
@@ -206,6 +209,32 @@ class Signup extends React.Component {
                               }
                               onBlur={e =>
                                 this.setState({ passwordFocus: false })
+                              }
+                            />
+                          </InputGroup>
+
+                          {/* twitterUsername */}
+                          <InputGroup
+                            className={classnames({
+                              "input-group-focus": this.state.twitterFocus,
+                            })}
+                          >
+                            <InputGroupAddon addonType="prepend">
+                              <InputGroupText>
+                                <i className="fa fa-at" />
+                              </InputGroupText>
+                            </InputGroupAddon>
+                            <Input
+                              placeholder="Usuario de Twitter"
+                              type="text"
+                              name="twitterUsername"
+                              onChange={this.onChange}
+                              value={this.state.twitterUsername}
+                              onFocus={e =>
+                                this.setState({ twitterFocus: true })
+                              }
+                              onBlur={e =>
+                                this.setState({ twitterFocus: false })
                               }
                             />
                           </InputGroup>

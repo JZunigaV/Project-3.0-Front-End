@@ -15,11 +15,11 @@ class Results extends Component {
     return (
       <div>
         <h1 className="text-center" id="graph-title">
-            
+          {""}
         </h1>
         <h2 className="text-center">Los 5 grandes rasgos de tu personalidad</h2>
 
-        <h4>La exactitud de análisis fue::</h4>
+        <h4>La exactitud de análisis fue:</h4>
         <ResultsStength
           wordCount={this.props.resultData["word_count"]}
           warnings={this.props.resultData["warnings"]}
