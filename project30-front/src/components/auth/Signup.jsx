@@ -225,7 +225,7 @@ class Signup extends React.Component {
                               </InputGroupText>
                             </InputGroupAddon>
                             <Input
-                              placeholder="Usuario de Twitter"
+                              placeholder="Usuario de Twitter (opcional)"
                               type="text"
                               name="twitterUsername"
                               onChange={this.onChange}
