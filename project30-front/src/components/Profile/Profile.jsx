@@ -23,6 +23,9 @@ import {
   Row,
   Col,
   UncontrolledCarousel,
+  InputGroupAddon,
+  InputGroupText,
+  InputGroup,
 } from "reactstrap";
 
 //SweetAlert
@@ -395,13 +398,20 @@ class ProfilePage extends React.Component {
                                 <Label sm="3">Usuario de Twitter</Label>
                                 <Col sm="9">
                                   <FormGroup>
-                                    <Input
-                                      placeholder="Usuario de twitter"
-                                      type="text"
-                                      name="twitterUsername"
-                                      onChange={this.onChange}
-                                      value={this.state.twitterUsername}
-                                    />
+                                    <InputGroup>
+                                      <InputGroupAddon addonType="prepend">
+                                        <InputGroupText>
+                                          <i className="fa fa-at" />
+                                        </InputGroupText>
+                                      </InputGroupAddon>
+                                      <Input
+                                        placeholder="Usuario de twitter"
+                                        type="text"
+                                        name="twitterUsername"
+                                        onChange={this.onChange}
+                                        value={this.state.twitterUsername}
+                                      />
+                                    </InputGroup>
                                   </FormGroup>
                                 </Col>
                               </Row>
@@ -442,8 +452,7 @@ class ProfilePage extends React.Component {
                 <h1 className="text-center">Películas favoritas</h1>
                 <div className="content-center">
                   <Col lg="12" md="4" className="col-sm" />
-
-                  <Row>{movies}</Row>
+                  <div className="movie-cards">{movies}</div>
                 </div>
               </div>
               {this.state.carouselItems.length > 0 ? (

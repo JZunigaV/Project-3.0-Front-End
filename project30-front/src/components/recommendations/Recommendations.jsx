@@ -305,6 +305,7 @@ class Recommendations extends React.Component {
                               <InputGroupAddon addonType="prepend">
                                 <InputGroupText>
                                   <i className="fab fa-twitter" />
+                                  <i className="fa fa-at" />
                                 </InputGroupText>
                               </InputGroupAddon>
                               <Input
@@ -356,7 +357,7 @@ class Recommendations extends React.Component {
               </div>
               {/* {!this.state.isLoading ? ( */}
               <div className="content-center">
-                <Col lg="4" md="4" className="col-sm" />
+                <Col lg="4" md="4" sm="4" className="col-sm" />
                 {this.state.recommendations.length > 0 && (
                   <>
                     {this.state.fromForm ? (
@@ -382,7 +383,9 @@ class Recommendations extends React.Component {
                     </Link>
                   </>
                 )}
-                <Row>{movies}</Row>
+                <Row>
+                  <div className="movie-cards">{movies}</div>
+                </Row>
               </div>
 
               {/* Movie modal */}

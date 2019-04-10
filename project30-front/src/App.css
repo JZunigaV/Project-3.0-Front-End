@@ -186,6 +186,16 @@ body.modal-open .wrapper {
   overflow-y: auto;
 }
 
+/* Movies last changes */
+.movie-cards {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Media queries */
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -208,5 +218,37 @@ body.modal-open .wrapper {
     align-items: center;
     text-align: center;
     margin-left: 25%;
+  }
+}
+
+/* Media Query for movie cards on laptop */
+
+@media (min-width: 1600px) and (max-width: 1820px) {
+  .movie-cards {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-left: 7%;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1470px) {
+  .movie-cards {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-left: 7%;
+  }
+}
+
+@media (min-width: 1007px) and (max-width: 1100px) {
+  .movie-cards {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-left: 7%;
   }
 }
