@@ -45,6 +45,7 @@ class ProfilePage extends React.Component {
     carouselItems: [],
     show: false,
     showError: false,
+    showErrorImage: false,
     selectedMovieId: "",
     modal: false,
     movieDetail: {},
@@ -147,7 +148,7 @@ class ProfilePage extends React.Component {
         if (response.profile.social) {
           this.props.liftProfile(response.profile.social.twitter);
         }
-
+        debugger;
         this.setState({ profile: response.profile });
         if (this.state.file) {
           this.service
@@ -161,7 +162,9 @@ class ProfilePage extends React.Component {
                 isLoading: false,
               });
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+              this.setState({ isLoading: false, showErrorImage: true });
+            });
         } else {
           this.setState({
             bio: "",
@@ -487,6 +490,14 @@ class ProfilePage extends React.Component {
               text="Por favor verifícalo e intenta otra vez"
               type="error"
               onConfirm={() => this.setState({ showError: false })}
+            />
+
+            <SweetAlert
+              show={this.state.showErrorImage}
+              title="El formato de la imagen no es correcto"
+              text="Formatos permitidos: JPG,PNG,GIF"
+              type="error"
+              onConfirm={() => this.setState({ showErrorImage: false })}
             />
           </>
         ) : (
